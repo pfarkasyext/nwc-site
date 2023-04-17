@@ -1,6 +1,7 @@
 // src/templates/search.tsx
 
 import * as React from "react";
+import PageLayout from "../components/page-layout";
 import {
   Template,
   GetPath,
@@ -51,20 +52,25 @@ const searcher = provideHeadless(headlessConfig);
 
 const Search: Template<TemplateRenderProps> = () => {
   return (
-    <SearchHeadlessProvider searcher={searcher}>
-      <div className="px-4 py-8">
-        <div className="mx-auto flex max-w-5xl flex-col">
-          <SearchBar />
-          <SpellCheck />
-          <ResultsCount />
-          <VerticalResults
-            CardComponent={StandardCard}
-            displayAllOnNoResults={false}
-          />
+    <PageLayout>
+
+      <SearchHeadlessProvider searcher={searcher}>
+        <div className="px-4 py-8">
+          <div className="mx-auto flex max-w-5xl flex-col">
+            <SearchBar />
+            <SpellCheck />
+            <ResultsCount />
+            <VerticalResults
+              CardComponent={StandardCard}
+              displayAllOnNoResults={false}
+            />
+          </div>
+          <Pagination />
         </div>
-        <Pagination />
-      </div>
-    </SearchHeadlessProvider>
+      </SearchHeadlessProvider>
+
+    </PageLayout>
+    
   );
 };
 

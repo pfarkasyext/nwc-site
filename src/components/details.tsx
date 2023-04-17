@@ -55,8 +55,8 @@ const Details = (props: any) => {
 
   return (
     <>
-      <div className="grid">
-        <div className="text-xl font-semibold">Contact Info</div>
+      <div className="grid p-6">
+        <div className="text-xl font-semibold">Store Info</div>
         <div className="grid grid-cols-2 py-4">
           <div>
             {renderAddress(address)}

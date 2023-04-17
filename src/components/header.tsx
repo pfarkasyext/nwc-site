@@ -23,11 +23,15 @@ const searcher = provideHeadless({
 
 const links: Link[] = [
   {
-    label: "Link 1",
+    label: "Stores",
     url: "#",
   },
   {
-    label: "Link 2",
+    label: "Products",
+    url: "#",
+  },
+  {
+    label: "FAQs",
     url: "#",
   },
 ];
@@ -47,10 +51,10 @@ const Header = (props: any) => {
     <div className="bg-brand-primary-dark min-h-[88px] px-6 py-6">
       <div className="centered-container">
         <nav className="py-6 flex items-center justify-between">
-          <div className="flex gap-x-4 items-center">
+          <div className="flex gap-x-6 items-center">
             <a href="#">
               <img
-                src={c_siteLogoUrl}
+                src="/src/assets/images/nwc-logo.png"
                 width="150px"
                 height="auto"
               ></img>
@@ -66,9 +70,9 @@ const Header = (props: any) => {
           <div className="flex gap-x-4">
             <div className=" h-12 pt-4 ">
               <Cta
-                buttonText="CTA"
+                buttonText="Log In"
                 url="#"
-                style="text-white bg-brand-primary shadow-xl hover:bg-brand-hover py-4"
+                style="text-white bg-brand-cta shadow-xl hover:bg-brand-cta-hover py-4"
                 target="_self"
               ></Cta>
             </div>

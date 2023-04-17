@@ -42,6 +42,7 @@ import {
         "meta",
         "name",
         "address",
+        "geomodifier",
         "mainPhone",
         "description",
         "hours",
@@ -137,6 +138,7 @@ import {
       _site,
       name,
       address,
+      geomodifier,
       openTime,
       hours,
       mainPhone,
@@ -148,7 +150,7 @@ import {
     return (
       <>
         <PageLayout _site={_site}>
-        <Banner name={name} address={address} />
+        <Banner name={name} address={address} geomodifier={geomodifier}/>
         <div className="centered-container">
           <div className="section">
             <div className="grid grid-cols-2 gap-x-10 gap-y-10">
@@ -165,7 +167,7 @@ import {
                   longitude={geocodedCoordinate.longitude}
                 ></StaticMap>
               )}
-              <div className="bg-gray-100 p-2">
+              <div className="bg-gray-100 p-6">
                 <div className="text-xl font-semibold">{`About ${name}`}</div>
                 <p className="pt-4">{description}</p>
               </div>
