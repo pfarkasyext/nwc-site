@@ -2,6 +2,7 @@ import * as React from "react";
 import Cta from "../components/cta";
 import SearchHeader from "./search-header"
 import { provideHeadless, SearchHeadlessProvider, SandboxEndpoints } from "@yext/search-headless-react";
+import { Image } from "@yext/pages/components"
 
 type Link = {
   label: string;
@@ -54,7 +55,7 @@ const Header = (props: any) => {
           <div className="flex gap-x-6 items-center">
             <a href="#">
               <img
-                src="/src/assets/images/nwc-logo.png"
+                src={c_siteLogoUrl}
                 width="150px"
                 height="auto"
               ></img>

@@ -32,7 +32,7 @@ const Banner = (props: Banner) => {
             <div className="text-center m-4">
               <div className="align-middle">
                 <h1 className="text-white text-3xl font-semibold">{name} - {geomodifier}</h1>
-                <div className="text-lg pt-2 text-white font-semibold max-w-xs">
+                <div className="text-lg pt-2 text-white font-semibold">
                 {address?.city}, {address?.region}
                 </div>
                 {/* <div className="text-base pt-2 text-white">

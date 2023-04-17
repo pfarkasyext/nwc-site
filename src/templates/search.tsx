@@ -50,10 +50,17 @@ const headlessConfig: HeadlessConfig = {
 
 const searcher = provideHeadless(headlessConfig);
 
-const Search: Template<TemplateRenderProps> = () => {
-  return (
-    <PageLayout>
+const Search: Template<TemplateRenderProps> = ({
+  relativePrefixToRoot,
+  path,
+  document,
+}) => {
+  const {
+    _site
+  } = document;
 
+  return (
+    <PageLayout _site={_site} c_siteLogo={_site.c_siteLogo}>
       <SearchHeadlessProvider searcher={searcher}>
         <div className="px-4 py-8">
           <div className="mx-auto flex max-w-5xl flex-col">
@@ -68,9 +75,7 @@ const Search: Template<TemplateRenderProps> = () => {
           <Pagination />
         </div>
       </SearchHeadlessProvider>
-
     </PageLayout>
-    
   );
 };
 

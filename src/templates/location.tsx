@@ -149,7 +149,7 @@ import {
   
     return (
       <>
-        <PageLayout _site={_site}>
+        <PageLayout _site={_site} c_siteLogo={_site.c_siteLogo}>
         <Banner name={name} address={address} geomodifier={geomodifier}/>
         <div className="centered-container">
           <div className="section">

@@ -9,6 +9,7 @@ export type KgPic = {
 
 type Props = {
   _site: Site;
+  c_siteLogo?: KgPic;
   children?: React.ReactNode;
 };
 
