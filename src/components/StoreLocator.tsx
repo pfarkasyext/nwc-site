@@ -7,7 +7,8 @@ import {
   OnSelectParams,
   VerticalResults,
   StandardCard,
-  getUserLocation
+  getUserLocation,
+  OnDragHandler,
 } from "@yext/search-ui-react";
 import { useEffect, useState } from "react";
 import { BiLoaderAlt } from "react-icons/bi";
@@ -15,16 +16,52 @@ import {
   Matcher,
   SelectableStaticFilter,
   useSearchActions,
-  useSearchState
+  useSearchState,
 } from "@yext/search-headless-react";
 // Mapbox CSS bundle
 import "mapbox-gl/dist/mapbox-gl.css";
 import LocationCard from "./LocationCard";
 import MapPin from "./MapPin";
+import { LngLat, LngLatBounds } from "mapbox-gl";
 
 type InitialSearchState = "not started" | "started" | "complete";
 
 const StoreLocator = (): JSX.Element => {
+  const resultCount = useSearchState(
+    (state) => state.vertical.resultsCount || 0
+  );
+  const [showSearchAreaButton, setShowSearchAreaButton] = useState(false);
+  const [mapCenter, setMapCenter] = useState<LngLat | undefined>();
+  const [mapBounds, setMapBounds] = useState<LngLatBounds | undefined>();
+
+  const handleDrag: OnDragHandler = (center: LngLat, bounds: LngLatBounds) => {
+    setMapCenter(center);
+    setMapBounds(bounds);
+    setShowSearchAreaButton(true);
+  };
+
+  const handleSearchAreaClick = () => {
+    if (mapCenter && mapBounds) {
+      const locationFilter: SelectableStaticFilter = {
+        selected: true,
+        displayName: "Current map area",
+        filter: {
+          kind: "fieldValue",
+          fieldId: "builtin.location",
+          value: {
+            lat: mapCenter.lat,
+            lng: mapCenter.lng,
+            radius: mapBounds.getNorthEast().distanceTo(mapCenter),
+          },
+          matcher: Matcher.Near,
+        },
+      };
+      searchActions.setStaticFilters([locationFilter]);
+      searchActions.executeVerticalQuery();
+      setShowSearchAreaButton(false);
+    }
+  };
+
   const searchActions = useSearchActions();
 
   const [initialSearchState, setInitialSearchState] =
@@ -98,13 +135,13 @@ const StoreLocator = (): JSX.Element => {
 
   return (
     <>
-      <div className="relative flex h-[calc(100vh-210px)] border ">
+      <div className="relative flex h-[calc(100vh-210px)]">
         {initialSearchState !== "complete" && (
           <div className="absolute z-20 flex h-full w-full items-center justify-center bg-white opacity-70">
             <BiLoaderAlt className="animate-spin " size={64} />
           </div>
         )}
-        <div className="flex w-1/3 flex-col">
+        <div className="flex w-1/3 flex-col pt-6 pr-6">
           <FilterSearch
             onSelect={handleFilterSelect}
             placeholder="Find Locations Near You"
@@ -115,16 +152,35 @@ const StoreLocator = (): JSX.Element => {
               },
             ]}
           />
-          <VerticalResults
-            customCssClasses={{ verticalResultsContainer: "overflow-y-auto" }}
-            CardComponent={LocationCard}
-          />
+          
+          {resultCount > 0 && (
+            <VerticalResults
+              customCssClasses={{ verticalResultsContainer: "overflow-y-auto" }}
+              CardComponent={LocationCard}
+            />
+          )}
+          {resultCount === 0 && initialSearchState === "complete" && (
+            <div className="flex items-center justify-center">
+              <p className="pt-4 text-2xl">No results found for this area</p>
+            </div>
+          )}
         </div>
-        <div className="w-2/3">
+        <div className="relative w-2/3">
           <MapboxMap
             mapboxAccessToken="pk.eyJ1IjoicGZhcmthcyIsImEiOiJjbGducW80d2EwaWJyM2R0YWJlYnFremdwIn0.1j7wr-0XhQ5go1CVcUtXbQ"
             PinComponent={MapPin}
+            onDrag={handleDrag}
           />
+          {showSearchAreaButton && (
+            <div className="absolute bottom-10 left-0 right-0 flex justify-center">
+              <button
+                onClick={handleSearchAreaClick}
+                className="rounded-2xl border bg-white py-2 px-4 shadow-xl"
+              >
+                <p>Search This Area</p>
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </>
