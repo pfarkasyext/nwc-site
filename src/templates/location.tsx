@@ -19,7 +19,7 @@ import {
     TemplateRenderProps,
   } from "@yext/pages";
   import * as React from "react";
-  import Banner from "../components/banner";
+  import StoreHeroBanner from "../components/store-hero-banner";
   import Details from "../components/details";
   import Hours from "../components/hours";
   import List from "../components/list";
@@ -150,7 +150,7 @@ import {
     return (
       <>
         <PageLayout _site={_site} c_siteLogo={_site.c_siteLogo}>
-        <Banner name={name} address={address} geomodifier={geomodifier}/>
+        <StoreHeroBanner name={name} address={address} geomodifier={geomodifier}/>
         <div className="centered-container">
           <div className="section">
             <div className="grid grid-cols-2 gap-x-10 gap-y-10">

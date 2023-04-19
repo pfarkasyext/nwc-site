@@ -41,8 +41,20 @@ const links: Link[] = [
   },
 ];
 
+const renderSearchHeader = (includeSearchHeader: boolean) => {
+  if (includeSearchHeader == false) {
+    return "";
+  } else {
+    return (
+      <SearchHeadlessProvider searcher={searcher}>
+          <SearchHeader />
+      </SearchHeadlessProvider>
+    );
+  }
+}
+
 const Header = (props: any) => {
-  const { _site, c_siteLogoUrl } = props;
+  const { _site, c_siteLogoUrl, includeSearchHeader } = props;
   
   const linkDoms = links.map((link) => (
     <div key={link.label}>
@@ -57,7 +69,7 @@ const Header = (props: any) => {
       <div className="centered-container">
         <nav className="py-6 flex items-center justify-between">
           <div className="flex gap-x-6 items-center">
-            <a href="#">
+            <a href="/home">
               <img
                 src={c_siteLogoUrl}
                 width="150px"
@@ -69,9 +81,7 @@ const Header = (props: any) => {
             </div>
           </div>
           <div className="space-x-5"></div>
-          <SearchHeadlessProvider searcher={searcher}>
-            <SearchHeader />
-          </SearchHeadlessProvider>
+          {renderSearchHeader(includeSearchHeader)}
           <div className="flex gap-x-4">
             <div className=" h-12 pt-4 ">
               <Cta

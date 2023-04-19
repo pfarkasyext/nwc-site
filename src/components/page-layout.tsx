@@ -10,13 +10,14 @@ export type KgPic = {
 type Props = {
   _site: Site;
   c_siteLogo?: KgPic;
+  includeSearchHeader?: boolean;
   children?: React.ReactNode;
 };
 
-const PageLayout = ({ _site, c_siteLogo, children }: Props) => {
+const PageLayout = ({ _site, c_siteLogo, includeSearchHeader, children }: Props) => {
   return (
     <div className="min-h-screen">
-      <Header _site={_site} c_siteLogoUrl={c_siteLogo?.url} />
+      <Header _site={_site} c_siteLogoUrl={c_siteLogo?.url} includeSearchHeader={includeSearchHeader} />
       {children}
       <Footer _site={_site}></Footer>
     </div>

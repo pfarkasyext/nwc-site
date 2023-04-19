@@ -15,7 +15,7 @@ type Banner = {
   geomodifier?: string;
 };
 
-const Banner = (props: Banner) => {
+const StoreHeroBanner = (props: Banner) => {
   const {
     name,
     address,
@@ -38,4 +38,4 @@ const Banner = (props: Banner) => {
   );
 };
 
-export default Banner;
+export default StoreHeroBanner;
