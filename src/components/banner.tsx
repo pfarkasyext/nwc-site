@@ -25,26 +25,12 @@ const Banner = (props: Banner) => {
   return (
     <>
       <div
-        className={`relative z-10 w-full bg-cover bg-center h-80 bg-[url(/src/assets/images/storefront.jpeg)] `}
+        className={`relative flex justify-center items-center z-10 w-full bg-cover bg-center h-80 bg-[url(/src/assets/images/storefront.jpeg)] `}
       >
-        <div className=" left-0 right-0 flex flex-col items-center ">
-          <div className="my-8 rounded-xl bg-brand-primary border-8 shadow-xl border-brand-primary px-4 py-2 flex">
-            <div className="text-center m-4">
-              <div className="align-middle">
-                <h1 className="text-white text-3xl font-semibold">{name} - {geomodifier}</h1>
-                <div className="text-lg pt-2 text-white font-semibold">
-                {address?.city}, {address?.region}
-                </div>
-                {/* <div className="text-base pt-2 text-white">
-                  {renderRating(
-                    c_starRating,
-                    c_numberOfReviews,
-                    c_45StarsImage?.url
-                  )}
-                </div> */}
-              </div>
-            </div>
-            <div className="flex pt-4 justify-between"></div>
+        <div className="text-white text-center font-semibold bg-brand-primary w-fit h-fit p-8 rounded-[24px]">
+          <h1 className="text-3xl ">{name} - {geomodifier}</h1>
+          <div className="text-lg pt-2">
+            {address?.city}, {address?.region}
           </div>
         </div>
       </div>

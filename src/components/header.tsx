@@ -24,8 +24,12 @@ const searcher = provideHeadless({
 
 const links: Link[] = [
   {
-    label: "Stores",
+    label: "Find a Store",
     url: "/locator",
+  },
+  {
+    label: "Store Directory",
+    url: "/",
   },
   {
     label: "Products",
@@ -42,7 +46,7 @@ const Header = (props: any) => {
   
   const linkDoms = links.map((link) => (
     <div key={link.label}>
-      <a href={link.url} target="_blank" rel="noreferrer">
+      <a href={link.url} target="_self" rel="noreferrer">
         {link.label}
       </a>
     </div>
