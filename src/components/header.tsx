@@ -25,7 +25,7 @@ const searcher = provideHeadless({
 const links: Link[] = [
   {
     label: "Stores",
-    url: "#",
+    url: "/locator",
   },
   {
     label: "Products",

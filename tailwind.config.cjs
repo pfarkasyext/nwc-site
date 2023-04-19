@@ -27,6 +27,8 @@ module.exports = {
         "brand-primary-dark": "#243D40",
         "brand-cta": "#F2816F",
         "brand-cta-hover": "#C7ACA1",
+        orange: "#ff9500",
+        "dark-orange": "#db8000",
       },
       borderRadius: {
         cta: "var(--cta-border-radius, 1rem)",
