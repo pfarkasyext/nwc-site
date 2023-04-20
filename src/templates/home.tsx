@@ -70,7 +70,11 @@ const Home: Template<TemplateRenderProps> = ({
       <SearchHeadlessProvider searcher={searcher}>
         <SearchHeroBanner />
       </SearchHeadlessProvider>
-      <div className="my-12 flex justify-center font-bold">(Featured Products)</div>
+      <div className="centered-container">
+          <div className="section">
+            (Featured Products)
+          </div>
+      </div>
     </PageLayout>
   );
 };

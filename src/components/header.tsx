@@ -65,10 +65,10 @@ const Header = (props: any) => {
   ));
   
   return (
-    <div className="bg-brand-primary-dark min-h-[88px] px-6 py-6">
+    <div className="bg-brand-primary-dark h-fit px-6 py-6">
       <div className="centered-container">
         <nav className="py-6 flex items-center justify-between">
-          <div className="flex gap-x-6 items-center">
+          <div className="flex gap-x-6 items-center mr-2">
             <a href="/home">
               <img
                 src={c_siteLogoUrl}
@@ -82,8 +82,8 @@ const Header = (props: any) => {
           </div>
           <div className="space-x-5"></div>
           {renderSearchHeader(includeSearchHeader)}
-          <div className="flex gap-x-4">
-            <div className=" h-12 pt-4 ">
+          <div className="flex gap-x-4 hidden lg:inline">
+            <div className=" h-12 pt-4">
               <Cta
                 buttonText="Log In"
                 url="#"

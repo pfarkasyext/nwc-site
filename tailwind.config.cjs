@@ -24,7 +24,7 @@ module.exports = {
         "neutral-dark": "var(--neutral-color-dark, #1f2937)",
         "brand-primary": "#6BB7BF",
         "brand-hover": "#193C40",
-        "brand-primary-dark": "#243D40",
+        "brand-primary-dark": "#2A2C2E",
         "brand-cta": "#F2816F",
         "brand-cta-hover": "#C7ACA1",
         orange: "#ff9500",
