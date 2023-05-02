@@ -1,76 +1,151 @@
 import * as React from "react";
 
+const footerNavigation = {
+    shop: [
+      { name: "Vitamins & Minerals", href: "#" },
+      { name: "Sports Nutrition", href: "#" },
+      { name: "Natural Remedies", href: "#" },
+      { name: "Beaty & Skincare", href: "#" },
+      { name: "Pet Health", href: "#" },
+    ],
+    company: [
+      { name: "Who we are", href: "#" },
+      { name: "Sustainability", href: "#" },
+      { name: "Press", href: "#" },
+      { name: "Careers", href: "#" },
+      { name: "Terms & Conditions", href: "#" },
+      { name: "Privacy", href: "#" },
+    ],
+    account: [
+      { name: "Manage Account", href: "#" },
+      { name: "Returns & Exchanges", href: "#" },
+      { name: "Redeem a Gift Card", href: "#" },
+    ],
+    connect: [
+      { name: "Contact Us", href: "#" },
+      { name: "Twitter", href: "#" },
+      { name: "Instagram", href: "#" },
+      { name: "Pinterest", href: "#" },
+    ],
+  };
+
 const Footer = () => {
   return (
-    <footer className="">
-      <div className="flex flex-col flex-wrap justify-center p-5 md:flex-row">
-        <span className="inline-flex justify-center w-full mx-auto mt-2 mr-2 sm:ml-auto sm:mt-0 space-x-3">
-          <a className="text-black hover:text-blue-500">
-            <svg
-              fill="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              className="w-5 h-5"
-              viewBox="0 0 24 24"
-            >
-              <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
-            </svg>
-          </a>
-          <a className="text-black hover:text-blue-500">
-            <svg
-              fill="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              className="w-5 h-5"
-              viewBox="0 0 24 24"
-            >
-              <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
-            </svg>
-          </a>
-          <a className="text-black hover:text-blue-500">
-            <svg
-              fill="none"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              className="w-5 h-5"
-              viewBox="0 0 24 24"
-            >
-              <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
-              <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01"></path>
-            </svg>
-          </a>
-          <a className="text-black hover:text-blue-500">
-            <svg
-              fill="currentColor"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="0"
-              className="w-5 h-5"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke="none"
-                d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"
-              ></path>
-              <circle cx="4" cy="4" r="2" stroke="none"></circle>
-            </svg>
-          </a>
-        </span>
-      </div>
-      <div className="w-full justify-center flex px-8 mt-4 rounded-b-lg bg-blueGray-50">
-        <div className="inline-flex flex-col flex justify-center px-5 py-6 mx-auto sm:flex-row">
-          <p className="mx-auto text-sm text-center text-black sm:text-left ">
-            {" "}
-            NWC © 2023{" "}
-          </p>
-        </div>
-      </div>
-    </footer>
+    <footer aria-labelledby="footer-heading" className="bg-white">
+          <h2 id="footer-heading" className="sr-only">
+            Footer
+          </h2>
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="py-20 xl:grid xl:grid-cols-3 xl:gap-8">
+              <div className="grid grid-cols-2 gap-8 xl:col-span-2">
+                <div className="space-y-16 md:grid md:grid-cols-2 md:gap-8 md:space-y-0">
+                  <div>
+                    <h3 className="text-sm font-medium text-gray-900">Shop</h3>
+                    <ul role="list" className="mt-6 space-y-6">
+                      {footerNavigation.shop.map((item) => (
+                        <li key={item.name} className="text-sm">
+                          <a
+                            href={item.href}
+                            className="text-gray-500 hover:text-gray-600"
+                          >
+                            {item.name}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-medium text-gray-900">
+                      Company
+                    </h3>
+                    <ul role="list" className="mt-6 space-y-6">
+                      {footerNavigation.company.map((item) => (
+                        <li key={item.name} className="text-sm">
+                          <a
+                            href={item.href}
+                            className="text-gray-500 hover:text-gray-600"
+                          >
+                            {item.name}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+                <div className="space-y-16 md:grid md:grid-cols-2 md:gap-8 md:space-y-0">
+                  <div>
+                    <h3 className="text-sm font-medium text-gray-900">
+                      Account
+                    </h3>
+                    <ul role="list" className="mt-6 space-y-6">
+                      {footerNavigation.account.map((item) => (
+                        <li key={item.name} className="text-sm">
+                          <a
+                            href={item.href}
+                            className="text-gray-500 hover:text-gray-600"
+                          >
+                            {item.name}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-medium text-gray-900">
+                      Connect
+                    </h3>
+                    <ul role="list" className="mt-6 space-y-6">
+                      {footerNavigation.connect.map((item) => (
+                        <li key={item.name} className="text-sm">
+                          <a
+                            href={item.href}
+                            className="text-gray-500 hover:text-gray-600"
+                          >
+                            {item.name}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div className="mt-16 md:mt-16 xl:mt-0">
+                <h3 className="text-sm font-medium text-gray-900">
+                  Sign up for our newsletter
+                </h3>
+                <p className="mt-6 text-sm text-gray-500">
+                  The latest deals and savings, sent to your inbox weekly.
+                </p>
+                <form className="mt-2 flex sm:max-w-md">
+                  <label htmlFor="email-address" className="sr-only">
+                    Email address
+                  </label>
+                  <input
+                    id="email-address"
+                    type="text"
+                    autoComplete="email"
+                    required
+                    className="w-full min-w-0 appearance-none rounded-md border border-gray-300 bg-white px-4 py-2 text-base text-indigo-500 placeholder-gray-500 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                  />
+                  <div className="ml-4 flex-shrink-0">
+                    <button
+                      type="submit"
+                      className="flex w-full items-center justify-center rounded-md border border-transparent bg-brand-cta hover:bg-brand-cta-hover px-4 py-2 text-base font-medium text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    >
+                      Sign Up
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <div className="border-t border-gray-200 py-10">
+              <p className="text-sm text-gray-500">
+                Copyright &copy; 2023 NWC, Inc.
+              </p>
+            </div>
+          </div>
+        </footer>
   );
 };
 
