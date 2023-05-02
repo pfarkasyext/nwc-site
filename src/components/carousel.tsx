@@ -48,11 +48,13 @@ const Carousel = (props: any) => {
     <Slider {...settings}>
       {data.map((subItem: any, subIndex: number) => {
         const { rawData, name } = subItem;
+        const productUrl = "https://healthily-magnetic-hoverfly.sbx.pgsdemo.com/" + rawData.slug;
         return (
-          <div
+          <a
             className="flex flex-col overflow-hidden space-y-2 rounded-lg   "
             key={subIndex}
             style={{ maxHeight: "400px", overflow: "hidden" }}
+            href={productUrl}
           >
             <div style={{ height: "150px" }} className="bg-gray-50">
               <img
@@ -63,13 +65,13 @@ const Carousel = (props: any) => {
               />
             </div>
 
-            <div className="font-semibold flex-flex-col space-y-1 text-center">
+            <div className="font-semibold flex-flex-col space-y-1 text-center text-brand-primary">
               <div>{rawData.name}</div>
               {entityType?.toLowerCase() === "stores" && (
                 <div className="text-xs text-gray-500 ">As low as 0% APR</div>
               )}
             </div>
-          </div>
+          </a>
         );
       })}
     </Slider>
