@@ -19,7 +19,6 @@ import {
 import * as React from "react";
 import { useState } from "react";
 import searchConfig from "./searchConfig";
-import { HomeResults } from "./FeaturedProducts";
 import classNames from "classnames";
 import Product from "../../types/products";
 import { TemplateRenderProps } from "@yext/pages";
@@ -32,7 +31,7 @@ const UnivSearch = ({ document }: TemplateRenderProps) => {
   const [searchTerm, setSeachTerm] = useState("");
   const [loading, setLoading] = useState(true);
 
-  const customUnivCard = (props: CardProps<any>) => {
+  const HelpArticleCard = (props: CardProps<any>) => {
     const { result } = props;
     return <div className="border text-s">{result.name}</div>;
   };
@@ -43,7 +42,7 @@ const UnivSearch = ({ document }: TemplateRenderProps) => {
     }
     return (
       <div>
-        <div>{header}</div>
+        <div className="">{header}</div>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 grid-cols-1">
           {results.map((r) => (
             <CardComponent result={r} />
@@ -148,7 +147,7 @@ const UnivSearch = ({ document }: TemplateRenderProps) => {
         // }}
       />
       <div className="mt-8">
-        <div className="px-32">
+        <div className="">
           <SpellCheck />
           <DirectAnswer />
           <ResultsCount />
@@ -168,7 +167,7 @@ const UnivSearch = ({ document }: TemplateRenderProps) => {
               viewAllButton: true,
             },
             help_articles: {
-              CardComponent: customUnivCard,
+              CardComponent: HelpArticleCard,
               //   SectionComponent: GridSection,
               label: "Help Articles",
               viewAllButton: true,

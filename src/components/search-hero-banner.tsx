@@ -14,14 +14,6 @@ const SearchHeroBanner = () => {
   const experienceVersion = "PRODUCTION";
   const locale = "en";
 
-  const searcher = provideHeadless({
-    apiKey: apiKey,
-    experienceKey: experienceKey,
-    //verticalKey: "Your Vertical Key",
-    locale: "en",
-    endpoints: SandboxEndpoints,
-  });
-
   const onSearch = (searchEventData: {
     verticalKey?: string;
     query?: string;
@@ -110,7 +102,7 @@ const SearchHeroBanner = () => {
 
   return (
     <>
-    <div className={`bg-brand-primary flex justify-center bg-gradient-to-r from-brand-primary via-purple-500 to-brand-cta`}>
+    {/* <div className={`bg-brand-primary flex justify-center bg-gradient-to-r from-brand-primary via-purple-500 to-brand-cta`}>
         <div className="h-80 flex flex-col mx-6 py-4 w-2/3 max-w-3xl text-white">
                 <div className="pt-6 pb-3 text-3xl font-bold">Healthy Living since 1939</div>
                 <div className="py-3 pb-6">Get expert guidance and top-quality vitamins, supplements, and sports nutrition products at NWC. With over 80 years of experience, we help you reach your health goals and live your best life.</div>
@@ -119,13 +111,49 @@ const SearchHeroBanner = () => {
                     onSearch={onSearch}
                     customCssClasses={{
                         searchBarContainer: "w-full",
-                        inputElement: "demo ",
+                        inputElement: "demo",
                     }}
                     hideRecentSearches={false}
                     />
                 </div>
         </div>
-    </div>
+    </div> */}
+    <section aria-labelledby="cause-heading">
+            <div className="relative bg-gray-800 px-6 py-32 sm:px-12 sm:py-40 lg:px-16">
+              <div className="absolute inset-0 overflow-hidden">
+                <img
+                  src="https://www.washingtonpost.com/resizer/q_Sj-osjhABCigGjPWnL5BfChoo=/arc-anglerfish-washpost-prod-washpost/public/OHBJ2SJ6W5JLRDPQLSOU4233EY.jpg"
+                  alt=""
+                  className="h-full w-full object-cover object-center"
+                />
+              </div>
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 bg-gray-900 bg-opacity-50"
+              />
+              <div className="relative mx-auto flex max-w-3xl flex-col items-center text-center">
+                <h2
+                  id="cause-heading"
+                  className="text-3xl font-bold tracking-tight text-white sm:text-4xl"
+                >
+                  Healthy Living since 1939
+                </h2>
+                <p className="mt-3 text-xl text-white">
+                Get expert guidance and top-quality vitamins, supplements, and sports nutrition products at NWC. With over 80 years of experience, we help you reach your health goals and live your best life.
+                </p>
+                <div className="flex justify-center w-2/3 pt-12">
+                    <SearchBar
+                    onSearch={onSearch}
+                    customCssClasses={{
+                        searchBarContainer: "w-full",
+                        inputElement: "demo",
+                    }}
+                    hideRecentSearches={false}
+                    />
+                </div>
+              </div>
+            </div>
+          </section>
     </>
   );
 };

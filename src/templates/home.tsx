@@ -18,6 +18,7 @@ import {
   useSearchActions,
 } from "@yext/search-headless-react";
 import { FeaturedProducts } from "../components/search/FeaturedProducts";
+import HomeFeatureBanner from "../components/home-feature-banner";
 
 export const getPath: GetPath<TemplateProps> = () => {
   return `home`;
@@ -70,13 +71,14 @@ const Home: Template<TemplateRenderProps> = ({
     >
       <SearchHeadlessProvider searcher={searcher}>
         <SearchHeroBanner />
-        <div className="initLoads block">
+        <div className="initLoads block my-12">
           <FeaturedProducts
             initialVerticalKey={["products"]}
             initialNames={["Products"]}
           />
         </div>
       </SearchHeadlessProvider>
+      <HomeFeatureBanner></HomeFeatureBanner>
     </PageLayout>
   );
 };

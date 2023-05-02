@@ -173,7 +173,7 @@ const Product: Template<TemplateRenderProps> = ({
                 <img className="max-h-96" src={c_cImageURLText}></img>
             </div>
             <div className="w-3/5 h-96 flex flex-col justify-center p-6">
-                <div className="font-bold text-2xl">{name}</div>
+                <div className="font-bold text-2xl text-brand-primary">{name}</div>
                 <div className="text-2xl">${c_cPrice}</div>
                 <div className="pt-4">{richTextDescription}</div>
                 <div className="font-bold pt-4">{c_cPromotion}</div>
