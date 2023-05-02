@@ -17,6 +17,7 @@ import {
   SearchHeadlessProvider,
   useSearchActions,
 } from "@yext/search-headless-react";
+import { FeaturedProducts } from "../components/search/FeaturedProducts";
 
 export const getPath: GetPath<TemplateProps> = () => {
   return `home`;
@@ -31,17 +32,17 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = () => {
 };
 
 const apiKey = "d2471212e8121452a0204c59c9a08bd4";
-  const experienceKey = "answers";
-  const experienceVersion = "PRODUCTION";
-  const locale = "en";
+const experienceKey = "answers";
+const experienceVersion = "PRODUCTION";
+const locale = "en";
 
-  const searcher = provideHeadless({
-    apiKey: apiKey,
-    experienceKey: experienceKey,
-    //verticalKey: "Your Vertical Key",
-    locale: "en",
-    endpoints: SandboxEndpoints,
-  });
+const searcher = provideHeadless({
+  apiKey: apiKey,
+  experienceKey: experienceKey,
+  //verticalKey: "Your Vertical Key",
+  locale: "en",
+  endpoints: SandboxEndpoints,
+});
 
 const Home: Template<TemplateRenderProps> = ({
   relativePrefixToRoot,
@@ -69,12 +70,13 @@ const Home: Template<TemplateRenderProps> = ({
     >
       <SearchHeadlessProvider searcher={searcher}>
         <SearchHeroBanner />
+        <div className="initLoads block">
+          <FeaturedProducts
+            initialVerticalKey={["products"]}
+            initialNames={["Products"]}
+          />
+        </div>
       </SearchHeadlessProvider>
-      <div className="centered-container">
-          <div className="section">
-            (Featured Products)
-          </div>
-      </div>
     </PageLayout>
   );
 };

@@ -9,8 +9,8 @@ type Link = {
   url: string;
 };
 
-const apiKey = "7e586e5de90ad8889acbabca5bc57f32";
-const experienceKey = "find-a-doctor";
+const apiKey = "d2471212e8121452a0204c59c9a08bd4";
+const experienceKey = "answers";
 const experienceVersion = "PRODUCTION";
 const locale = "en";
 
@@ -25,15 +25,11 @@ const searcher = provideHeadless({
 const links: Link[] = [
   {
     label: "Find a Store",
-    url: "/locator",
-  },
-  {
-    label: "Store Directory",
-    url: "/",
+    url: "/locations",
   },
   {
     label: "Products",
-    url: "#",
+    url: "/products",
   },
   {
     label: "FAQs",

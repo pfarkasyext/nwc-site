@@ -25,6 +25,7 @@ import {
   ResultsCount,
   Pagination,
   } from "@yext/search-ui-react";
+  import UnivSearch from "../components/search/UnivSearch";
 
 export const getPath: GetPath<TemplateProps> = () => {
   return "search";
@@ -44,7 +45,6 @@ const headlessConfig: HeadlessConfig = {
   apiKey: "d2471212e8121452a0204c59c9a08bd4",
   experienceKey: "answers",
   locale: "en",
-  verticalKey: "faqs",
   endpoints: SandboxEndpoints,
 };
 
@@ -60,21 +60,20 @@ const Search: Template<TemplateRenderProps> = ({
   } = document;
 
   return (
-    <PageLayout _site={_site} c_siteLogo={_site.c_siteLogo}>
-      <SearchHeadlessProvider searcher={searcher}>
-        <div className="px-4 py-8">
-          <div className="mx-auto flex max-w-5xl flex-col">
-            <SearchBar />
-            <SpellCheck />
-            <ResultsCount />
-            <VerticalResults
-              CardComponent={StandardCard}
-              displayAllOnNoResults={false}
-            />
-          </div>
-          <Pagination />
-        </div>
-      </SearchHeadlessProvider>
+    <PageLayout _site={_site} c_siteLogo={_site.c_siteLogo} includeSearchHeader={false}>
+      <div className="centered-container">
+        <SearchHeadlessProvider searcher={searcher}>
+          <UnivSearch
+            document={document}
+            path={""}
+            relativePrefixToRoot={""}
+            __meta={{
+              mode: "development",
+              manifest: undefined,
+            }}
+          />
+        </SearchHeadlessProvider>
+      </div>
     </PageLayout>
   );
 };

@@ -1,0 +1,29 @@
+// src/components/LocationCard.tsx
+
+import { CardComponent, CardProps } from "@yext/search-ui-react";
+import * as React from "react";
+import Product, { } from "../types/products";
+import { RiDirectionFill } from "react-icons/ri";
+
+const ProductCard: CardComponent<Product> = ({
+  result,
+}: CardProps<Product>): JSX.Element => {
+  const product = result.rawData;
+
+  return (
+    <div className="flex flex-col items-center p-4 text-center">
+      <div className="rounded-full">
+        <img src={product.c_cImageURLText} className="object-contain w-32 rounded-full pb-4" />
+      </div>
+      <a 
+        target={"_self"}
+        href={product.slug}
+        className="font-semibold text-brand-primary"
+        rel="noreferrer"
+      >{product.name}</a>
+      <div>${product.c_cPrice}</div>
+    </div>    
+  );
+};
+
+export default ProductCard;

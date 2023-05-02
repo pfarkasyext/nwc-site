@@ -19,8 +19,8 @@ const SearchBarHead = () => {
     const { query } = searchEventData;
     if (query)
       window.open(
-        "https://ethically-greasy-crawdad.sbx.pgsdemo.com/?query=" + query,
-        "_blank"
+        "/search?query=" + query,
+        "_self"
       );
   };
 

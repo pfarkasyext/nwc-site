@@ -58,12 +58,12 @@ const Carousel = (props: any) => {
               <img
                 style={{ height: "100%", objectFit: "contain" }}
                 className="rounded-lg p-3 object-cover m-auto"
-                src={rawData.primaryPhoto?.image.url}
+                src={rawData.c_cImageURLText}
                 alt=""
               />
             </div>
 
-            <div className="font-semibold flex-flex-col space-y-1">
+            <div className="font-semibold flex-flex-col space-y-1 text-center">
               <div>{rawData.name}</div>
               {entityType?.toLowerCase() === "stores" && (
                 <div className="text-xs text-gray-500 ">As low as 0% APR</div>

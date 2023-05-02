@@ -27,6 +27,8 @@ import PageLayout from "../components/page-layout";
 import StaticMap from "../components/static-map";
 import Favicon from "../public/yext-favicon.ico";
 import "../index.css";
+import { SandboxEndpoints, SearchHeadlessProvider, provideHeadless } from "@yext/search-headless-react";
+import { FeaturedProducts } from "../components/search/FeaturedProducts";
 
 /**
  * Required when Knowledge Graph data is used for a template.
@@ -122,6 +124,19 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
   };
 };
 
+const apiKey = "d2471212e8121452a0204c59c9a08bd4";
+const experienceKey = "answers";
+const experienceVersion = "PRODUCTION";
+const locale = "en";
+
+const searcher = provideHeadless({
+  apiKey: apiKey,
+  experienceKey: experienceKey,
+  //verticalKey: "Your Vertical Key",
+  locale: "en",
+  endpoints: SandboxEndpoints,
+});
+
 /**
  * This is the main template. It can have any name as long as it's the default export.
  * The props passed in here are the direct stream document defined by `config`.
@@ -164,6 +179,14 @@ const Product: Template<TemplateRenderProps> = ({
                 <div className="font-bold pt-4">{c_cPromotion}</div>
             </div>
           </div>
+          <SearchHeadlessProvider searcher={searcher}>
+              <div className="initLoads block">
+                <FeaturedProducts
+                  initialVerticalKey={["products"]}
+                  initialNames={["Products"]}
+                />
+              </div>
+            </SearchHeadlessProvider>
         </div>
       </PageLayout>
     </>

@@ -19,7 +19,7 @@ import {
 import { FilterSearch } from "@yext/search-ui-react";
 
 export const getPath: GetPath<TemplateProps> = () => {
-  return `locator`;
+  return `locations`;
 };
 
 export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = () => {
