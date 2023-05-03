@@ -56,11 +56,10 @@ const ProductSearch = (): JSX.Element => {
       <div className="px-4 py-8">
         <div className="mx-auto flex max-w-5xl flex-col">
           <SearchBar placeholder="Search NWC products" />
-          {/* ...and ends here */}
           <SpellCheck />
           <ResultsCount />
-          {/* <div className="flex">
-            <div className="mr-5 w-56 shrink-0">
+          <div className="flex">
+            {/* <div className="mr-5 w-56 shrink-0">
               <div className="flex flex-col rounded border bg-zinc-100 p-4 shadow-sm">
                 <StandardFacets />
               </div>
@@ -73,7 +72,7 @@ const ProductSearch = (): JSX.Element => {
               CardComponent={ProductCard}
               displayAllOnNoResults={false}
             />
-          {/* </div> */}
+          </div>
         </div>
         <Pagination />
       </div>

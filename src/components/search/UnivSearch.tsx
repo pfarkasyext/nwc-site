@@ -17,13 +17,16 @@ import {
   CardComponent,
 } from "@yext/search-ui-react";
 import * as React from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import searchConfig from "./searchConfig";
 import classNames from "classnames";
 import Product from "../../types/products";
 import { TemplateRenderProps } from "@yext/pages";
 import LocationCard from "../LocationCard";
 import ProductCard from "../ProductCard";
+export type ParamTypes = {
+  id: string;
+};
 
 const UnivSearch = ({ document }: TemplateRenderProps) => {
   const searchActions = useSearchActions();
@@ -51,6 +54,14 @@ const UnivSearch = ({ document }: TemplateRenderProps) => {
       </div>
     );
   };
+
+  useEffect(() => {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const searchTerm = urlParams.get('search');
+    searchTerm && searchActions.setQuery(searchTerm);
+    searchActions.executeUniversalQuery();
+  }, []);
 
   const entityPreviewSearcher = provideHeadless({
     ...searchConfig,

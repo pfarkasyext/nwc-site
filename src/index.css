@@ -17,3 +17,57 @@
 .secondary-cta {
   @apply bg-sky-700 hover:bg-sky-800;
 }
+
+.slick-prev::before,
+.slick-next::before {
+  color: #002652 !important;
+  font-size: 2rem !important;
+}
+
+.slick-prev,
+.slick-next {
+  width: 2.5rem;
+  height: 2.5rem;
+  z-index: 2;
+  top: 40% !important;
+  padding: 1em;
+}
+
+.slick-list {
+  width: 80%;
+  margin: 0 auto !important;
+}
+
+.slick-prev {
+  left: 2em;
+}
+
+.slick-next {
+  right: 0;
+}
+.slick-prev {
+  left: 7% !important;
+  z-index: 1;
+}
+.slick-next {
+  right: 7% !important;
+  z-index: 1;
+}
+
+@media only screen and (max-width: 768px) {
+  .slick-prev {
+    left: 0% !important;
+    z-index: 1;
+  }
+  .slick-next {
+    right: 2% !important;
+    z-index: 1;
+  }
+}
+.slick-slider .slick-slide {
+  padding: 0 15px;
+}
+
+.univ .slick-track {
+  margin-left: 0;
+}
