@@ -350,7 +350,7 @@ const Product: Template<TemplateRenderProps> = ({
                   <div className="ml-4 flex">
                     <a
                       href="#"
-                      className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
+                      className="text-sm font-medium text-brand-primary hover:text-brand-hover"
                     >
                       See all {reviews.totalCount} reviews
                     </a>
@@ -435,7 +435,7 @@ const Product: Template<TemplateRenderProps> = ({
                     <h2 className="text-sm font-medium text-gray-900">Size</h2>
                     <a
                       href="#"
-                      className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
+                      className="text-sm font-medium text-brand-primary hover:text-brand-hover"
                     >
                       See dosage recommendations
                     </a>
@@ -463,7 +463,7 @@ const Product: Template<TemplateRenderProps> = ({
                                 ? "ring-2 ring-indigo-500 ring-offset-2"
                                 : "",
                               checked
-                                ? "border-transparent bg-indigo-600 text-white hover:bg-indigo-700"
+                                ? "border-transparent bg-brand-primary text-white hover:bg-brand-hover"
                                 : "border-gray-200 bg-white text-gray-900 hover:bg-gray-50",
                               "flex items-center justify-center rounded-md border py-3 px-3 text-sm font-medium uppercase sm:flex-1"
                             )
@@ -481,7 +481,7 @@ const Product: Template<TemplateRenderProps> = ({
 
                 <button
                   type="submit"
-                  className="mt-8 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                  className="mt-8 flex w-full items-center justify-center rounded-md border border-transparent bg-brand-cta px-8 py-3 text-base font-medium text-white hover:bg-brand-cta-hover focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
                   Add to cart
                 </button>
