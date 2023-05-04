@@ -94,28 +94,28 @@ const trendingProducts = [
 ];
 const collections = [
   {
-    name: "Desk and Office",
-    description: "Work from home accessories",
+    name: "Health Boosting",
+    description: "Vitamins and Minerals",
     imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/home-page-02-edition-01.jpg",
+      "https://www.nia.nih.gov/sites/default/files/2017-08/vitamins-meta.jpg",
     imageAlt:
       "Desk with leather desk pad, walnut desk organizer, wireless keyboard and mouse, and porcelain mug.",
     href: "#",
   },
   {
-    name: "Self-Improvement",
-    description: "Journals and note-taking",
+    name: "Performance Boosting",
+    description: "Sports Nutrition",
     imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/home-page-02-edition-02.jpg",
+      "https://nypost.com/wp-content/uploads/sites/2/2023/02/NYPICHPDPICT000007191289.jpg?w=1024",
     imageAlt:
       "Wood table with porcelain mug, leather journal, brass pen, leather key ring, and a houseplant.",
     href: "#",
   },
   {
-    name: "Travel",
-    description: "Daily commute essentials",
+    name: "All Natural",
+    description: "Herbs and Natural Remedies",
     imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/home-page-02-edition-03.jpg",
+      "https://www.lancastergeneralhealth.org/-/media/images/lancaster%20general/images/healthhub/healthhubpost/5%20reasons%20to%20be%20cautious%20when%20considering%20herbal%20remedies.ashx",
     imageAlt: "Collection of four insulated travel bottles on wooden shelf.",
     href: "#",
   },
@@ -130,13 +130,13 @@ const testimonials = [
   {
     id: 2,
     quote:
-      "I had to return a purchase that didn’t fit. The whole process was so simple that I ended up ordering two new items!",
+      "I had to return a purchase. The whole process was so simple that I ended up ordering two new items!",
     attribution: "Kelly McPherson, Chicago",
   },
   {
     id: 3,
     quote:
-      "Now that I’m on holiday for the summer, I’ll probably order a few more shirts. It’s just so convenient, and I know the quality will always be there.",
+      "If you're looking for high quality supplements to improve your performance, NWC is the place!",
     attribution: "Chris Paul, Phoenix",
   },
 ];
@@ -237,7 +237,15 @@ const Home: Template<TemplateRenderProps> = ({
           </div>
 
           {/* Trending products */}
-          <section aria-labelledby="trending-heading" className="bg-white">
+          <SearchHeadlessProvider searcher={searcher}>
+              <div className="initLoads block my-12">
+                <FeaturedProducts
+                  initialVerticalKey={["products"]}
+                  initialNames={["Products"]}
+                />
+              </div>
+            </SearchHeadlessProvider>
+          {/* <section aria-labelledby="trending-heading" className="bg-white">
             <div className="py-16 sm:py-24 lg:mx-auto lg:max-w-7xl lg:px-8 lg:py-32">
               <div className="flex items-center justify-between px-4 sm:px-6 lg:px-0">
                 <h2
@@ -321,7 +329,7 @@ const Home: Template<TemplateRenderProps> = ({
                 </a>
               </div>
             </div>
-          </section>
+          </section> */}
 
           {/* Collections */}
           <section
@@ -369,7 +377,7 @@ const Home: Template<TemplateRenderProps> = ({
             <div aria-hidden="true" className="absolute inset-0">
               <div className="absolute inset-0 mx-auto max-w-7xl overflow-hidden xl:px-8">
                 <img
-                  src="https://tailwindui.com/img/ecommerce-images/home-page-02-sale-full-width.jpg"
+                  src="https://domf5oio6qrcr.cloudfront.net/medialibrary/2293/l0908b16207233934035.jpg"
                   alt=""
                   className="h-full w-full object-cover object-center"
                 />
