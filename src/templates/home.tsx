@@ -161,83 +161,43 @@ const Home: Template<TemplateRenderProps> = ({
   return (
     <>
       <PageLayout
-      _site={_site}
-      c_siteLogo={_site.c_siteLogo}
-      includeSearchHeader={false}
-    >
-      <div className="bg-white">
-        <main>
-          {/* Hero */}
-          <div className="flex flex-col border-b border-gray-200 lg:border-0">
-            <nav aria-label="Offers" className="order-last lg:order-first">
-              <div className="mx-auto max-w-7xl lg:px-8">
-                <ul
-                  role="list"
-                  className="grid grid-cols-1 divide-y divide-gray-200 lg:grid-cols-3 lg:divide-x lg:divide-y-0"
-                >
-                  {offers.map((offer) => (
-                    <li key={offer.name} className="flex flex-col">
-                      <a
-                        href={offer.href}
-                        className="relative flex flex-1 flex-col justify-center bg-white px-4 py-6 text-center focus:z-10"
-                      >
-                        <p className="text-sm text-gray-500">{offer.name}</p>
-                        <p className="font-semibold text-gray-900">
-                          {offer.description}
-                        </p>
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </nav>
-
-            <div className="relative">
-              <div
-                aria-hidden="true"
-                className="absolute hidden h-full w-1/2 bg-gray-100 lg:block"
-              />
-              <div className="relative bg-gray-100 lg:bg-transparent">
-                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:grid lg:grid-cols-2 lg:px-8">
-                  <div className="mx-auto max-w-2xl py-24 lg:max-w-none lg:py-64">
-                    <div className="lg:pr-16">
-                      <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl xl:text-6xl">
-                        Healthy Living since 1939
-                      </h1>
-                      <p className="mt-4 text-xl text-gray-600">
-                        Get expert guidance and top-quality vitamins,
-                        supplements, and sports nutrition products at NWC. With
-                        over 80 years of experience, we help you reach your
-                        health goals and live your best life.
-                      </p>
-                      <div className="mt-6">
-                        <SearchHeadlessProvider searcher={searcher}>
-                          {/* (Search Bar Here) */}
-                          <UnivSearchBar />
-                        </SearchHeadlessProvider>
+        _site={_site}
+        c_siteLogo={_site.c_siteLogo}
+        includeSearchHeader={false}
+      >
+        <div className="bg-white">
+          <main>
+            {/* Hero */}
+            <div className="flex flex-col border-b border-gray-200 lg:border-0">
+              <nav aria-label="Offers" className="order-last lg:order-first">
+                <div className="mx-auto max-w-7xl lg:px-8">
+                  <ul
+                    role="list"
+                    className="grid grid-cols-1 divide-y divide-gray-200 lg:grid-cols-3 lg:divide-x lg:divide-y-0"
+                  >
+                    {offers.map((offer) => (
+                      <li key={offer.name} className="flex flex-col">
                         <a
-                        href="/products"
-                        className="inline-block rounded-md border border-transparent bg-brand-cta px-8 py-3 font-medium text-white hover:bg-brand-cta-hover"
-                      >
-                        Shop Now
-                      </a>
-                      </div>
-                    </div>
-                  </div>
+                          href={offer.href}
+                          className="relative flex flex-1 flex-col justify-center bg-white px-4 py-6 text-center focus:z-10"
+                        >
+                          <p className="text-sm text-gray-500">{offer.name}</p>
+                          <p className="font-semibold text-gray-900">
+                            {offer.description}
+                          </p>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-              </div>
-              <div className="h-48 w-full sm:h-64 lg:absolute lg:right-0 lg:top-0 lg:h-full lg:w-1/2">
-                <img
-                  src="https://www.washingtonpost.com/resizer/q_Sj-osjhABCigGjPWnL5BfChoo=/arc-anglerfish-washpost-prod-washpost/public/OHBJ2SJ6W5JLRDPQLSOU4233EY.jpg"
-                  alt=""
-                  className="h-full w-full object-cover object-center"
-                />
-              </div>
+              </nav>
+              <SearchHeadlessProvider searcher={searcher}>
+                <SearchHeroBanner />
+              </SearchHeadlessProvider>
             </div>
-          </div>
 
-          {/* Trending products */}
-          <SearchHeadlessProvider searcher={searcher}>
+            {/* Trending products */}
+            <SearchHeadlessProvider searcher={searcher}>
               <div className="initLoads block my-12">
                 <FeaturedProducts
                   initialVerticalKey={["products"]}
@@ -245,7 +205,7 @@ const Home: Template<TemplateRenderProps> = ({
                 />
               </div>
             </SearchHeadlessProvider>
-          {/* <section aria-labelledby="trending-heading" className="bg-white">
+            {/* <section aria-labelledby="trending-heading" className="bg-white">
             <div className="py-16 sm:py-24 lg:mx-auto lg:max-w-7xl lg:px-8 lg:py-32">
               <div className="flex items-center justify-between px-4 sm:px-6 lg:px-0">
                 <h2
@@ -331,137 +291,136 @@ const Home: Template<TemplateRenderProps> = ({
             </div>
           </section> */}
 
-          {/* Collections */}
-          <section
-            aria-labelledby="collections-heading"
-            className="bg-gray-100"
-          >
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-              <div className="mx-auto max-w-2xl py-16 sm:py-24 lg:max-w-none lg:py-32">
-                <h2
-                  id="collections-heading"
-                  className="text-2xl font-bold text-gray-900"
-                >
-                  Collections
-                </h2>
-
-                <div className="mt-6 space-y-12 lg:grid lg:grid-cols-3 lg:gap-x-6 lg:space-y-0">
-                  {collections.map((collection) => (
-                    <div key={collection.name} className="group relative">
-                      <div className="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-75 sm:h-64">
-                        <img
-                          src={collection.imageSrc}
-                          alt={collection.imageAlt}
-                          className="h-full w-full object-cover object-center"
-                        />
-                      </div>
-                      <h3 className="mt-6 text-sm text-gray-500">
-                        <a href={collection.href}>
-                          <span className="absolute inset-0" />
-                          {collection.name}
-                        </a>
-                      </h3>
-                      <p className="text-base font-semibold text-gray-900">
-                        {collection.description}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* Sale and testimonials */}
-          <div className="relative overflow-hidden">
-            {/* Decorative background image and gradient */}
-            <div aria-hidden="true" className="absolute inset-0">
-              <div className="absolute inset-0 mx-auto max-w-7xl overflow-hidden xl:px-8">
-                <img
-                  src="https://domf5oio6qrcr.cloudfront.net/medialibrary/2293/l0908b16207233934035.jpg"
-                  alt=""
-                  className="h-full w-full object-cover object-center"
-                />
-              </div>
-              <div className="absolute inset-0 bg-white bg-opacity-75" />
-              <div className="absolute inset-0 bg-gradient-to-t from-white via-white" />
-            </div>
-
-            {/* Sale */}
+            {/* Collections */}
             <section
-              aria-labelledby="sale-heading"
-              className="relative mx-auto flex max-w-7xl flex-col items-center px-4 pt-32 text-center sm:px-6 lg:px-8"
+              aria-labelledby="collections-heading"
+              className="bg-gray-100"
             >
-              <div className="mx-auto max-w-2xl lg:max-w-none">
-                <h2
-                  id="sale-heading"
-                  className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl"
-                >
-                  Get 25% off during our one-time sale
-                </h2>
-                <p className="mx-auto mt-4 max-w-xl text-xl text-gray-600">
-                  Most of our products are limited releases that won't come
-                  back. Get your favorite items while they're in stock.
-                </p>
-                <a
-                  href="#"
-                  className="mt-6 inline-block w-full rounded-md border border-transparent bg-gray-900 px-8 py-3 font-medium text-white hover:bg-gray-800 sm:w-auto"
-                >
-                  Get access to our one-time sale
-                </a>
-              </div>
-            </section>
+              <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <div className="mx-auto max-w-2xl py-16 sm:py-24 lg:max-w-none lg:py-32">
+                  <h2
+                    id="collections-heading"
+                    className="text-2xl font-bold text-gray-900"
+                  >
+                    Collections
+                  </h2>
 
-            {/* Testimonials */}
-            <section
-              aria-labelledby="testimonial-heading"
-              className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8 lg:py-32"
-            >
-              <div className="mx-auto max-w-2xl lg:max-w-none">
-                <h2
-                  id="testimonial-heading"
-                  className="text-2xl font-bold tracking-tight text-gray-900"
-                >
-                  What are people saying?
-                </h2>
-
-                <div className="mt-16 space-y-16 lg:grid lg:grid-cols-3 lg:gap-x-8 lg:space-y-0">
-                  {testimonials.map((testimonial) => (
-                    <blockquote
-                      key={testimonial.id}
-                      className="sm:flex lg:block"
-                    >
-                      <svg
-                        width={24}
-                        height={18}
-                        viewBox="0 0 24 18"
-                        aria-hidden="true"
-                        className="flex-shrink-0 text-gray-300"
-                      >
-                        <path
-                          d="M0 18h8.7v-5.555c-.024-3.906 1.113-6.841 2.892-9.68L6.452 0C3.188 2.644-.026 7.86 0 12.469V18zm12.408 0h8.7v-5.555C21.083 8.539 22.22 5.604 24 2.765L18.859 0c-3.263 2.644-6.476 7.86-6.451 12.469V18z"
-                          fill="currentColor"
-                        />
-                      </svg>
-                      <div className="mt-8 sm:ml-6 sm:mt-0 lg:ml-0 lg:mt-10">
-                        <p className="text-lg text-gray-600">
-                          {testimonial.quote}
+                  <div className="mt-6 space-y-12 lg:grid lg:grid-cols-3 lg:gap-x-6 lg:space-y-0">
+                    {collections.map((collection) => (
+                      <div key={collection.name} className="group relative">
+                        <div className="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-75 sm:h-64">
+                          <img
+                            src={collection.imageSrc}
+                            alt={collection.imageAlt}
+                            className="h-full w-full object-cover object-center"
+                          />
+                        </div>
+                        <h3 className="mt-6 text-sm text-gray-500">
+                          <a href={collection.href}>
+                            <span className="absolute inset-0" />
+                            {collection.name}
+                          </a>
+                        </h3>
+                        <p className="text-base font-semibold text-gray-900">
+                          {collection.description}
                         </p>
-                        <cite className="mt-4 block font-semibold not-italic text-gray-900">
-                          {testimonial.attribution}
-                        </cite>
                       </div>
-                    </blockquote>
-                  ))}
+                    ))}
+                  </div>
                 </div>
               </div>
             </section>
-          </div>
-        </main>
-      </div>
-    </PageLayout>
-      
+
+            {/* Sale and testimonials */}
+            <div className="relative overflow-hidden">
+              {/* Decorative background image and gradient */}
+              <div aria-hidden="true" className="absolute inset-0">
+                <div className="absolute inset-0 mx-auto max-w-7xl overflow-hidden xl:px-8">
+                  <img
+                    src="https://domf5oio6qrcr.cloudfront.net/medialibrary/2293/l0908b16207233934035.jpg"
+                    alt=""
+                    className="h-full w-full object-cover object-center"
+                  />
+                </div>
+                <div className="absolute inset-0 bg-white bg-opacity-75" />
+                <div className="absolute inset-0 bg-gradient-to-t from-white via-white" />
+              </div>
+
+              {/* Sale */}
+              <section
+                aria-labelledby="sale-heading"
+                className="relative mx-auto flex max-w-7xl flex-col items-center px-4 pt-32 text-center sm:px-6 lg:px-8"
+              >
+                <div className="mx-auto max-w-2xl lg:max-w-none">
+                  <h2
+                    id="sale-heading"
+                    className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl"
+                  >
+                    Get 25% off during our one-time sale
+                  </h2>
+                  <p className="mx-auto mt-4 max-w-xl text-xl text-gray-600">
+                    Most of our products are limited releases that won't come
+                    back. Get your favorite items while they're in stock.
+                  </p>
+                  <a
+                    href="#"
+                    className="mt-6 inline-block w-full rounded-md border border-transparent bg-gray-900 px-8 py-3 font-medium text-white hover:bg-gray-800 sm:w-auto"
+                  >
+                    Get access to our one-time sale
+                  </a>
+                </div>
+              </section>
+
+              {/* Testimonials */}
+              <section
+                aria-labelledby="testimonial-heading"
+                className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8 lg:py-32"
+              >
+                <div className="mx-auto max-w-2xl lg:max-w-none">
+                  <h2
+                    id="testimonial-heading"
+                    className="text-2xl font-bold tracking-tight text-gray-900"
+                  >
+                    What are people saying?
+                  </h2>
+
+                  <div className="mt-16 space-y-16 lg:grid lg:grid-cols-3 lg:gap-x-8 lg:space-y-0">
+                    {testimonials.map((testimonial) => (
+                      <blockquote
+                        key={testimonial.id}
+                        className="sm:flex lg:block"
+                      >
+                        <svg
+                          width={24}
+                          height={18}
+                          viewBox="0 0 24 18"
+                          aria-hidden="true"
+                          className="flex-shrink-0 text-gray-300"
+                        >
+                          <path
+                            d="M0 18h8.7v-5.555c-.024-3.906 1.113-6.841 2.892-9.68L6.452 0C3.188 2.644-.026 7.86 0 12.469V18zm12.408 0h8.7v-5.555C21.083 8.539 22.22 5.604 24 2.765L18.859 0c-3.263 2.644-6.476 7.86-6.451 12.469V18z"
+                            fill="currentColor"
+                          />
+                        </svg>
+                        <div className="mt-8 sm:ml-6 sm:mt-0 lg:ml-0 lg:mt-10">
+                          <p className="text-lg text-gray-600">
+                            {testimonial.quote}
+                          </p>
+                          <cite className="mt-4 block font-semibold not-italic text-gray-900">
+                            {testimonial.attribution}
+                          </cite>
+                        </div>
+                      </blockquote>
+                    ))}
+                  </div>
+                </div>
+              </section>
+            </div>
+          </main>
+        </div>
+      </PageLayout>
     </>
   );
-}
+};
 
 export default Home;
