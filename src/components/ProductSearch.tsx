@@ -25,7 +25,7 @@ import {
   useSearchActions,
   useSearchState,
 } from "@yext/search-headless-react";
-import ProductCard from "./ProductCard";
+import ProductCard from "./cards/ProductCard";
 
 type InitialSearchState = "not started" | "started" | "complete";
 

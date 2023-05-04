@@ -216,7 +216,7 @@ const Home: Template<TemplateRenderProps> = ({
                           <UnivSearchBar />
                         </SearchHeadlessProvider>
                         <a
-                        href="#"
+                        href="/products"
                         className="inline-block rounded-md border border-transparent bg-brand-cta px-8 py-3 font-medium text-white hover:bg-brand-cta-hover"
                       >
                         Shop Now

@@ -2,7 +2,7 @@
 
 import { CardComponent, CardProps } from "@yext/search-ui-react";
 import * as React from "react";
-import Product, { } from "../types/products";
+import Product from "../../types/products";
 import { RiDirectionFill } from "react-icons/ri";
 
 const ProductCard: CardComponent<Product> = ({
@@ -13,16 +13,21 @@ const ProductCard: CardComponent<Product> = ({
   return (
     <div className="flex flex-col items-center p-4 text-center">
       <div className="rounded-full">
-        <img src={product.c_cImageURLText} className="object-contain w-32 rounded-full pb-4" />
+        <img
+          src={product.c_cImageURLText}
+          className="object-contain w-32 rounded-full pb-4"
+        />
       </div>
-      <a 
+      <a
         target={"_self"}
         href={product.slug}
         className="font-semibold text-brand-primary"
         rel="noreferrer"
-      >{product.name}</a>
+      >
+        {product.name}
+      </a>
       <div>${product.c_cPrice}</div>
-    </div>    
+    </div>
   );
 };
 

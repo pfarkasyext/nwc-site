@@ -15,8 +15,7 @@ import {
 } from "@yext/search-headless-react";
 import { FilterSearch } from "@yext/search-ui-react";
 import ProductSearch from "../components/ProductSearch";
-import ProductCard from "../components/ProductCard";
-
+import ProductCard from "../components/cards/ProductCard";
 
 export const getPath: GetPath<TemplateProps> = () => {
   return `products`;
@@ -40,25 +39,29 @@ const searcher = provideHeadless({
 });
 
 const ProductSearchPage: Template<TemplateRenderProps> = ({
-    relativePrefixToRoot,
-    path,
-    document,
-  }) => {
-    const {
-        _site,
-        name,
-        richTextDescription,
-        c_cRating,
-        c_cRatingsCount,
-        c_cImageURLText,
-        c_oldPrice,
-        c_newPrice,
-        c_cPrice,
-        c_cPromotion,
-    } = document;
+  relativePrefixToRoot,
+  path,
+  document,
+}) => {
+  const {
+    _site,
+    name,
+    richTextDescription,
+    c_cRating,
+    c_cRatingsCount,
+    c_cImageURLText,
+    c_oldPrice,
+    c_newPrice,
+    c_cPrice,
+    c_cPromotion,
+  } = document;
 
   return (
-    <PageLayout _site={_site} c_siteLogo={_site.c_siteLogo} includeSearchHeader={false}>      
+    <PageLayout
+      _site={_site}
+      c_siteLogo={_site.c_siteLogo}
+      includeSearchHeader={false}
+    >
       <SearchHeadlessProvider searcher={searcher}>
         <div className="mx-auto max-w-7xl px-4">
           <ProductSearch />

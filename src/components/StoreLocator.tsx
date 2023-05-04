@@ -20,7 +20,7 @@ import {
 } from "@yext/search-headless-react";
 // Mapbox CSS bundle
 import "mapbox-gl/dist/mapbox-gl.css";
-import LocationCard from "./LocationCard";
+import LocationCard from "./cards/LocationCard";
 import MapPin from "./MapPin";
 import { LngLat, LngLatBounds } from "mapbox-gl";
 
@@ -152,7 +152,7 @@ const StoreLocator = (): JSX.Element => {
               },
             ]}
           />
-          
+
           {resultCount > 0 && (
             <VerticalResults
               customCssClasses={{ verticalResultsContainer: "overflow-y-auto" }}
