@@ -682,7 +682,7 @@ const Header = (props: any) => {
                   </div>
 
                   {/* Logo (lg-) */}
-                  <a href="#" className="lg:hidden">
+                  <a href="/home" className="lg:hidden">
                     <span className="sr-only">Your Company</span>
                     <img
                       src={c_siteLogoUrl}

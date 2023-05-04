@@ -413,6 +413,7 @@ export default interface Product {
 	c_cRatingsCount?: string,
 	c_newPrice?: string,
 	c_oldPrice?: string,
+	c_productDescription?: string,
 	photoGallery?: ComplexImage[],
 	keywords?: string[],
 	id: string,

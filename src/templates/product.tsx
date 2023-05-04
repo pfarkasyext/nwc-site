@@ -74,6 +74,7 @@ export const config: TemplateConfig = {
       "c_newPrice",
       "c_cPrice",
       "c_cPromotion",
+      "c_productDescription"
     ],
     // Defines the scope of entities that qualify for this stream.
     filter: {
@@ -188,6 +189,7 @@ const Product: Template<TemplateRenderProps> = ({
     c_newPrice,
     c_cPrice,
     c_cPromotion,
+    c_productDescription
   } = document;
 
   const product = {
@@ -494,9 +496,9 @@ const Product: Template<TemplateRenderProps> = ({
                 </h2>
 
                 <div
-                  className="prose prose-sm mt-4 text-gray-500"
-                  dangerouslySetInnerHTML={{ __html: richTextDescription }}
-                />
+                  className="prose prose-sm mt-4 text-gray-500">
+                    {c_productDescription}
+                  </div>
               </div>
 
               <div className="mt-8 border-t border-gray-200 pt-8">
