@@ -25,7 +25,7 @@ module.exports = {
         "brand-primary": "#6BB7BF",
         "brand-hover": "#193C40",
         "brand-primary-dark": "#2A2C2E",
-        "brand-cta": "#F2816F",
+        "brand-cta": "#fe5b48",
         "brand-cta-hover": "#C7ACA1",
         orange: "#ff9500",
         "dark-orange": "#db8000",
