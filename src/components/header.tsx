@@ -696,7 +696,7 @@ const Header = (props: any) => {
                       <div className="flex space-x-8">
                         <div className="hidden lg:flex">
                           <a
-                            href="#"
+                            href="/search"
                             className="-m-2 p-2 text-gray-400 hover:text-gray-500"
                           >
                             <span className="sr-only">Search</span>
