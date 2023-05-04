@@ -24,6 +24,7 @@ import Product from "../../types/products";
 import { TemplateRenderProps } from "@yext/pages";
 import LocationCard from "../LocationCard";
 import ProductCard from "../ProductCard";
+
 export type ParamTypes = {
   id: string;
 };
@@ -47,8 +48,8 @@ const UnivSearch = ({ document }: TemplateRenderProps) => {
       <div>
         <div className="">{header}</div>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 grid-cols-1">
-          {results.map((r) => (
-            <CardComponent result={r} />
+          {results.map((r, index) => (
+            <CardComponent key={index} result={r} />
           ))}
         </div>
       </div>
@@ -57,11 +58,12 @@ const UnivSearch = ({ document }: TemplateRenderProps) => {
 
   useEffect(() => {
     const queryString = window.location.search;
+
     const urlParams = new URLSearchParams(queryString);
-    const searchTerm = urlParams.get('search');
+    const searchTerm = urlParams.get("query");
     searchTerm && searchActions.setQuery(searchTerm);
     searchActions.executeUniversalQuery();
-  }, []);
+  });
 
   const entityPreviewSearcher = provideHeadless({
     ...searchConfig,
