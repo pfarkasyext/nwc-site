@@ -13,8 +13,8 @@ import {
   SpellCheck,
   ResultsCount,
   Pagination,
-  StandardFacets,
-  NumericalFacets,
+  Facets,
+  StandardFacet,
 } from "@yext/search-ui-react";
 import { useEffect, useState } from "react";
 import { BiLoaderAlt } from "react-icons/bi";
@@ -26,6 +26,7 @@ import {
   useSearchState,
 } from "@yext/search-headless-react";
 import ProductCard from "./cards/ProductCard";
+import { SortDropdown } from "./search/SortDropdown";
 
 type InitialSearchState = "not started" | "started" | "complete";
 
@@ -59,11 +60,17 @@ const ProductSearch = (): JSX.Element => {
           <SpellCheck />
           <ResultsCount />
           <div className="flex">
-            {/* <div className="mr-5 w-56 shrink-0">
+            <div className="mr-5 w-56 shrink-0">
               <div className="flex flex-col rounded border bg-zinc-100 p-4 shadow-sm">
-                <StandardFacets />
+                <SortDropdown />
+                <Facets>
+                  <StandardFacet fieldId="c_linkedDepartment.name" label="Department" />
+                  <StandardFacet fieldId="c_linkedCategories.name" label="Category" />
+                  <StandardFacet fieldId="c_linkedSubcategories.name" label="Subcategory" />
+                  <StandardFacet fieldId="brand" label="Brand" />
+                </Facets>
               </div>
-            </div> */}
+            </div>
             <VerticalResults
               customCssClasses={{
                 verticalResultsContainer:

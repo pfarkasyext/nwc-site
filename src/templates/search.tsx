@@ -24,6 +24,8 @@ import {
   SpellCheck,
   ResultsCount,
   Pagination,
+  StandardFacets,
+  NumericalFacets
   } from "@yext/search-ui-react";
   import UnivSearch from "../components/search/UnivSearch";
 
