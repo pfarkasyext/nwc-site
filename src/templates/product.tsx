@@ -66,15 +66,22 @@ export const config: TemplateConfig = {
       "slug",
       "meta",
       "name",
+      "brand",
       "richTextDescription",
       "c_cRating",
       "c_cRatingsCount",
-      "c_cImageURLText",
+      "primaryPhoto",
       "c_oldPrice",
       "c_newPrice",
       "c_cPrice",
       "c_cPromotion",
-      "c_productDescription"
+      "c_productDescription",
+      "c_linkedDepartment.name",
+      "c_linkedCategories.name",
+      "c_linkedSubcategories.name",
+      "c_linkedDepartment.landingPageUrl",
+      "c_linkedCategories.landingPageUrl",
+      "c_linkedSubcategories.landingPageUrl",
     ],
     // Defines the scope of entities that qualify for this stream.
     filter: {
@@ -181,15 +188,17 @@ const Product: Template<TemplateRenderProps> = ({
   const {
     _site,
     name,
+    brand,
     richTextDescription,
     c_cRating,
     c_cRatingsCount,
-    c_cImageURLText,
-    c_oldPrice,
-    c_newPrice,
+    primaryPhoto,
     c_cPrice,
     c_cPromotion,
-    c_productDescription
+    c_productDescription,
+    c_linkedDepartment,
+    c_linkedCategories,
+    c_linkedSubcategories,
   } = document;
 
   const product = {
@@ -286,6 +295,34 @@ const Product: Template<TemplateRenderProps> = ({
   const [selectedColor, setSelectedColor] = useState(product.colors[0]);
   const [selectedSize, setSelectedSize] = useState(product.sizes[2]);
 
+  //build initial array of breadcrumb objects
+  const breadcrumbLinks = [];
+  if (c_linkedDepartment[0] !== null) {
+    breadcrumbLinks.push(<a href={c_linkedDepartment[0].landingPageUrl} className="text-brand-primary hover:text-brand-hover">{c_linkedDepartment[0].name}</a>)
+  }
+  if (c_linkedCategories[0] !== null) {
+    breadcrumbLinks.push(<a href={c_linkedCategories[0].landingPageUrl} className="text-brand-primary hover:text-brand-hover">{c_linkedCategories[0].name}</a>)
+  }
+  if (c_linkedSubcategories[0] !== null) {
+    breadcrumbLinks.push(<a href={c_linkedSubcategories[0].landingPageUrl} className="text-brand-primary hover:text-brand-hover">{c_linkedSubcategories[0].name}</a>)
+  }
+
+  //loop through array and build out render object
+  let breadcrumbs = [];
+  for (let i = 0; i < breadcrumbLinks.length; i++) {
+    if (i !== 0 ) breadcrumbs.push(<>&nbsp;&nbsp;&nbsp;&rarr;&nbsp;&nbsp;&nbsp;</>);
+    breadcrumbs.push(breadcrumbLinks[i]);
+  }
+
+  // MODEL:
+  // <>
+  //   <a href="#" className="text-brand-primary hover:text-brand-hover">{c_linkedDepartment[0].name}</a>
+  //   &nbsp;&nbsp;&nbsp;&rarr;&nbsp;&nbsp;&nbsp;
+  //   <a href="#" className="text-brand-primary hover:text-brand-hover">{c_linkedCategories[0].name}</a>
+  //   &nbsp;&nbsp;&nbsp;&rarr;&nbsp;&nbsp;&nbsp;
+  //   <a href="#" className="text-brand-primary hover:text-brand-hover">{c_linkedSubcategories[0].name}</a>
+  // </>
+
   return (
     <>
       <PageLayout _site={_site} c_siteLogo={_site.c_siteLogo}>
@@ -313,13 +350,15 @@ const Product: Template<TemplateRenderProps> = ({
           </SearchHeadlessProvider>
         </div> */}
         <main className="mx-auto mt-8 max-w-2xl px-4 pb-16 sm:px-6 sm:pb-24 lg:max-w-7xl lg:px-8">
+          <div className="text-sm font-medium">{breadcrumbs}</div>
           <div className="lg:grid lg:auto-rows-min lg:grid-cols-12 lg:gap-x-8">
             <div className="lg:col-span-5 lg:col-start-8">
               <div className="flex justify-between">
-                <h1 className="text-xl font-medium text-gray-900">{name}</h1>
-                <p className="text-xl font-medium text-gray-900">
-                ${c_cPrice}
-                </p>
+                <h1 className="text-xl font-medium text-gray-900">
+                  <div>{name}</div>
+                  <div className="text-sm italic">{brand}</div>
+                </h1>
+                <p className="text-xl font-medium text-gray-900">${c_cPrice}</p>
               </div>
               {/* Reviews */}
               <div className="mt-4">
@@ -378,7 +417,7 @@ const Product: Template<TemplateRenderProps> = ({
                 />
               ))} */}
                 <img
-                  src={c_cImageURLText}
+                  src={primaryPhoto.image.url}
                   // className={classNames(
                   //   image.primary ? 'lg:col-span-2 lg:row-span-2' : 'hidden lg:block',
                   //   'rounded-lg'
@@ -391,7 +430,9 @@ const Product: Template<TemplateRenderProps> = ({
               <form>
                 {/* Color picker */}
                 <div>
-                  <h2 className="text-sm font-medium text-gray-900">Varieties</h2>
+                  <h2 className="text-sm font-medium text-gray-900">
+                    Varieties
+                  </h2>
 
                   <RadioGroup
                     value={selectedColor}
@@ -495,10 +536,9 @@ const Product: Template<TemplateRenderProps> = ({
                   Description
                 </h2>
 
-                <div
-                  className="prose prose-sm mt-4 text-gray-500">
-                    {c_productDescription}
-                  </div>
+                <div className="prose prose-sm mt-4 text-gray-500">
+                  {c_productDescription}
+                </div>
               </div>
 
               <div className="mt-8 border-t border-gray-200 pt-8">
