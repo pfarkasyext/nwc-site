@@ -28,9 +28,17 @@ import {
 import ProductCard from "./cards/ProductCard";
 import { SortDropdown } from "./search/SortDropdown";
 
+type ProductSearchProps = {
+  headerLabel?: string;
+  searchBarPlaceholder?: string;
+};
+
 type InitialSearchState = "not started" | "started" | "complete";
 
-const ProductSearch = (): JSX.Element => {
+const ProductSearch = ({
+  headerLabel,
+  searchBarPlaceholder
+}: ProductSearchProps) => {
   const searchActions = useSearchActions();
 
   const [initialSearchState, setInitialSearchState] =
@@ -56,7 +64,10 @@ const ProductSearch = (): JSX.Element => {
     <>
       <div className="px-4 py-8">
         <div className="mx-auto flex max-w-5xl flex-col">
-          <SearchBar placeholder="Search NWC products" />
+          <div className="text-2xl font-semibold my-4 text-center">
+            {headerLabel}
+          </div>
+          <SearchBar placeholder={searchBarPlaceholder} />
           <SpellCheck />
           <ResultsCount />
           <div className="flex">
@@ -64,9 +75,18 @@ const ProductSearch = (): JSX.Element => {
               <div className="flex flex-col rounded border bg-zinc-100 p-4 shadow-sm">
                 <SortDropdown />
                 <Facets>
-                  <StandardFacet fieldId="c_linkedDepartment.name" label="Department" />
-                  <StandardFacet fieldId="c_linkedCategories.name" label="Category" />
-                  <StandardFacet fieldId="c_linkedSubcategories.name" label="Subcategory" />
+                  <StandardFacet
+                    fieldId="c_linkedDepartment.name"
+                    label="Department"
+                  />
+                  <StandardFacet
+                    fieldId="c_linkedCategories.name"
+                    label="Category"
+                  />
+                  <StandardFacet
+                    fieldId="c_linkedSubcategories.name"
+                    label="Subcategory"
+                  />
                   <StandardFacet fieldId="brand" label="Brand" />
                 </Facets>
               </div>

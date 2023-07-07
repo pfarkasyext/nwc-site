@@ -246,7 +246,7 @@ const Header = (props: any) => {
                               <a
                                 id={`desktop-featured-heading-${categoryIdx}`}
                                 className="font-bold text-brand-primary hover:text-brand-hover"
-                                href="https://www.yext.com/"
+                                href="/department/dept-1"
                               >
                                 Beauty & Skin Care
                               </a>
@@ -271,7 +271,7 @@ const Header = (props: any) => {
                               <a
                                 id={`desktop-featured-heading-${categoryIdx}`}
                                 className="font-bold text-brand-primary hover:text-brand-hover"
-                                href="https://www.yext.com/"
+                                href="/department/dept-2"
                               >
                                 Food & Drink
                               </a>
@@ -298,7 +298,7 @@ const Header = (props: any) => {
                               <a
                                 id={`desktop-featured-heading-${categoryIdx}`}
                                 className="font-bold text-brand-primary hover:text-brand-hover"
-                                href="https://www.yext.com/"
+                                href="/department/dept-3"
                               >
                                 Herbs & Natural Supplements
                               </a>
@@ -324,7 +324,7 @@ const Header = (props: any) => {
                               <a
                                 id={`desktop-featured-heading-${categoryIdx}`}
                                 className="font-bold text-brand-primary hover:text-brand-hover"
-                                href="https://www.yext.com/"
+                                href="/department/dept-4"
                               >
                                 Performance
                               </a>
@@ -351,7 +351,7 @@ const Header = (props: any) => {
                               <a
                                 id={`desktop-featured-heading-${categoryIdx}`}
                                 className="font-bold text-brand-primary hover:text-brand-hover"
-                                href="https://www.yext.com/"
+                                href="/department/dept-5"
                               >
                                 Protein
                               </a>
@@ -377,7 +377,7 @@ const Header = (props: any) => {
                               <a
                                 id={`desktop-featured-heading-${categoryIdx}`}
                                 className="font-bold text-brand-primary hover:text-brand-hover"
-                                href="https://www.yext.com/"
+                                href="/department/dept-6"
                               >
                                 Vitamins & Supplements
                               </a>
@@ -581,7 +581,7 @@ const Header = (props: any) => {
                                               <a
                                                 id={`desktop-featured-heading-${categoryIdx}`}
                                                 className="font-bold text-brand-primary hover:text-brand-hover"
-                                                href="https://www.yext.com/"
+                                                href="/department/dept-1"
                                               >
                                                 Beauty & Skin Care
                                               </a>
@@ -609,7 +609,7 @@ const Header = (props: any) => {
                                               <a
                                                 id={`desktop-featured-heading-${categoryIdx}`}
                                                 className="font-bold text-brand-primary hover:text-brand-hover"
-                                                href="https://www.yext.com/"
+                                                href="/department/dept-2"
                                               >
                                                 Food & Drink
                                               </a>
@@ -639,7 +639,7 @@ const Header = (props: any) => {
                                               <a
                                                 id={`desktop-featured-heading-${categoryIdx}`}
                                                 className="font-bold text-brand-primary hover:text-brand-hover"
-                                                href="https://www.yext.com/"
+                                                href="/department/dept-3"
                                               >
                                                 Herbs & Natural Supplements
                                               </a>
@@ -668,7 +668,7 @@ const Header = (props: any) => {
                                               <a
                                                 id={`desktop-featured-heading-${categoryIdx}`}
                                                 className="font-bold text-brand-primary hover:text-brand-hover"
-                                                href="https://www.yext.com/"
+                                                href="/department/dept-4"
                                               >
                                                 Performance
                                               </a>
@@ -700,7 +700,7 @@ const Header = (props: any) => {
                                               <a
                                                 id={`desktop-featured-heading-${categoryIdx}`}
                                                 className="font-bold text-brand-primary hover:text-brand-hover"
-                                                href="https://www.yext.com/"
+                                                href="/department/dept-5"
                                               >
                                                 Protein
                                               </a>
@@ -731,7 +731,7 @@ const Header = (props: any) => {
                                               <a
                                                 id={`desktop-featured-heading-${categoryIdx}`}
                                                 className="font-bold text-brand-primary hover:text-brand-hover"
-                                                href="https://www.yext.com/"
+                                                href="/department/dept-6"
                                               >
                                                 Vitamins & Supplements
                                               </a>
@@ -756,6 +756,17 @@ const Header = (props: any) => {
                                                   )
                                                 )}
                                               </ul>
+                                            </div>
+                                          </div>
+                                          <div className="grid grid-cols-2 gap-x-8 gap-y-10">
+                                            <div>
+                                              <a
+                                                id={`desktop-featured-heading-${categoryIdx}`}
+                                                className="text-white hover:text-brand-hover bg-brand-primary rounded-lg px-4 py-4"
+                                                href="/products"
+                                              >
+                                                View All Products
+                                              </a>
                                             </div>
                                           </div>
                                         </div>

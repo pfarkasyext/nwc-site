@@ -48,7 +48,7 @@ const Carousel = (props: any) => {
     <Slider {...settings}>
       {data.map((subItem: any, subIndex: number) => {
         const { rawData, name } = subItem;
-        const productUrl = "https://healthily-magnetic-hoverfly.sbx.pgsdemo.com/" + rawData.slug;
+        const productUrl = "/" + rawData.slug;
         return (
           <a
             className="flex flex-col overflow-hidden space-y-2 rounded-lg   "

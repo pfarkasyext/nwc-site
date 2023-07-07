@@ -64,7 +64,7 @@ const ProductSearchPage: Template<TemplateRenderProps> = ({
     >
       <SearchHeadlessProvider searcher={searcher}>
         <div className="mx-auto max-w-7xl px-4">
-          <ProductSearch />
+          <ProductSearch headerLabel="Search for NWC Products" searchBarPlaceholder="Search" />
         </div>
       </SearchHeadlessProvider>
     </PageLayout>

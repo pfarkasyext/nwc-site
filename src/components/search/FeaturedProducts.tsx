@@ -3,6 +3,7 @@ import { Matcher, useSearchActions } from "@yext/search-headless-react";
 import { useEffect, useState } from "react";
 import { Image } from "@yext/pages/components";
 import Carousel from "../carousel";
+import ProductCard from "../cards/ProductCard";
 
 type HomeResultsProps = {
   initialVerticalKey: string[];

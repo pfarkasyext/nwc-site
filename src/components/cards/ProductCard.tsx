@@ -3,12 +3,12 @@
 import { CardComponent, CardProps } from "@yext/search-ui-react";
 import * as React from "react";
 import Product from "../../types/products";
-import { RiDirectionFill } from "react-icons/ri";
 
 const ProductCard: CardComponent<Product> = ({
   result,
 }: CardProps<Product>): JSX.Element => {
   const product = result.rawData;
+  const hrefURL = "/" + product.slug;
 
   return (
     <div className="flex flex-col items-center p-4 text-center">
@@ -20,7 +20,7 @@ const ProductCard: CardComponent<Product> = ({
       </div>
       <a
         target={"_self"}
-        href={product.slug}
+        href={hrefURL}
         className="font-semibold text-brand-primary"
         rel="noreferrer"
       >
