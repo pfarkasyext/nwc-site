@@ -417,7 +417,7 @@ const Product: Template<TemplateRenderProps> = ({
                 />
               ))} */}
                 <img
-                  src={primaryPhoto.image.url}
+                  src={primaryPhoto?.image.url}
                   // className={classNames(
                   //   image.primary ? 'lg:col-span-2 lg:row-span-2' : 'hidden lg:block',
                   //   'rounded-lg'
