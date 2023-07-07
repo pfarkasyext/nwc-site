@@ -295,24 +295,24 @@ const Product: Template<TemplateRenderProps> = ({
   const [selectedColor, setSelectedColor] = useState(product.colors[0]);
   const [selectedSize, setSelectedSize] = useState(product.sizes[2]);
 
-  //build initial array of breadcrumb objects
-  const breadcrumbLinks = [];
-  if (c_linkedDepartment[0] !== null) {
-    breadcrumbLinks.push(<a href={c_linkedDepartment[0].landingPageUrl} className="text-brand-primary hover:text-brand-hover">{c_linkedDepartment[0].name}</a>)
-  }
-  if (c_linkedCategories[0] !== null) {
-    breadcrumbLinks.push(<a href={c_linkedCategories[0].landingPageUrl} className="text-brand-primary hover:text-brand-hover">{c_linkedCategories[0].name}</a>)
-  }
-  if (c_linkedSubcategories[0] !== null) {
-    breadcrumbLinks.push(<a href={c_linkedSubcategories[0].landingPageUrl} className="text-brand-primary hover:text-brand-hover">{c_linkedSubcategories[0].name}</a>)
-  }
+  // //build initial array of breadcrumb objects
+  // const breadcrumbLinks = [];
+  // if (c_linkedDepartment[0] !== null) {
+  //   breadcrumbLinks.push(<a href={c_linkedDepartment[0].landingPageUrl} className="text-brand-primary hover:text-brand-hover">{c_linkedDepartment[0].name}</a>)
+  // }
+  // if (c_linkedCategories[0] !== null) {
+  //   breadcrumbLinks.push(<a href={c_linkedCategories[0].landingPageUrl} className="text-brand-primary hover:text-brand-hover">{c_linkedCategories[0].name}</a>)
+  // }
+  // if (c_linkedSubcategories[0] !== null) {
+  //   breadcrumbLinks.push(<a href={c_linkedSubcategories[0].landingPageUrl} className="text-brand-primary hover:text-brand-hover">{c_linkedSubcategories[0].name}</a>)
+  // }
 
-  //loop through array and build out render object
-  let breadcrumbs = [];
-  for (let i = 0; i < breadcrumbLinks.length; i++) {
-    if (i !== 0 ) breadcrumbs.push(<>&nbsp;&nbsp;&nbsp;&rarr;&nbsp;&nbsp;&nbsp;</>);
-    breadcrumbs.push(breadcrumbLinks[i]);
-  }
+  // //loop through array and build out render object
+  // let breadcrumbs = [];
+  // for (let i = 0; i < breadcrumbLinks.length; i++) {
+  //   if (i !== 0 ) breadcrumbs.push(<>&nbsp;&nbsp;&nbsp;&rarr;&nbsp;&nbsp;&nbsp;</>);
+  //   breadcrumbs.push(breadcrumbLinks[i]);
+  // }
 
   // MODEL:
   // <>
@@ -350,7 +350,7 @@ const Product: Template<TemplateRenderProps> = ({
           </SearchHeadlessProvider>
         </div> */}
         <main className="mx-auto mt-8 max-w-2xl px-4 pb-16 sm:px-6 sm:pb-24 lg:max-w-7xl lg:px-8">
-          <div className="text-sm font-medium">{breadcrumbs}</div>
+          {/* <div className="text-sm font-medium">{breadcrumbs}</div> */}
           <div className="lg:grid lg:auto-rows-min lg:grid-cols-12 lg:gap-x-8">
             <div className="lg:col-span-5 lg:col-start-8">
               <div className="flex justify-between">

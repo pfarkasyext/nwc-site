@@ -52,61 +52,69 @@ const currencies = ["USD", "CAD", "AUD", "EUR", "GBP"];
 const navigation = {
   categories: [
     {
-      name: "Women",
-      featured: [
-        { name: "Sleep", href: "#" },
-        { name: "Swimwear", href: "#" },
-        { name: "Underwear", href: "#" },
+      name: "Products",
+      beauty: [
+        { name: "Hair & Nail", href: "#" },
+        { name: "Skin", href: "#" },
       ],
-      collection: [
-        { name: "Everything", href: "#" },
-        { name: "Core", href: "#" },
-        { name: "New Arrivals", href: "#" },
-        { name: "Sale", href: "#" },
+      food: [
+        { name: "Drinks", href: "#" },
+        { name: "Bars", href: "#" },
       ],
-      categories: [
-        { name: "Basic Tees", href: "#" },
-        { name: "Artwork Tees", href: "#" },
-        { name: "Bottoms", href: "#" },
-        { name: "Underwear", href: "#" },
-        { name: "Accessories", href: "#" },
+      herbs: [
+        { name: "Natural Solutions", href: "#" },
+        { name: "Herbs A-E", href: "#" },
+        { name: "Herbs F-N", href: "#" },
       ],
-      brands: [
-        { name: "Full Nelson", href: "#" },
-        { name: "My Way", href: "#" },
-        { name: "Re-Arranged", href: "#" },
-        { name: "Counterfeit", href: "#" },
-        { name: "Significant Other", href: "#" },
+      performance: [
+        { name: "Muscle Builders", href: "#" },
+        { name: "Pre-Workout Supplements", href: "#" },
+        { name: "Energy & Endurance", href: "#" },
+        { name: "Performance Supplements", href: "#" },
       ],
-    },
-    {
-      name: "Men",
-      featured: [
-        { name: "Casual", href: "#" },
-        { name: "Boxers", href: "#" },
-        { name: "Outdoor", href: "#" },
+      protein: [
+        { name: "Casein Protein", href: "#" },
+        { name: "Plant Based Protein", href: "#" },
+        { name: "Whey Protein", href: "#" },
       ],
-      collection: [
-        { name: "Everything", href: "#" },
-        { name: "Core", href: "#" },
-        { name: "New Arrivals", href: "#" },
-        { name: "Sale", href: "#" },
-      ],
-      categories: [
-        { name: "Artwork Tees", href: "#" },
-        { name: "Pants", href: "#" },
-        { name: "Accessories", href: "#" },
-        { name: "Boxers", href: "#" },
-        { name: "Basic Tees", href: "#" },
-      ],
-      brands: [
-        { name: "Significant Other", href: "#" },
-        { name: "My Way", href: "#" },
-        { name: "Counterfeit", href: "#" },
-        { name: "Re-Arranged", href: "#" },
-        { name: "Full Nelson", href: "#" },
+      vitamins: [
+        { name: "Minerals", href: "#" },
+        { name: "Fish Oil & Omegas", href: "#" },
+        { name: "Multivitamins", href: "#" },
+        { name: "Sexual Health", href: "#" },
+        { name: "Wellness Essentials", href: "#" },
+        { name: "Vitamins A-Z", href: "#" },
+        { name: "Specialty Supplements", href: "#" },
       ],
     },
+    // {
+    //   name: "Men",
+    //   featured: [
+    //     { name: "Casual", href: "#" },
+    //     { name: "Boxers", href: "#" },
+    //     { name: "Outdoor", href: "#" },
+    //   ],
+    //   collection: [
+    //     { name: "Everything", href: "#" },
+    //     { name: "Core", href: "#" },
+    //     { name: "New Arrivals", href: "#" },
+    //     { name: "Sale", href: "#" },
+    //   ],
+    //   categories: [
+    //     { name: "Artwork Tees", href: "#" },
+    //     { name: "Pants", href: "#" },
+    //     { name: "Accessories", href: "#" },
+    //     { name: "Boxers", href: "#" },
+    //     { name: "Basic Tees", href: "#" },
+    //   ],
+    //   brands: [
+    //     { name: "Significant Other", href: "#" },
+    //     { name: "My Way", href: "#" },
+    //     { name: "Counterfeit", href: "#" },
+    //     { name: "Re-Arranged", href: "#" },
+    //     { name: "Full Nelson", href: "#" },
+    //   ],
+    // },
   ],
   pages: [
     { name: "Home", href: "/home" },
@@ -115,7 +123,7 @@ const navigation = {
 };
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(" ");
 }
 
 const renderSearchHeader = (includeSearchHeader: boolean) => {
@@ -235,18 +243,19 @@ const Header = (props: any) => {
                         <div className="grid grid-cols-1 items-start gap-x-6 gap-y-10">
                           <div className="grid grid-cols-1 gap-x-6 gap-y-10">
                             <div>
-                              <p
-                                id={`mobile-featured-heading-${categoryIdx}`}
-                                className="font-medium text-gray-900"
+                              <a
+                                id={`desktop-featured-heading-${categoryIdx}`}
+                                className="font-bold text-brand-primary hover:text-brand-hover"
+                                href="https://www.yext.com/"
                               >
-                                Featured
-                              </p>
+                                Beauty & Skin Care
+                              </a>
                               <ul
                                 role="list"
                                 aria-labelledby={`mobile-featured-heading-${categoryIdx}`}
                                 className="mt-6 space-y-6"
                               >
-                                {category.featured.map((item) => (
+                                {category.beauty.map((item) => (
                                   <li key={item.name} className="flex">
                                     <a
                                       href={item.href}
@@ -259,18 +268,19 @@ const Header = (props: any) => {
                               </ul>
                             </div>
                             <div>
-                              <p
-                                id="mobile-categories-heading"
-                                className="font-medium text-gray-900"
+                              <a
+                                id={`desktop-featured-heading-${categoryIdx}`}
+                                className="font-bold text-brand-primary hover:text-brand-hover"
+                                href="https://www.yext.com/"
                               >
-                                Categories
-                              </p>
+                                Food & Drink
+                              </a>
                               <ul
                                 role="list"
                                 aria-labelledby="mobile-categories-heading"
                                 className="mt-6 space-y-6"
                               >
-                                {category.categories.map((item) => (
+                                {category.food.map((item) => (
                                   <li key={item.name} className="flex">
                                     <a
                                       href={item.href}
@@ -285,18 +295,19 @@ const Header = (props: any) => {
                           </div>
                           <div className="grid grid-cols-1 gap-x-6 gap-y-10">
                             <div>
-                              <p
-                                id="mobile-collection-heading"
-                                className="font-medium text-gray-900"
+                              <a
+                                id={`desktop-featured-heading-${categoryIdx}`}
+                                className="font-bold text-brand-primary hover:text-brand-hover"
+                                href="https://www.yext.com/"
                               >
-                                Collection
-                              </p>
+                                Herbs & Natural Supplements
+                              </a>
                               <ul
                                 role="list"
                                 aria-labelledby="mobile-collection-heading"
                                 className="mt-6 space-y-6"
                               >
-                                {category.collection.map((item) => (
+                                {category.herbs.map((item) => (
                                   <li key={item.name} className="flex">
                                     <a
                                       href={item.href}
@@ -310,18 +321,72 @@ const Header = (props: any) => {
                             </div>
 
                             <div>
-                              <p
-                                id="mobile-brand-heading"
-                                className="font-medium text-gray-900"
+                              <a
+                                id={`desktop-featured-heading-${categoryIdx}`}
+                                className="font-bold text-brand-primary hover:text-brand-hover"
+                                href="https://www.yext.com/"
                               >
-                                Brands
-                              </p>
+                                Performance
+                              </a>
                               <ul
                                 role="list"
                                 aria-labelledby="mobile-brand-heading"
                                 className="mt-6 space-y-6"
                               >
-                                {category.brands.map((item) => (
+                                {category.performance.map((item) => (
+                                  <li key={item.name} className="flex">
+                                    <a
+                                      href={item.href}
+                                      className="text-gray-500"
+                                    >
+                                      {item.name}
+                                    </a>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          </div>
+                          <div className="grid grid-cols-1 gap-x-6 gap-y-10">
+                            <div>
+                              <a
+                                id={`desktop-featured-heading-${categoryIdx}`}
+                                className="font-bold text-brand-primary hover:text-brand-hover"
+                                href="https://www.yext.com/"
+                              >
+                                Protein
+                              </a>
+                              <ul
+                                role="list"
+                                aria-labelledby="mobile-collection-heading"
+                                className="mt-6 space-y-6"
+                              >
+                                {category.protein.map((item) => (
+                                  <li key={item.name} className="flex">
+                                    <a
+                                      href={item.href}
+                                      className="text-gray-500"
+                                    >
+                                      {item.name}
+                                    </a>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+
+                            <div>
+                              <a
+                                id={`desktop-featured-heading-${categoryIdx}`}
+                                className="font-bold text-brand-primary hover:text-brand-hover"
+                                href="https://www.yext.com/"
+                              >
+                                Vitamins & Supplements
+                              </a>
+                              <ul
+                                role="list"
+                                aria-labelledby="mobile-brand-heading"
+                                className="mt-6 space-y-6"
+                              >
+                                {category.vitamins.map((item) => (
                                   <li key={item.name} className="flex">
                                     <a
                                       href={item.href}
@@ -467,11 +532,7 @@ const Header = (props: any) => {
                   <div className="hidden lg:flex lg:items-center">
                     <a href="/home">
                       <span className="sr-only">Your Company</span>
-                      <img
-                        className="h-8 w-auto"
-                        src={c_siteLogoUrl}
-                        alt=""
-                      />
+                      <img className="h-8 w-auto" src={c_siteLogoUrl} alt="" />
                     </a>
                   </div>
 
@@ -514,50 +575,109 @@ const Header = (props: any) => {
 
                                     <div className="relative bg-white">
                                       <div className="mx-auto max-w-7xl px-8">
-                                        <div className="grid grid-cols-2 items-start gap-x-8 gap-y-10 pb-12 pt-10">
+                                        <div className="grid grid-cols-3 items-start gap-x-8 gap-y-10 pb-12 pt-10">
                                           <div className="grid grid-cols-2 gap-x-8 gap-y-10">
                                             <div>
-                                              <p
+                                              <a
                                                 id={`desktop-featured-heading-${categoryIdx}`}
-                                                className="font-medium text-gray-900"
+                                                className="font-bold text-brand-primary hover:text-brand-hover"
+                                                href="https://www.yext.com/"
                                               >
-                                                Featured
-                                              </p>
+                                                Beauty & Skin Care
+                                              </a>
                                               <ul
                                                 role="list"
                                                 aria-labelledby={`desktop-featured-heading-${categoryIdx}`}
                                                 className="mt-6 space-y-6 sm:mt-4 sm:space-y-4"
                                               >
-                                                {category.featured.map(
-                                                  (item) => (
-                                                    <li
-                                                      key={item.name}
-                                                      className="flex"
+                                                {category.beauty.map((item) => (
+                                                  <li
+                                                    key={item.name}
+                                                    className="flex"
+                                                  >
+                                                    <a
+                                                      href={item.href}
+                                                      className="hover:text-gray-800"
                                                     >
-                                                      <a
-                                                        href={item.href}
-                                                        className="hover:text-gray-800"
-                                                      >
-                                                        {item.name}
-                                                      </a>
-                                                    </li>
-                                                  )
-                                                )}
+                                                      {item.name}
+                                                    </a>
+                                                  </li>
+                                                ))}
                                               </ul>
                                             </div>
                                             <div>
-                                              <p
-                                                id="desktop-categories-heading"
-                                                className="font-medium text-gray-900"
+                                              <a
+                                                id={`desktop-featured-heading-${categoryIdx}`}
+                                                className="font-bold text-brand-primary hover:text-brand-hover"
+                                                href="https://www.yext.com/"
                                               >
-                                                Categories
-                                              </p>
+                                                Food & Drink
+                                              </a>
                                               <ul
                                                 role="list"
                                                 aria-labelledby="desktop-categories-heading"
                                                 className="mt-6 space-y-6 sm:mt-4 sm:space-y-4"
                                               >
-                                                {category.categories.map(
+                                                {category.food.map((item) => (
+                                                  <li
+                                                    key={item.name}
+                                                    className="flex"
+                                                  >
+                                                    <a
+                                                      href={item.href}
+                                                      className="hover:text-gray-800"
+                                                    >
+                                                      {item.name}
+                                                    </a>
+                                                  </li>
+                                                ))}
+                                              </ul>
+                                            </div>
+                                          </div>
+                                          <div className="grid grid-cols-2 gap-x-8 gap-y-10">
+                                            <div>
+                                              <a
+                                                id={`desktop-featured-heading-${categoryIdx}`}
+                                                className="font-bold text-brand-primary hover:text-brand-hover"
+                                                href="https://www.yext.com/"
+                                              >
+                                                Herbs & Natural Supplements
+                                              </a>
+                                              <ul
+                                                role="list"
+                                                aria-labelledby="desktop-collection-heading"
+                                                className="mt-6 space-y-6 sm:mt-4 sm:space-y-4"
+                                              >
+                                                {category.herbs.map((item) => (
+                                                  <li
+                                                    key={item.name}
+                                                    className="flex"
+                                                  >
+                                                    <a
+                                                      href={item.href}
+                                                      className="hover:text-gray-800"
+                                                    >
+                                                      {item.name}
+                                                    </a>
+                                                  </li>
+                                                ))}
+                                              </ul>
+                                            </div>
+
+                                            <div>
+                                              <a
+                                                id={`desktop-featured-heading-${categoryIdx}`}
+                                                className="font-bold text-brand-primary hover:text-brand-hover"
+                                                href="https://www.yext.com/"
+                                              >
+                                                Performance
+                                              </a>
+                                              <ul
+                                                role="list"
+                                                aria-labelledby="desktop-brand-heading"
+                                                className="mt-6 space-y-6 sm:mt-4 sm:space-y-4"
+                                              >
+                                                {category.performance.map(
                                                   (item) => (
                                                     <li
                                                       key={item.name}
@@ -577,18 +697,19 @@ const Header = (props: any) => {
                                           </div>
                                           <div className="grid grid-cols-2 gap-x-8 gap-y-10">
                                             <div>
-                                              <p
-                                                id="desktop-collection-heading"
-                                                className="font-medium text-gray-900"
+                                              <a
+                                                id={`desktop-featured-heading-${categoryIdx}`}
+                                                className="font-bold text-brand-primary hover:text-brand-hover"
+                                                href="https://www.yext.com/"
                                               >
-                                                Collection
-                                              </p>
+                                                Protein
+                                              </a>
                                               <ul
                                                 role="list"
                                                 aria-labelledby="desktop-collection-heading"
                                                 className="mt-6 space-y-6 sm:mt-4 sm:space-y-4"
                                               >
-                                                {category.collection.map(
+                                                {category.protein.map(
                                                   (item) => (
                                                     <li
                                                       key={item.name}
@@ -607,30 +728,33 @@ const Header = (props: any) => {
                                             </div>
 
                                             <div>
-                                              <p
-                                                id="desktop-brand-heading"
-                                                className="font-medium text-gray-900"
+                                              <a
+                                                id={`desktop-featured-heading-${categoryIdx}`}
+                                                className="font-bold text-brand-primary hover:text-brand-hover"
+                                                href="https://www.yext.com/"
                                               >
-                                                Brands
-                                              </p>
+                                                Vitamins & Supplements
+                                              </a>
                                               <ul
                                                 role="list"
                                                 aria-labelledby="desktop-brand-heading"
                                                 className="mt-6 space-y-6 sm:mt-4 sm:space-y-4"
                                               >
-                                                {category.brands.map((item) => (
-                                                  <li
-                                                    key={item.name}
-                                                    className="flex"
-                                                  >
-                                                    <a
-                                                      href={item.href}
-                                                      className="hover:text-gray-800"
+                                                {category.vitamins.map(
+                                                  (item) => (
+                                                    <li
+                                                      key={item.name}
+                                                      className="flex"
                                                     >
-                                                      {item.name}
-                                                    </a>
-                                                  </li>
-                                                ))}
+                                                      <a
+                                                        href={item.href}
+                                                        className="hover:text-gray-800"
+                                                      >
+                                                        {item.name}
+                                                      </a>
+                                                    </li>
+                                                  )
+                                                )}
                                               </ul>
                                             </div>
                                           </div>
@@ -684,11 +808,7 @@ const Header = (props: any) => {
                   {/* Logo (lg-) */}
                   <a href="/home" className="lg:hidden">
                     <span className="sr-only">Your Company</span>
-                    <img
-                      src={c_siteLogoUrl}
-                      alt=""
-                      className="h-8 w-auto"
-                    />
+                    <img src={c_siteLogoUrl} alt="" className="h-8 w-auto" />
                   </a>
 
                   <div className="flex flex-1 items-center justify-end">
