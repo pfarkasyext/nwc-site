@@ -335,7 +335,7 @@ const Product: Template<TemplateRenderProps> = ({
           </SearchHeadlessProvider>
         </div> */}
         <main className="mx-auto mt-8 max-w-2xl px-4 pb-16 sm:px-6 sm:pb-24 lg:max-w-7xl lg:px-8">
-          <div className="flex flex-row space-x-2">
+          <div className="flex flex-row">
             {breadcrumbLinks &&
               breadcrumbLinks.map((item, index) => (
                 <div key={index}>

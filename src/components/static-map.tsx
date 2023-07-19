@@ -11,9 +11,9 @@ const StaticMap = (props: Coordinates) => {
   return (
     <>
       <img
-        className="w-full"
-        width="300"
-        height="200"
+        className="aspect-[7/5] w-[37rem] max-w-none rounded-2xl bg-gray-50 object-cover"
+        // width="300"
+        // height="200"
         src={
           "https://maps.googleapis.com/maps/api/staticmap?center=" +
           `${latitude}` +

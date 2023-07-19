@@ -33,6 +33,11 @@ import {
   provideHeadless,
 } from "@yext/search-headless-react";
 import { FeaturedProducts } from "../components/search/FeaturedProducts";
+import { Address } from "@yext/pages/components";
+import Cta from "../components/cta";
+import { LocationFeaturedCategories } from "../components/location-featured-categories";
+import { LocationAboutSection } from "../components/location-about-section";
+import { LocationIntentLinks } from "../components/location-intent-links";
 
 /**
  * Required when Knowledge Graph data is used for a template.
@@ -54,6 +59,9 @@ export const config: TemplateConfig = {
       "hours",
       "slug",
       "geocodedCoordinate",
+      "c_linkedCategories.name",
+      "c_linkedCategories.slug",
+      "c_linkedCategories.c_bannerPhoto",
     ],
     // Defines the scope of entities that qualify for this stream.
     filter: {
@@ -155,6 +163,7 @@ const Location: Template<TemplateRenderProps> = ({
 }) => {
   const {
     _site,
+    id,
     name,
     address,
     geomodifier,
@@ -164,46 +173,211 @@ const Location: Template<TemplateRenderProps> = ({
     geocodedCoordinate,
     services,
     description,
+    c_linkedCategories,
   } = document;
+
+  const breadcrumbLinks = [
+    "All Stores",
+    address?.region,
+    address?.city,
+    address?.line1,
+  ];
+
+  const categories = [
+    {
+      name: "Handcrafted Collection",
+      href: "#",
+      imageSrc:
+        "https://tailwindui.com/img/ecommerce-images/home-page-01-collection-01.jpg",
+      imageAlt:
+        "Brown leather key ring with brass metal loops and rivets on wood table.",
+      description:
+        "Keep your phone, keys, and wallet together, so you can lose everything at once.",
+    },
+    {
+      name: "Organized Desk Collection",
+      href: "#",
+      imageSrc:
+        "https://tailwindui.com/img/ecommerce-images/home-page-01-collection-02.jpg",
+      imageAlt:
+        "Natural leather mouse pad on white desk next to porcelain mug and keyboard.",
+      description:
+        "The rest of the house will still be a mess, but your desk will look great.",
+    },
+    {
+      name: "Focus Collection",
+      href: "#",
+      imageSrc:
+        "https://tailwindui.com/img/ecommerce-images/home-page-01-collection-03.jpg",
+      imageAlt:
+        "Person placing task list card into walnut card holder next to felt carrying case on leather desk pad.",
+      description:
+        "Be more productive than enterprise project managers with a single piece of paper.",
+    },
+  ];
+
+  const renderAddress = (address?: Address) => {
+    if (address.line2) {
+      return (
+        <>
+          {address && (
+            <div>
+              {address.line1}
+              <br />
+              {address.line2}
+              <br />
+              {address.city}, {address.region}
+            </div>
+          )}
+        </>
+      );
+    } else {
+      return (
+        <>
+          {address && (
+            <div>
+              {address.line1}
+              <br />
+              {address.city}, {address.region}
+            </div>
+          )}
+        </>
+      );
+    }
+  };
+
+  const getDirectionsUrl = (addr?: Address) => {
+    const line2 = addr.line2 ? ` ${addr.line2},` : ``;
+    const region = addr.region ? ` ${addr.region}` : ``;
+    const rawQuery = `${addr.line1},${line2} ${addr.city},${region} ${addr.postalCode} ${addr.countryCode}`;
+    const query = encodeURIComponent(rawQuery);
+
+    const url = `https://www.google.com/maps/search/?api=1&query=${query}&output=classic`;
+
+    return url;
+  };
+
+  const phoneLink = (phone?: string) => {
+    if (!phone) {
+      return "";
+    }
+    return `tel:${phone}`;
+  };
 
   return (
     <>
       <PageLayout _site={_site} c_siteLogo={_site.c_siteLogo}>
-        <StoreHeroBanner
-          name={name}
-          address={address}
-          geomodifier={geomodifier}
-        />
-        <div className="centered-container">
-          <div className="section">
-            <div className="grid grid-cols-2 gap-x-10 gap-y-10">
-              <div className="bg-gray-100 p-2">
-                <Details address={address} phone={mainPhone}></Details>
-                {services && <List list={services}></List>}
-              </div>
-              <div className="bg-gray-100 p-2">
-                {hours && <Hours title={"Store Hours"} hours={hours} />}
-              </div>
-              {geocodedCoordinate && (
-                <StaticMap
-                  latitude={geocodedCoordinate.latitude}
-                  longitude={geocodedCoordinate.longitude}
-                ></StaticMap>
-              )}
-              <div className="bg-gray-100 p-6">
-                <div className="text-xl font-semibold">{`About ${name}`}</div>
-                <p className="pt-4">{description}</p>
+        <div className="mx-auto mt-4 px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-row my-4">
+            {breadcrumbLinks &&
+              breadcrumbLinks.map((item, index) => (
+                <div key={index}>
+                  {index !== 0 && (
+                    <span className="mx-2 text-gray-400">&gt;</span>
+                  )}
+                  <a
+                    href={"#"}
+                    className="text-brand-primary hover:text-brand-hover"
+                  >
+                    {item}
+                  </a>
+                </div>
+              ))}
+          </div>
+        </div>
+
+        <div className="bg-gray-100">
+          <div className="mx-4 mt-4">
+            <div className="py-4">
+              <LocationIntentLinks id={id} />
+            </div>
+            <div className="bg-white">
+              <div className="mx-auto max-w-xl px-4 pt-8 sm:px-6 lg:max-w-7xl lg:px-8 pb-16">
+                <h3 className="mt-4 text-3xl text-gray-500">NWC</h3>
+                <h2 className="text-5xl font-bold tracking-tight text-gray-900">
+                  {geomodifier}
+                </h2>
+                <div className="mt-10 space-y-12 lg:grid lg:grid-cols-3 lg:gap-x-8 lg:space-y-0">
+                  <div className="group block">
+                    <div
+                      aria-hidden="true"
+                      className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg lg:aspect-h-5 lg:aspect-w-5"
+                    >
+                      <div className="h-full w-full object-cover object-center bg-white">
+                        <div className="bg-gray-100 p-6 h-full">
+                          <h3 className="mt-4 font-semibold text-gray-900 text-xl font-semibold mb-4">
+                            Information
+                          </h3>
+                          <div className="">
+                            <div>
+                              {renderAddress(address)}
+                              <div className="pt-4">{mainPhone}</div>
+                            </div>
+                          </div>
+
+                          <div className="uppercase">
+                            <Cta
+                              buttonText="Get Directions"
+                              url={getDirectionsUrl(address)}
+                              style="text-white bg-brand-cta shadow-xl hover:bg-brand-cta-hover hover:underline mt-3 w-fit min-w-[200px] flex justify-center font-normal py-2"
+                              target="_self"
+                            ></Cta>
+                            <Cta
+                              buttonText="Call"
+                              url={phoneLink(mainPhone)}
+                              style="text-white bg-brand-cta shadow-xl hover:bg-brand-cta-hover hover:underline mt-3 w-fit min-w-[200px] flex justify-center font-normal py-2"
+                              target="_self"
+                            ></Cta>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="group block">
+                    <div
+                      aria-hidden="true"
+                      className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg lg:aspect-h-5 lg:aspect-w-5 "
+                    >
+                      <div className="h-full w-full object-cover object-center bg-white">
+                        <div className="bg-gray-100 p-2 h-full">
+                          {hours && (
+                            <Hours title={"Store Hours"} hours={hours} />
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="group block">
+                    <div
+                      aria-hidden="true"
+                      className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg lg:aspect-h-5 lg:aspect-w-5"
+                    >
+                      <img
+                        className="h-full w-full object-cover object-center bg-brand-primary"
+                        src="https://dynl.mktgcdn.com/p/YQTNWpAQ48L7meecBlfj0hyDk7DqbbNouEZJJUACsY8/450x450.jpg"
+                      />
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-            <SearchHeadlessProvider searcher={searcher}>
-              <div className="initLoads block">
-                <FeaturedProducts
-                  initialVerticalKey={["products"]}
-                  initialNames={["Products"]}
-                />
-              </div>
-            </SearchHeadlessProvider>
           </div>
+        </div>
+        <div className="">
+          <LocationFeaturedCategories categories={c_linkedCategories} />
+          <SearchHeadlessProvider searcher={searcher}>
+            <div className="initLoads block my-12">
+              <FeaturedProducts
+                initialVerticalKey={["products"]}
+                initialNames={["Products"]}
+              />
+            </div>
+          </SearchHeadlessProvider>
+          <LocationAboutSection
+            geomodifier={geomodifier}
+            description={description}
+            geocodedCoordinate={geocodedCoordinate}
+          />
         </div>
       </PageLayout>
     </>
