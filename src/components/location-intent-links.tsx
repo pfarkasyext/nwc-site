@@ -2,15 +2,20 @@ import * as React from "react";
 
 type LocationIntentLinksProps = {
   id: string;
+  tabIndex: number;
 };
 
-const LocationIntentLinks = ({ id }: LocationIntentLinksProps) => {
+const LocationIntentLinks = ({ id, tabIndex }: LocationIntentLinksProps) => {
+  
   const tabs = [
-    { name: "Store Information", href: "#", current: true },
-    { name: "Fitness", href: "#", current: false },
-    { name: "Weight Management", href: "#", current: false },
-    { name: "Healthy Lifestyle", href: "#", current: false },
+    { name: "Store Information", href: `/location/${id}`, current: false },
+    { name: "Fitness", href: `/location/${id}/fitness`, current: false },
+    { name: "Weight Management", href: `/location/${id}/weight-management`, current: false },
+    { name: "Healthy Lifestyle", href: `/location/${id}/healthy-lifestyle`, current: false },
   ];
+
+  //TODO: set tab.current based on value of tabIndex
+  tabs[tabIndex].current = true;
 
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
@@ -18,11 +23,6 @@ const LocationIntentLinks = ({ id }: LocationIntentLinksProps) => {
 
   return (
     <>
-    {/* <div className="">
-      <div className="flex flex-row justify-center items-center w-full h-16 bg-brand-primary text-white font-semibold">
-        Intent page links for {id}
-      </div>
-    </div> */}
     <div className="bg-white">
       <div className="sm:hidden">
         <label htmlFor="tabs" className="sr-only">
@@ -50,8 +50,8 @@ const LocationIntentLinks = ({ id }: LocationIntentLinksProps) => {
                 className={classNames(
                   tab.current
                     ? 'border-brand-hover text-brand-hover'
-                    : 'border-transparent hover:text-brand-hover',
-                  'w-1/4 border-b-2 py-4 px-1 text-center text-base text-brand-primary font-semibold '
+                    : 'border-transparent hover:text-brand-hover text-brand-primary',
+                  'w-1/4 border-b-2 py-4 px-1 text-center text-base font-semibold '
                 )}
                 aria-current={tab.current ? 'page' : undefined}
               >
