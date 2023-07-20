@@ -310,7 +310,7 @@ const Product: Template<TemplateRenderProps> = ({
 
   return (
     <>
-      <PageLayout _site={_site} c_siteLogo={_site.c_siteLogo}>
+      <PageLayout _site={_site} c_siteLogo={_site.c_siteLogo} includeSearchHeader={true}>
         {/* <div className="centered-container">
           <div className="section flex">
             <div className="w-2/5 h-96 flex justify-center items-center">
@@ -527,6 +527,12 @@ const Product: Template<TemplateRenderProps> = ({
                   className="mt-8 flex w-full items-center justify-center rounded-md border border-transparent bg-brand-cta px-8 py-3 text-base font-medium text-white hover:bg-brand-cta-hover focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
                   Add to cart
+                </button>
+                <button
+                  type=""
+                  className="mt-2 flex w-full items-center justify-center rounded-md border border-transparent bg-gray-400 px-8 py-3 text-base font-medium text-white hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                >
+                  Check Store Inventory
                 </button>
               </form>
 
