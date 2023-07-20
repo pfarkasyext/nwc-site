@@ -195,7 +195,7 @@ const Location: Template<TemplateRenderProps> = ({
 
   return (
     <>
-      <PageLayout _site={_site} c_siteLogo={_site.c_siteLogo}>
+      <PageLayout _site={_site} c_siteLogo={_site.c_siteLogo} includeSearchHeader={true}>
         <div className="mx-auto mt-4 px-4 sm:px-6 lg:px-8">
           <div className="flex flex-row my-4">
               {breadcrumbLinks &&

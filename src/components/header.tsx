@@ -29,24 +29,12 @@ import {
 } from "@heroicons/react/24/outline";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import UnivSearchBar from "../components/search/UnivSearchBar";
+import { SearchBar } from "@yext/search-ui-react";
 
 type Link = {
   label: string;
   url: string;
 };
-
-const apiKey = "d2471212e8121452a0204c59c9a08bd4";
-const experienceKey = "answers";
-const experienceVersion = "PRODUCTION";
-const locale = "en";
-
-const searcher = provideHeadless({
-  apiKey: apiKey,
-  experienceKey: experienceKey,
-  //verticalKey: "Your Vertical Key",
-  locale: "en",
-  endpoints: SandboxEndpoints,
-});
 
 const currencies = ["USD", "CAD", "AUD", "EUR", "GBP"];
 const navigation = {
@@ -87,34 +75,6 @@ const navigation = {
         { name: "Specialty Supplements", href: "#" },
       ],
     },
-    // {
-    //   name: "Men",
-    //   featured: [
-    //     { name: "Casual", href: "#" },
-    //     { name: "Boxers", href: "#" },
-    //     { name: "Outdoor", href: "#" },
-    //   ],
-    //   collection: [
-    //     { name: "Everything", href: "#" },
-    //     { name: "Core", href: "#" },
-    //     { name: "New Arrivals", href: "#" },
-    //     { name: "Sale", href: "#" },
-    //   ],
-    //   categories: [
-    //     { name: "Artwork Tees", href: "#" },
-    //     { name: "Pants", href: "#" },
-    //     { name: "Accessories", href: "#" },
-    //     { name: "Boxers", href: "#" },
-    //     { name: "Basic Tees", href: "#" },
-    //   ],
-    //   brands: [
-    //     { name: "Significant Other", href: "#" },
-    //     { name: "My Way", href: "#" },
-    //     { name: "Counterfeit", href: "#" },
-    //     { name: "Re-Arranged", href: "#" },
-    //     { name: "Full Nelson", href: "#" },
-    //   ],
-    // },
   ],
   pages: [
     { name: "Home", href: "/home" },
@@ -126,22 +86,122 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const renderSearchHeader = (includeSearchHeader: boolean) => {
-  if (includeSearchHeader == false) {
-    return "";
-  } else {
-    return (
-      <SearchHeadlessProvider searcher={searcher}>
-        <SearchHeader />
-      </SearchHeadlessProvider>
-    );
-  }
-};
-
 const Header = (props: any) => {
   const { _site, c_siteLogoUrl, includeSearchHeader } = props;
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const apiKey = "d2471212e8121452a0204c59c9a08bd4";
+  const experienceKey = "answers";
+  const experienceVersion = "PRODUCTION";
+  const locale = "en";
+
+  const onSearch = (searchEventData: {
+    verticalKey?: string;
+    query?: string;
+  }) => {
+    const { query } = searchEventData;
+    if (query) window.open("/search?query=" + query, "_self");
+  };
+  const [queryPrompts, setQueryPrompts] = useState<string[]>([]);
+  const words = ["CSS3.", "HTML5.", "javascript."];
+  let i = 0;
+  let timer;
+
+  function typingEffect() {
+    const word = queryPrompts[i].split("");
+    const loopTyping = function () {
+      if (word.length > 0) {
+        const ele = document.querySelector(".demo") as HTMLInputElement;
+        ele.placeholder += word.shift();
+      } else {
+        deletingEffect();
+        return false;
+      }
+      timer = setTimeout(loopTyping, 100);
+    };
+    loopTyping();
+  }
+
+  function deletingEffect() {
+    const word = queryPrompts[i].split("");
+    const loopDeleting = function () {
+      if (word.length > 0) {
+        word.pop();
+        const ele = document.querySelector(".demo") as HTMLInputElement;
+        ele.placeholder = word.join("");
+      } else {
+        if (words.length > i + 1) {
+          i++;
+        } else {
+          i = 0;
+        }
+        typingEffect();
+        return false;
+      }
+      timer = setTimeout(loopDeleting, 65);
+    };
+    loopDeleting();
+  }
+
+  const fetchUnivPrompts = async () => {
+    let url = `https://liveapi-sandbox.yext.com/v2/accounts/me/answers/autocomplete`;
+    url += "?v=20190101";
+    url += "&api_key=" + apiKey;
+    url += "&sessionTrackingEnabled=false";
+    url += "&experienceKey=" + experienceKey;
+    url += "&input=";
+    url += "&version=" + experienceVersion;
+    url += "&locale=" + locale;
+    try {
+      const res = await fetch(url);
+      const body = await res.json();
+      const qs = body.response.results.map((item: any) => {
+        return item.value;
+      });
+      setQueryPrompts(qs);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUnivPrompts();
+  }, []);
+
+  const searchActions = useSearchActions();
+  useEffect(() => {
+    searchActions.setUniversal();
+  }, []);
+
+  useEffect(() => {
+    queryPrompts.length >= 1 && typingEffect();
+  }, [queryPrompts]);
+
+  const renderSearchHeader = (includeSearchHeader: boolean) => {
+    if (includeSearchHeader == false) {
+      return (
+        <a
+          href="/search"
+          className="ml-2 p-2 text-gray-400 hover:text-gray-500"
+        >
+          <span className="sr-only">Search</span>
+          <MagnifyingGlassIcon className="h-6 w-6" aria-hidden="true" />
+        </a>
+      );
+    } else {
+      return (
+        <SearchBar
+          onSearch={onSearch}
+          customCssClasses={{
+            searchBarContainer: "w-full my-4",
+            inputElement: "demo",
+          }}
+          hideRecentSearches={false}
+        />
+      );
+    }
+  };
 
   return (
     <>
@@ -527,7 +587,7 @@ const Header = (props: any) => {
           <div className="bg-white">
             <div className="border-b border-gray-200">
               <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <div className="flex h-16 items-center justify-between">
+                <div className="flex h-[80px] items-center justify-between">
                   {/* Logo (lg+) */}
                   <div className="hidden lg:flex lg:items-center">
                     <a href="/home">
@@ -824,20 +884,11 @@ const Header = (props: any) => {
 
                   <div className="flex flex-1 items-center justify-end">
                     <div className="flex items-center lg:ml-8">
-                      <div className="flex space-x-8">
-                        <div className="hidden lg:flex">
-                          <a
-                            href="/search"
-                            className="-m-2 p-2 text-gray-400 hover:text-gray-500"
-                          >
-                            <span className="sr-only">Search</span>
-                            <MagnifyingGlassIcon
-                              className="h-6 w-6"
-                              aria-hidden="true"
-                            />
-                          </a>
+                      <div className="flex space-x-8 items-center">
+                        <div className="hidden lg:flex w-96 flex items-center justify-center">
+                          <span className="sr-only">Search</span>
                         </div>
-
+                        {renderSearchHeader(includeSearchHeader)}
                         <div className="flex">
                           <a
                             href="#"

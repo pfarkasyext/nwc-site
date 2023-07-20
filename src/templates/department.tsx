@@ -139,7 +139,7 @@ const ProductSearchPage: Template<TemplateRenderProps> = ({
     <PageLayout
       _site={_site}
       c_siteLogo={_site.c_siteLogo}
-      includeSearchHeader={false}
+      includeSearchHeader={true}
     >
       <CategoryBanner
         name={name}

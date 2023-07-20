@@ -58,7 +58,7 @@ const Locator: Template<TemplateRenderProps> = ({
     } = document;
 
   return (
-    <PageLayout _site={_site} c_siteLogo={_site.c_siteLogo}>
+    <PageLayout _site={_site} c_siteLogo={_site.c_siteLogo} includeSearchHeader={true}>
       <SearchHeadlessProvider searcher={searcher}>
         <div className="mx-auto max-w-7xl px-4">
           <StoreLocator />
