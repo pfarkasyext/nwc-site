@@ -1,43 +1,34 @@
-/*
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/aspect-ratio'),
-    ],
-  }
-  ```
-*/
 import { Fragment, useState } from 'react'
 import { Dialog, RadioGroup, Transition } from '@headlessui/react'
 import { ShieldCheckIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { CheckIcon, QuestionMarkCircleIcon, StarIcon } from '@heroicons/react/20/solid'
 import * as React from 'react'
 
-const product = {
-  name: 'Everyday Ruck Snack',
-  price: '$220',
-  rating: 3.9,
-  href: '#',
-  imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-quick-preview-03-detail.jpg',
-  imageAlt: 'Interior of light green canvas bag with padded laptop sleeve and internal organization pouch.',
-  sizes: [
-    { name: '18L', description: 'Perfect for a reasonable amount of snacks.' },
-    { name: '20L', description: 'Enough room for a serious amount of snacks.' },
-  ],
-}
+type InventoryModalProps = {
+  productName: string;
+  productPrice: string;
+};
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
-}
-
-export default function Example() {
+const InventoryModal = (props: InventoryModalProps) => {
+  const { productName, productPrice } = props;
   const [open, setOpen] = useState(false)
+  const product = {
+    name: productName,
+    price: productPrice,
+    rating: 3.9,
+    href: '#',
+    imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-quick-preview-03-detail.jpg',
+    imageAlt: 'Interior of light green canvas bag with padded laptop sleeve and internal organization pouch.',
+    sizes: [
+      { name: '18L', description: 'Perfect for a reasonable amount of snacks.' },
+      { name: '20L', description: 'Enough room for a serious amount of snacks.' },
+    ],
+  }
   const [selectedSize, setSelectedSize] = useState(product.sizes[0])
+  
+  function classNames(...classes) {
+    return classes.filter(Boolean).join(' ')
+  }
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -211,3 +202,5 @@ export default function Example() {
     </Transition.Root>
   )
 }
+
+export default InventoryModal;

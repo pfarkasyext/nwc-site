@@ -11,22 +11,25 @@ const ProductCard: CardComponent<Product> = ({
   const hrefURL = "/" + product.slug;
 
   return (
-    <div className="flex flex-col items-center p-4 text-center">
-      <div className="rounded-full">
-        <img
-          src={product.c_cImageURLText}
-          className="object-contain w-32 rounded-full pb-4"
-        />
+    <div>
+      <div className="flex flex-col items-center p-4 text-center">
+        <div className="rounded-full">
+          <img
+            src={product.c_cImageURLText}
+            className="object-contain w-32 rounded-full pb-4"
+          />
+        </div>
+        <a
+          target={"_self"}
+          href={hrefURL}
+          className="font-semibold text-brand-primary"
+          rel="noreferrer"
+        >
+          {product.name}
+        </a>
+        <button className="text-xs text-brand-cta-hover italic underline">Check store inventory</button>
+        <div>${product.c_cPrice}</div>
       </div>
-      <a
-        target={"_self"}
-        href={hrefURL}
-        className="font-semibold text-brand-primary"
-        rel="noreferrer"
-      >
-        {product.name}
-      </a>
-      <div>${product.c_cPrice}</div>
     </div>
   );
 };

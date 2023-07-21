@@ -51,11 +51,12 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { StarIcon } from "@heroicons/react/20/solid";
+import InventoryModal from "../components/product-inventory-modal";
 
 type category = {
   name: string;
   landingPageUrl: string;
-}
+};
 
 /**
  * Required when Knowledge Graph data is used for a template.
@@ -89,7 +90,7 @@ export const config: TemplateConfig = {
       "c_linkedSubcategories.landingPageUrl",
       "c_linkedDepartment.slug",
       "c_linkedCategories.slug",
-      "c_linkedSubcategories.slug"
+      "c_linkedSubcategories.slug",
     ],
     // Defines the scope of entities that qualify for this stream.
     filter: {
@@ -306,7 +307,15 @@ const Product: Template<TemplateRenderProps> = ({
 
   return (
     <>
-      <PageLayout _site={_site} c_siteLogo={_site.c_siteLogo} includeSearchHeader={true}>
+      <PageLayout
+        _site={_site}
+        c_siteLogo={_site.c_siteLogo}
+        includeSearchHeader={true}
+      >
+        <InventoryModal
+          productName={name}
+          productPrice={"$" + c_cPrice}
+        ></InventoryModal>
         <main className="mx-auto mt-8 max-w-2xl px-4 pb-16 sm:px-6 sm:pb-24 lg:max-w-7xl lg:px-8">
           <div className="flex flex-row">
             {breadcrumbLinks &&
