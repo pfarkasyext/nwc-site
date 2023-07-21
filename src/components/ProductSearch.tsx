@@ -31,13 +31,17 @@ import { SortDropdown } from "./search/SortDropdown";
 type ProductSearchProps = {
   headerLabel?: string;
   searchBarPlaceholder?: string;
+  facetField?: string;
+  facetValue?: string;
 };
 
 type InitialSearchState = "not started" | "started" | "complete";
 
 const ProductSearch = ({
   headerLabel,
-  searchBarPlaceholder
+  searchBarPlaceholder,
+  facetField,
+  facetValue
 }: ProductSearchProps) => {
   const searchActions = useSearchActions();
 
@@ -50,6 +54,17 @@ const ProductSearch = ({
 
   useEffect(() => {
     searchActions.setVertical("products");
+    (facetField && searchActions.executeVerticalQuery().then(() => {
+      searchActions.setFacetOption(
+        facetField,
+        {
+          value: facetValue,
+          matcher: Matcher.Equals,
+        },
+        true
+      );
+      searchActions.executeVerticalQuery();
+    }));
     searchActions.executeVerticalQuery();
     setInitialSearchState("started");
   }, []);

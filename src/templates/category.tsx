@@ -23,6 +23,7 @@ import ProductCard from "../components/cards/ProductCard";
 import CategoryBanner from "../components/category-banner";
 import { FeaturedProducts } from "../components/search/FeaturedProducts";
 import { RelatedCategories } from "../components/RelatedCategories";
+import { render } from "@headlessui/react/dist/utils/render";
 
 export const config: TemplateConfig = {
   stream: {
@@ -37,7 +38,14 @@ export const config: TemplateConfig = {
       "name",
       "c_categoryDescription",
       "c_bannerPhoto",
-      
+      "c_linkedDepartment.name",
+      "c_linkedDepartment.slug",
+      "c_linkedCategories.name",
+      "c_linkedCategories.landingPageUrl",
+      "c_linkedCategories.slug",
+      "c_linkedSubcategories.name",
+      "c_linkedSubcategories.landingPageUrl",
+      "c_linkedSubcategories.slug",
     ],
     // Defines the scope of entities that qualify for this stream.
     filter: {
@@ -129,9 +137,24 @@ const ProductSearchPage: Template<TemplateRenderProps> = ({
     name,
     c_categoryDescription,
     c_bannerPhoto,
+    c_linkedDepartment,
+    c_linkedSubcategories,
   } = document;
 
-  const relatedCategoriesLabel = name + " Categories";
+  const breadcrumbLinks = [];
+  c_linkedDepartment && breadcrumbLinks.push(c_linkedDepartment);
+
+  const relatedSubcategoriesLabel = name + " Subcategories";
+  const renderSubcategories = () => {
+    return (
+      c_linkedSubcategories && (
+        <RelatedCategories
+          sectionTitle={relatedSubcategoriesLabel}
+          categories={c_linkedSubcategories}
+        />
+      )
+    );
+  };
 
   return (
     <PageLayout
@@ -139,18 +162,42 @@ const ProductSearchPage: Template<TemplateRenderProps> = ({
       c_siteLogo={_site.c_siteLogo}
       includeSearchHeader={true}
     >
+      <div className="flex flex-row my-4 px-4">
+        {breadcrumbLinks &&
+          breadcrumbLinks.map((item, index) => (
+            <div key={index}>
+              {index !== 0 && <span className="mx-2 text-gray-400">&gt;</span>}
+              <a
+                href={"/" + item[0].slug}
+                className="text-brand-primary hover:text-brand-hover"
+              >
+                {item[0].name}
+              </a>
+            </div>
+          ))}
+          <div>
+              <span className="mx-2 text-gray-400">&gt;</span>
+              <a
+                href="#"
+                className="text-brand-primary hover:text-brand-hover"
+              >
+                {name}
+              </a>
+            </div>
+      </div>
       <CategoryBanner
         name={name}
         description={c_categoryDescription}
         photoURL={c_bannerPhoto?.url}
       />
-      {/* <RelatedCategories
-            sectionTitle={relatedCategoriesLabel}
-            categories={c_linkedCategories}
-          /> */}
+      {renderSubcategories()}
       <div className="mx-auto max-w-7xl px-4">
         <SearchHeadlessProvider searcher={searcher}>
-          <ProductSearch searchBarPlaceholder={`Search for ${name} products`} />
+          <ProductSearch
+            searchBarPlaceholder={`Search all NWC products`}
+            facetField="c_linkedCategories.name"
+            facetValue={name}
+          />
         </SearchHeadlessProvider>
       </div>
     </PageLayout>

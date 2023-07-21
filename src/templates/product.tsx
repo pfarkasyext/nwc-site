@@ -213,10 +213,6 @@ const Product: Template<TemplateRenderProps> = ({
     //name: "Basic Tee",
     //price: "$35",
     href: "#",
-    breadcrumbs: [
-      { id: 1, name: "Women", href: "#" },
-      { id: 2, name: "Clothing", href: "#" },
-    ],
     images: [
       {
         id: 1,
@@ -311,29 +307,6 @@ const Product: Template<TemplateRenderProps> = ({
   return (
     <>
       <PageLayout _site={_site} c_siteLogo={_site.c_siteLogo} includeSearchHeader={true}>
-        {/* <div className="centered-container">
-          <div className="section flex">
-            <div className="w-2/5 h-96 flex justify-center items-center">
-              <img className="max-h-96" src={c_cImageURLText}></img>
-            </div>
-            <div className="w-3/5 h-96 flex flex-col justify-center p-6">
-              <div className="font-bold text-2xl text-brand-primary">
-                {name}
-              </div>
-              <div className="text-2xl">${c_cPrice}</div>
-              <div className="pt-4">{richTextDescription}</div>
-              <div className="font-bold pt-4">{c_cPromotion}</div>
-            </div>
-          </div>
-          <SearchHeadlessProvider searcher={searcher}>
-            <div className="initLoads block">
-              <FeaturedProducts
-                initialVerticalKey={["products"]}
-                initialNames={["Products"]}
-              />
-            </div>
-          </SearchHeadlessProvider>
-        </div> */}
         <main className="mx-auto mt-8 max-w-2xl px-4 pb-16 sm:px-6 sm:pb-24 lg:max-w-7xl lg:px-8">
           <div className="flex flex-row">
             {breadcrumbLinks &&
