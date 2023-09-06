@@ -1,31 +1,10 @@
-import {
-  provideHeadless,
-  Result,
-  useSearchActions,
-  useSearchState,
-  VerticalResults as VerticalResultsData,
-} from "@yext/search-headless-react";
-import {
-  CardProps,
-  RenderEntityPreviews,
-  FocusedItemData,
-  ResultsCount,
-  SearchBar,
-  UniversalResults,
-  SpellCheck,
-  DirectAnswer,
-  CardComponent,
-} from "@yext/search-ui-react";
-import { TemplateRenderProps } from "@yext/pages";
+import { useSearchActions } from "@yext/search-headless-react";
+import { SearchBar } from "@yext/search-ui-react";
 import * as React from "react";
 import { useEffect, useState } from "react";
+import searchConfig from "./searchConfig";
 
 const UnivSearchBar = () => {
-  const apiKey = "d2471212e8121452a0204c59c9a08bd4";
-  const experienceKey = "answers";
-  const experienceVersion = "PRODUCTION";
-  const locale = "en";
-
   const onSearch = (searchEventData: {
     verticalKey?: string;
     query?: string;
@@ -78,12 +57,12 @@ const UnivSearchBar = () => {
   const fetchUnivPrompts = async () => {
     let url = `https://liveapi-sandbox.yext.com/v2/accounts/me/answers/autocomplete`;
     url += "?v=20190101";
-    url += "&api_key=" + apiKey;
+    url += "&api_key=" + searchConfig.apiKey;
     url += "&sessionTrackingEnabled=false";
-    url += "&experienceKey=" + experienceKey;
+    url += "&experienceKey=" + searchConfig.experienceKey;
     url += "&input=";
-    url += "&version=" + experienceVersion;
-    url += "&locale=" + locale;
+    url += "&version=" + "STAGING";
+    url += "&locale=" + searchConfig.locale;
     try {
       const res = await fetch(url);
       const body = await res.json();
@@ -95,7 +74,6 @@ const UnivSearchBar = () => {
       console.log(error);
     }
   };
-
   useEffect(() => {
     fetchUnivPrompts();
   }, []);

@@ -11,23 +11,7 @@ import {
   TemplateProps,
 } from "@yext/pages";
 import "../index.css";
-import {
-  SearchHeadlessProvider,
-  provideHeadless,
-  HeadlessConfig,
-  SandboxEndpoints,
-} from "@yext/search-headless-react";
-import {
-  SearchBar,
-  StandardCard,
-  VerticalResults,
-  SpellCheck,
-  ResultsCount,
-  Pagination,
-  StandardFacets,
-  NumericalFacets
-  } from "@yext/search-ui-react";
-  import UnivSearch from "../components/search/UnivSearch";
+import UnivSearch from "../components/search/UnivSearch";
 
 export const getPath: GetPath<TemplateProps> = () => {
   return "search";
@@ -43,38 +27,29 @@ export const getHeadConfig: GetHeadConfig<
   };
 };
 
-const headlessConfig: HeadlessConfig = {
-  apiKey: "d2471212e8121452a0204c59c9a08bd4",
-  experienceKey: "answers",
-  locale: "en",
-  endpoints: SandboxEndpoints,
-};
-
-const searcher = provideHeadless(headlessConfig);
-
 const Search: Template<TemplateRenderProps> = ({
   relativePrefixToRoot,
   path,
   document,
 }) => {
-  const {
-    _site
-  } = document;
+  const { _site } = document;
 
   return (
-    <PageLayout _site={_site} c_siteLogo={_site.c_siteLogo} includeSearchHeader={false}>
+    <PageLayout
+      _site={_site}
+      c_siteLogo={_site.c_siteLogo}
+      includeSearchHeader={false}
+    >
       <div className="centered-container">
-        <SearchHeadlessProvider searcher={searcher}>
-          <UnivSearch
-            document={document}
-            path={""}
-            relativePrefixToRoot={""}
-            __meta={{
-              mode: "development",
-              manifest: undefined,
-            }}
-          />
-        </SearchHeadlessProvider>
+        <UnivSearch
+          document={document}
+          path={""}
+          relativePrefixToRoot={""}
+          __meta={{
+            mode: "development",
+            manifest: undefined,
+          }}
+        />
       </div>
     </PageLayout>
   );

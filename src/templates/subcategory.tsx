@@ -11,19 +11,9 @@ import {
   TemplateRenderProps,
 } from "@yext/pages";
 import PageLayout from "../components/page-layout";
-import {
-  provideHeadless,
-  SandboxEndpoints,
-  SearchHeadlessProvider,
-} from "@yext/search-headless-react";
 import Favicon from "../public/yext-favicon.ico";
-import { FilterSearch } from "@yext/search-ui-react";
 import ProductSearch from "../components/ProductSearch";
-import ProductCard from "../components/cards/ProductCard";
 import CategoryBanner from "../components/category-banner";
-import { FeaturedProducts } from "../components/search/FeaturedProducts";
-import { RelatedCategories } from "../components/RelatedCategories";
-import { render } from "@headlessui/react/dist/utils/render";
 
 export const config: TemplateConfig = {
   stream: {
@@ -114,15 +104,6 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
   };
 };
 
-const searcher = provideHeadless({
-  apiKey: "d2471212e8121452a0204c59c9a08bd4",
-  // make sure your experience key matches what you see in the platform
-  experienceKey: "answers",
-  locale: "en",
-  endpoints: SandboxEndpoints,
-  verticalKey: "products",
-});
-
 const ProductSearchPage: Template<TemplateRenderProps> = ({
   relativePrefixToRoot,
   path,
@@ -134,7 +115,7 @@ const ProductSearchPage: Template<TemplateRenderProps> = ({
     c_categoryDescription,
     c_bannerPhoto,
     c_linkedDepartment,
-    c_linkedCategories
+    c_linkedCategories,
   } = document;
 
   const breadcrumbLinks = [];
@@ -160,15 +141,12 @@ const ProductSearchPage: Template<TemplateRenderProps> = ({
               </a>
             </div>
           ))}
-          <div>
-              <span className="mx-2 text-gray-400">&gt;</span>
-              <a
-                href="#"
-                className="text-brand-primary hover:text-brand-hover"
-              >
-                {name}
-              </a>
-            </div>
+        <div>
+          <span className="mx-2 text-gray-400">&gt;</span>
+          <a href="#" className="text-brand-primary hover:text-brand-hover">
+            {name}
+          </a>
+        </div>
       </div>
       <CategoryBanner
         name={name}
@@ -176,13 +154,11 @@ const ProductSearchPage: Template<TemplateRenderProps> = ({
         photoURL={c_bannerPhoto?.url}
       />
       <div className="mx-auto max-w-7xl px-4">
-        <SearchHeadlessProvider searcher={searcher}>
-          <ProductSearch
-            searchBarPlaceholder={`Search all NWC products`}
-            facetField="c_linkedSubcategories.name"
-            facetValue={name}
-          />
-        </SearchHeadlessProvider>
+        <ProductSearch
+          searchBarPlaceholder={`Search all NWC products`}
+          facetField="c_linkedSubcategories.name"
+          facetValue={name}
+        />
       </div>
     </PageLayout>
   );

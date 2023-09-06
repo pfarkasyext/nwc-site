@@ -19,25 +19,16 @@ import {
   TemplateRenderProps,
 } from "@yext/pages";
 import * as React from "react";
-import StoreHeroBanner from "../components/store-hero-banner";
-import Details from "../components/details";
 import Hours from "../components/hours";
-import List from "../components/list";
 import PageLayout from "../components/page-layout";
-import StaticMap from "../components/static-map";
 import Favicon from "../public/yext-favicon.ico";
 import "../index.css";
-import {
-  SandboxEndpoints,
-  SearchHeadlessProvider,
-  provideHeadless,
-} from "@yext/search-headless-react";
 import { FeaturedProducts } from "../components/search/FeaturedProducts";
-import { Address } from "@yext/pages/components";
 import Cta from "../components/cta";
 import { LocationFeaturedCategories } from "../components/location-featured-categories";
 import { LocationAboutSection } from "../components/location-about-section";
 import { LocationIntentLinks } from "../components/location-intent-links";
+import searchConfig from "../components/search/searchConfig";
 
 /**
  * Required when Knowledge Graph data is used for a template.
@@ -134,19 +125,6 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
   };
 };
 
-const apiKey = "d2471212e8121452a0204c59c9a08bd4";
-const experienceKey = "answers";
-const experienceVersion = "PRODUCTION";
-const locale = "en";
-
-const searcher = provideHeadless({
-  apiKey: apiKey,
-  experienceKey: experienceKey,
-  //verticalKey: "Your Vertical Key",
-  locale: "en",
-  endpoints: SandboxEndpoints,
-});
-
 /**
  * This is the main template. It can have any name as long as it's the default export.
  * The props passed in here are the direct stream document defined by `config`.
@@ -233,7 +211,11 @@ const Location: Template<TemplateRenderProps> = ({
 
   return (
     <>
-      <PageLayout _site={_site} c_siteLogo={_site.c_siteLogo} includeSearchHeader={true}>
+      <PageLayout
+        _site={_site}
+        c_siteLogo={_site.c_siteLogo}
+        includeSearchHeader={true}
+      >
         <div className="mx-auto mt-4 px-4 sm:px-6 lg:px-8">
           <div className="flex flex-row my-4">
             {breadcrumbLinks &&
@@ -272,7 +254,7 @@ const Location: Template<TemplateRenderProps> = ({
                     >
                       <div className="h-full w-full object-cover object-center bg-white">
                         <div className="bg-gray-100 p-6 h-full">
-                          <h3 className="mt-4 font-semibold text-gray-900 text-xl font-semibold mb-4">
+                          <h3 className="mt-4 text-gray-900 text-xl font-semibold mb-4">
                             Information
                           </h3>
                           <div className="">
@@ -332,14 +314,12 @@ const Location: Template<TemplateRenderProps> = ({
         </div>
         <div className="">
           <LocationFeaturedCategories categories={c_linkedCategories} />
-          <SearchHeadlessProvider searcher={searcher}>
-            <div className="initLoads block my-12">
-              <FeaturedProducts
-                initialVerticalKey={["products"]}
-                initialNames={["Products"]}
-              />
-            </div>
-          </SearchHeadlessProvider>
+          <div className="initLoads block my-12">
+            <FeaturedProducts
+              initialVerticalKey={["products"]}
+              initialNames={["Products"]}
+            />
+          </div>
           <LocationAboutSection
             geomodifier={geomodifier}
             description={description}
