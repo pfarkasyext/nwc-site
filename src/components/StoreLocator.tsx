@@ -168,7 +168,7 @@ const StoreLocator = (): JSX.Element => {
         </div>
         <div className="relative w-2/3">
           <MapboxMap
-            mapboxAccessToken="pk.eyJ1IjoicGZhcmthcyIsImEiOiJjbGducW80d2EwaWJyM2R0YWJlYnFremdwIn0.1j7wr-0XhQ5go1CVcUtXbQ"
+            mapboxAccessToken={process.env.YEXT_PUBLIC_MAPBOX_API_KEY!}
             PinComponent={MapPin}
             onDrag={handleDrag}
           />
