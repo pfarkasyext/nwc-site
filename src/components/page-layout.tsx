@@ -1,8 +1,12 @@
 import * as React from "react";
 import Site from "../types/Site";
-import Header from "./header";
 import Footer from "./footer";
-import { HeadlessConfig, SandboxEndpoints, SearchHeadlessProvider, provideHeadless } from "@yext/search-headless-react";
+import {
+  SearchHeadlessProvider,
+  provideHeadless,
+} from "@yext/search-headless-react";
+import searchConfig from "./search/searchConfig";
+import Header from "./header";
 
 export type KgPic = {
   url: string;
@@ -15,14 +19,7 @@ type Props = {
   children?: React.ReactNode;
 };
 
-const headlessConfig: HeadlessConfig = {
-  apiKey: "d2471212e8121452a0204c59c9a08bd4",
-  experienceKey: "answers",
-  locale: "en",
-  endpoints: SandboxEndpoints,
-};
-
-const searcher = provideHeadless(headlessConfig);
+const searcher = provideHeadless(searchConfig);
 
 const PageLayout = ({
   _site,
@@ -31,18 +28,18 @@ const PageLayout = ({
   children,
 }: Props) => {
   return (
-    <div className="min-h-screen">
-      <SearchHeadlessProvider searcher={searcher}>
+    <SearchHeadlessProvider searcher={searcher}>
+      <div className="min-h-screen">
         <Header
           _site={_site}
           c_siteLogoUrl={c_siteLogo?.url}
           includeSearchHeader={includeSearchHeader}
         />
-      </SearchHeadlessProvider>
 
-      {children}
-      <Footer _site={_site} c_siteLogoUrl={c_siteLogo?.url}></Footer>
-    </div>
+        {children}
+        <Footer _site={_site} c_siteLogoUrl={c_siteLogo?.url}></Footer>
+      </div>
+    </SearchHeadlessProvider>
   );
 };
 

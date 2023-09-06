@@ -1,9 +1,7 @@
 import * as React from "react";
 import { Matcher, useSearchActions } from "@yext/search-headless-react";
 import { useEffect, useState } from "react";
-import { Image } from "@yext/pages/components";
 import Carousel from "../carousel";
-import ProductCard from "../cards/ProductCard";
 
 type HomeResultsProps = {
   initialVerticalKey: string[];
@@ -22,7 +20,17 @@ const FeaturedProducts = ({
     {
       const x = initialVerticalKey.map((item, index: number) => {
         searchActions.setVertical(item);
-        searchActions.setQuery("featured");
+        searchActions.setStaticFilters([
+          {
+            filter: {
+              kind: "fieldValue",
+              fieldId: "c_isFeatured",
+              matcher: Matcher.Equals,
+              value: true,
+            },
+            selected: true,
+          },
+        ]);
         return searchActions.executeVerticalQuery().then((res) => {
           searchActions.setQuery("");
           return { entityType: initialNames[index], res };

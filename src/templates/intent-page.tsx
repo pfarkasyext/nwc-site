@@ -19,28 +19,14 @@ import {
   TemplateRenderProps,
 } from "@yext/pages";
 import * as React from "react";
-import StoreHeroBanner from "../components/store-hero-banner";
-import Details from "../components/details";
-import Hours from "../components/hours";
-import List from "../components/list";
 import PageLayout from "../components/page-layout";
-import StaticMap from "../components/static-map";
 import Favicon from "../public/yext-favicon.ico";
 import "../index.css";
-import {
-  SandboxEndpoints,
-  SearchHeadlessProvider,
-  provideHeadless,
-} from "@yext/search-headless-react";
+import { provideHeadless } from "@yext/search-headless-react";
 import { FeaturedProducts } from "../components/search/FeaturedProducts";
-import { Address } from "@yext/pages/components";
-import Cta from "../components/cta";
-import { LocationFeaturedCategories } from "../components/location-featured-categories";
 import { LocationAboutSection } from "../components/location-about-section";
 import { LocationIntentLinks } from "../components/location-intent-links";
-import Markdown from "markdown-to-jsx";
-import { LexicalRichText } from "@yext/react-components";
-import { render } from "@headlessui/react/dist/utils/render";
+import searchConfig from "../components/search/searchConfig";
 
 /**
  * Required when Knowledge Graph data is used for a template.
@@ -62,7 +48,7 @@ export const config: TemplateConfig = {
       "c_intentPageSubheading",
       "c_parentLocation.id",
       "c_parentLocation.geocodedCoordinate",
-      "c_parentLocation.description"
+      "c_parentLocation.description",
     ],
     // Defines the scope of entities that qualify for this stream.
     filter: {
@@ -135,19 +121,6 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
   };
 };
 
-const apiKey = "d2471212e8121452a0204c59c9a08bd4";
-const experienceKey = "answers";
-const experienceVersion = "PRODUCTION";
-const locale = "en";
-
-const searcher = provideHeadless({
-  apiKey: apiKey,
-  experienceKey: experienceKey,
-  //verticalKey: "Your Vertical Key",
-  locale: "en",
-  endpoints: SandboxEndpoints,
-});
-
 const renderPostContent = (input: any) => {
   const bodyDom: JSX.Element[] = [];
   const paragraphs = input.split("\n");
@@ -173,8 +146,17 @@ const Location: Template<TemplateRenderProps> = ({
   path,
   document,
 }) => {
-  const { _site, id, name, geomodifier, address, c_bannerPhoto, c_intentPageContent, c_intentPageSubheading, c_parentLocation } =
-    document;
+  const {
+    _site,
+    id,
+    name,
+    geomodifier,
+    address,
+    c_bannerPhoto,
+    c_intentPageContent,
+    c_intentPageSubheading,
+    c_parentLocation,
+  } = document;
 
   const breadcrumbLinks = [
     "All Stores",
@@ -195,30 +177,36 @@ const Location: Template<TemplateRenderProps> = ({
 
   return (
     <>
-      <PageLayout _site={_site} c_siteLogo={_site.c_siteLogo} includeSearchHeader={true}>
+      <PageLayout
+        _site={_site}
+        c_siteLogo={_site.c_siteLogo}
+        includeSearchHeader={true}
+      >
         <div className="mx-auto mt-4 px-4 sm:px-6 lg:px-8">
           <div className="flex flex-row my-4">
-              {breadcrumbLinks &&
-                breadcrumbLinks.map((item, index) => (
-                  <div key={index}>
-                    {index !== 0 && (
-                      <span className="mx-2 text-gray-400">&gt;</span>
-                    )}
-                    <a
-                      href={"#"}
-                      className="text-brand-primary hover:text-brand-hover"
-                    >
-                      {item}
-                    </a>
-                  </div>
-                ))}
-            </div>
+            {breadcrumbLinks &&
+              breadcrumbLinks.map((item, index) => (
+                <div key={index}>
+                  {index !== 0 && (
+                    <span className="mx-2 text-gray-400">&gt;</span>
+                  )}
+                  <a
+                    href={"#"}
+                    className="text-brand-primary hover:text-brand-hover"
+                  >
+                    {item}
+                  </a>
+                </div>
+              ))}
+          </div>
         </div>
-
         <div className="bg-gray-100">
           <div className="mx-4 my-4">
             <div className="py-4">
-              <LocationIntentLinks id={c_parentLocation && c_parentLocation[0].id} tabIndex={tabIndexInput} />
+              <LocationIntentLinks
+                id={c_parentLocation && c_parentLocation[0].id}
+                tabIndex={tabIndexInput}
+              />
             </div>
             <div className="relative bg-gray-900">
               <div className="relative h-80 overflow-hidden bg-indigo-600 md:absolute md:left-0 md:h-full md:w-1/3 lg:w-1/2">
@@ -281,19 +269,18 @@ const Location: Template<TemplateRenderProps> = ({
             </div>
           </div>
         </div>
-        <SearchHeadlessProvider searcher={searcher}>
-            <div className="initLoads block my-12">
-              <FeaturedProducts
-                initialVerticalKey={["products"]}
-                initialNames={["Products"]}
-              />
-            </div>
-          </SearchHeadlessProvider>
-          <LocationAboutSection
-            geomodifier={geomodifier}
-            description={c_parentLocation[0].description}
-            geocodedCoordinate={c_parentLocation[0].geocodedCoordinate}
+        b{" "}
+        <div className="initLoads block my-12">
+          <FeaturedProducts
+            initialVerticalKey={["products"]}
+            initialNames={["Products"]}
           />
+        </div>
+        <LocationAboutSection
+          geomodifier={geomodifier}
+          description={c_parentLocation[0].description}
+          geocodedCoordinate={c_parentLocation[0].geocodedCoordinate}
+        />
       </PageLayout>
     </>
   );

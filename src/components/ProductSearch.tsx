@@ -2,13 +2,7 @@
 
 import * as React from "react";
 import {
-  MapboxMap,
-  FilterSearch,
-  OnSelectParams,
   VerticalResults,
-  StandardCard,
-  getUserLocation,
-  OnDragHandler,
   SearchBar,
   SpellCheck,
   ResultsCount,
@@ -17,11 +11,8 @@ import {
   StandardFacet,
 } from "@yext/search-ui-react";
 import { useEffect, useState } from "react";
-import { BiLoaderAlt } from "react-icons/bi";
 import {
   Matcher,
-  SandboxEndpoints,
-  SelectableStaticFilter,
   useSearchActions,
   useSearchState,
 } from "@yext/search-headless-react";
@@ -41,10 +32,10 @@ const ProductSearch = ({
   headerLabel,
   searchBarPlaceholder,
   facetField,
-  facetValue
+  facetValue,
 }: ProductSearchProps) => {
   const searchActions = useSearchActions();
-
+ 
   const [initialSearchState, setInitialSearchState] =
     useState<InitialSearchState>("not started");
 
@@ -54,17 +45,18 @@ const ProductSearch = ({
 
   useEffect(() => {
     searchActions.setVertical("products");
-    (facetField && searchActions.executeVerticalQuery().then(() => {
-      searchActions.setFacetOption(
-        facetField,
-        {
-          value: facetValue,
-          matcher: Matcher.Equals,
-        },
-        true
-      );
-      searchActions.executeVerticalQuery();
-    }));
+    facetField &&
+      searchActions.executeVerticalQuery().then(() => {
+        searchActions.setFacetOption(
+          facetField,
+          {
+            value: facetValue!,
+            matcher: Matcher.Equals,
+          },
+          true
+        );
+        searchActions.executeVerticalQuery();
+      });
     searchActions.executeVerticalQuery();
     setInitialSearchState("started");
   }, []);

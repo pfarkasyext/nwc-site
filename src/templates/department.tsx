@@ -14,14 +14,10 @@ import PageLayout from "../components/page-layout";
 import {
   provideHeadless,
   SandboxEndpoints,
-  SearchHeadlessProvider,
 } from "@yext/search-headless-react";
 import Favicon from "../public/yext-favicon.ico";
-import { FilterSearch } from "@yext/search-ui-react";
 import ProductSearch from "../components/ProductSearch";
-import ProductCard from "../components/cards/ProductCard";
 import CategoryBanner from "../components/category-banner";
-import { FeaturedProducts } from "../components/search/FeaturedProducts";
 import { RelatedCategories } from "../components/RelatedCategories";
 
 export const config: TemplateConfig = {
@@ -148,17 +144,15 @@ const ProductSearchPage: Template<TemplateRenderProps> = ({
         photoURL={c_bannerPhoto?.url}
       />
       <RelatedCategories
-            sectionTitle={relatedCategoriesLabel}
-            categories={c_linkedCategories}
+        sectionTitle={relatedCategoriesLabel}
+        categories={c_linkedCategories}
       />
       <div className="mx-auto max-w-7xl px-4">
-        <SearchHeadlessProvider searcher={searcher}>
-          <ProductSearch
-            searchBarPlaceholder={`Search all NWC products`}
-            facetField="c_linkedDepartment.name"
-            facetValue={name}
-            />
-        </SearchHeadlessProvider>
+        <ProductSearch
+          searchBarPlaceholder={`Search all NWC products`}
+          facetField="c_linkedDepartment.name"
+          facetValue={name}
+        />
       </div>
     </PageLayout>
   );

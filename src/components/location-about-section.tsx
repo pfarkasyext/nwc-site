@@ -26,19 +26,12 @@ const LocationAboutSection = ({
             <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
               About NWC - {geomodifier}
             </h2>
-            {/* <p className="mt-6 text-xl leading-8 text-gray-600">
-              {description}
-            </p> */}
+            
             <p className="mt-6 text-base leading-7 text-gray-600">
               {description}
             </p>
             <div className="mt-6 flex">
-              {/* <a
-                href="#"
-                className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                Join our team <span aria-hidden="true">&rarr;</span>
-              </a> */}
+              
               <Cta
                 buttonText="Visit Us Today"
                 url="#"

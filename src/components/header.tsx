@@ -1,40 +1,16 @@
 import * as React from "react";
-import Cta from "../components/cta";
-import SearchHeader from "./search-header";
-import {
-  provideHeadless,
-  SearchHeadlessProvider,
-  SandboxEndpoints,
-  useSearchActions,
-} from "@yext/search-headless-react";
-import { Image } from "@yext/pages/components";
-import SearchHeroBanner from "../components/search-hero-banner";
 import "../index.css";
-import {
-  GetHeadConfig,
-  GetPath,
-  Template,
-  TemplateProps,
-  TemplateRenderProps,
-} from "@yext/pages";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useState } from "react";
 import { Dialog, Popover, Tab, Transition } from "@headlessui/react";
 import {
   Bars3Icon,
   MagnifyingGlassIcon,
-  ShoppingBagIcon,
   XMarkIcon,
   ShoppingCartIcon,
   UserIcon,
 } from "@heroicons/react/24/outline";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
-import UnivSearchBar from "../components/search/UnivSearchBar";
-import { SearchBar } from "@yext/search-ui-react";
-
-type Link = {
-  label: string;
-  url: string;
-};
+import TypedAnimation from "./TypedAnimation";
 
 const currencies = ["USD", "CAD", "AUD", "EUR", "GBP"];
 const navigation = {
@@ -82,19 +58,14 @@ const navigation = {
   ],
 };
 
-function classNames(...classes) {
+function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
 
 const Header = (props: any) => {
-  const { _site, c_siteLogoUrl, includeSearchHeader } = props;
+  const { c_siteLogoUrl, includeSearchHeader } = props;
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  const apiKey = "d2471212e8121452a0204c59c9a08bd4";
-  const experienceKey = "answers";
-  const experienceVersion = "PRODUCTION";
-  const locale = "en";
 
   const onSearch = (searchEventData: {
     verticalKey?: string;
@@ -103,80 +74,6 @@ const Header = (props: any) => {
     const { query } = searchEventData;
     if (query) window.open("/search?query=" + query, "_self");
   };
-  const [queryPrompts, setQueryPrompts] = useState<string[]>([]);
-  const words = ["CSS3.", "HTML5.", "javascript."];
-  let i = 0;
-  let timer;
-
-  function typingEffect() {
-    const word = queryPrompts[i].split("");
-    const loopTyping = function () {
-      if (word.length > 0) {
-        const ele = document.querySelector(".demo") as HTMLInputElement;
-        ele.placeholder += word.shift();
-      } else {
-        deletingEffect();
-        return false;
-      }
-      timer = setTimeout(loopTyping, 100);
-    };
-    loopTyping();
-  }
-
-  function deletingEffect() {
-    const word = queryPrompts[i].split("");
-    const loopDeleting = function () {
-      if (word.length > 0) {
-        word.pop();
-        const ele = document.querySelector(".demo") as HTMLInputElement;
-        ele.placeholder = word.join("");
-      } else {
-        if (words.length > i + 1) {
-          i++;
-        } else {
-          i = 0;
-        }
-        typingEffect();
-        return false;
-      }
-      timer = setTimeout(loopDeleting, 65);
-    };
-    loopDeleting();
-  }
-
-  const fetchUnivPrompts = async () => {
-    let url = `https://liveapi-sandbox.yext.com/v2/accounts/me/answers/autocomplete`;
-    url += "?v=20190101";
-    url += "&api_key=" + apiKey;
-    url += "&sessionTrackingEnabled=false";
-    url += "&experienceKey=" + experienceKey;
-    url += "&input=";
-    url += "&version=" + experienceVersion;
-    url += "&locale=" + locale;
-    try {
-      const res = await fetch(url);
-      const body = await res.json();
-      const qs = body.response.results.map((item: any) => {
-        return item.value;
-      });
-      setQueryPrompts(qs);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchUnivPrompts();
-  }, []);
-
-  const searchActions = useSearchActions();
-  useEffect(() => {
-    searchActions.setUniversal();
-  }, []);
-
-  useEffect(() => {
-    queryPrompts.length >= 1 && typingEffect();
-  }, [queryPrompts]);
 
   const renderSearchHeader = (includeSearchHeader: boolean) => {
     if (includeSearchHeader == false) {
@@ -190,48 +87,13 @@ const Header = (props: any) => {
         </a>
       );
     } else {
-      return (
-        <SearchBar
-          onSearch={onSearch}
-          customCssClasses={{
-            searchBarContainer: "w-full my-4",
-            inputElement: "demo",
-          }}
-          hideRecentSearches={false}
-        />
-      );
+      return <TypedAnimation />;
     }
   };
 
   return (
     <>
-      {/* OLD HEADER */}
-      {/* <div className="bg-brand-primary-dark h-fit px-6 py-6">
-        <div className="centered-container">
-          <nav className="py-6 flex items-center justify-between">
-            <div className="flex gap-x-6 items-center mr-2">
-              <a href="/home">
-                <img src={c_siteLogoUrl} width="150px" height="auto"></img>
-              </a>
-              <div className="flex gap-x-4 text-base font-semibold text-body text-white">
-                {linkDoms}
-              </div>
-            </div>
-            <div className="space-x-5"></div>
-            {renderSearchHeader(includeSearchHeader)}
-            <div className="flex gap-x-4 hidden lg:inline">
-              <div className=" h-12 pt-4">
-                <Cta
-                  buttonText="Log In"
-                  url="#"
-                  style="text-white bg-brand-cta shadow-xl hover:bg-brand-cta-hover py-4"
-                  target="_self"
-                ></Cta>
-              </div>
-            </div>
-          </nav>
-        </div>
-      </div> */}
+    
       {/* Mobile menu */}
       <Transition.Root show={mobileMenuOpen} as={Fragment}>
         <Dialog
@@ -613,7 +475,7 @@ const Header = (props: any) => {
                                       "relative z-10 -mb-px flex items-center border-b-2 pt-px text-sm font-medium transition-colors duration-200 ease-out"
                                     )}
                                   >
-                                    {category.name}
+                                    {category.name}s
                                   </Popover.Button>
                                 </div>
 
@@ -885,7 +747,7 @@ const Header = (props: any) => {
                   <div className="flex flex-1 items-center justify-end">
                     <div className="flex items-center lg:ml-8">
                       <div className="flex space-x-8 items-center">
-                        <div className="hidden lg:flex w-96 flex items-center justify-center">
+                        <div className=" lg:flex w-96 flex items-center justify-center">
                           <span className="sr-only">Search</span>
                         </div>
                         {renderSearchHeader(includeSearchHeader)}

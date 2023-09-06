@@ -6,7 +6,6 @@ import {
   FilterSearch,
   OnSelectParams,
   VerticalResults,
-  StandardCard,
   getUserLocation,
   OnDragHandler,
 } from "@yext/search-ui-react";
@@ -27,6 +26,7 @@ import { LngLat, LngLatBounds } from "mapbox-gl";
 type InitialSearchState = "not started" | "started" | "complete";
 
 const StoreLocator = (): JSX.Element => {
+  const searchActions = useSearchActions();
   const resultCount = useSearchState(
     (state) => state.vertical.resultsCount || 0
   );
@@ -56,13 +56,12 @@ const StoreLocator = (): JSX.Element => {
           matcher: Matcher.Near,
         },
       };
+      searchActions.setVertical("locations");
       searchActions.setStaticFilters([locationFilter]);
       searchActions.executeVerticalQuery();
       setShowSearchAreaButton(false);
     }
   };
-
-  const searchActions = useSearchActions();
 
   const [initialSearchState, setInitialSearchState] =
     useState<InitialSearchState>("not started");
@@ -108,6 +107,7 @@ const StoreLocator = (): JSX.Element => {
         ]);
       })
       .then(() => {
+        searchActions.setVertical("locations");
         searchActions.executeVerticalQuery();
         setInitialSearchState("started");
       });
@@ -129,6 +129,7 @@ const StoreLocator = (): JSX.Element => {
         matcher: Matcher.Equals,
       },
     };
+    searchActions.setVertical("locations");
     searchActions.setStaticFilters([locationFilter]);
     searchActions.executeVerticalQuery();
   };
@@ -167,7 +168,7 @@ const StoreLocator = (): JSX.Element => {
         </div>
         <div className="relative w-2/3">
           <MapboxMap
-            mapboxAccessToken="pk.eyJ1IjoicGZhcmthcyIsImEiOiJjbGducW80d2EwaWJyM2R0YWJlYnFremdwIn0.1j7wr-0XhQ5go1CVcUtXbQ"
+            mapboxAccessToken={process.env.YEXT_PUBLIC_MAPBOX_API_KEY!}
             PinComponent={MapPin}
             onDrag={handleDrag}
           />

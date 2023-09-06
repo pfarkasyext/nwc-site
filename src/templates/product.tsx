@@ -19,39 +19,19 @@ import {
   TemplateRenderProps,
 } from "@yext/pages";
 import * as React from "react";
-import StoreHeroBanner from "../components/store-hero-banner";
-import Details from "../components/details";
-import Hours from "../components/hours";
-import List from "../components/list";
 import PageLayout from "../components/page-layout";
-import StaticMap from "../components/static-map";
 import Favicon from "../public/yext-favicon.ico";
 import "../index.css";
-import {
-  SandboxEndpoints,
-  SearchHeadlessProvider,
-  provideHeadless,
-} from "@yext/search-headless-react";
 import { FeaturedProducts } from "../components/search/FeaturedProducts";
-import { Fragment, useState } from "react";
+import { useState } from "react";
+import { RadioGroup } from "@headlessui/react";
 import {
-  Dialog,
-  Popover,
-  RadioGroup,
-  Tab,
-  Transition,
-} from "@headlessui/react";
-import {
-  Bars3Icon,
   CurrencyDollarIcon,
   GlobeAmericasIcon,
-  MagnifyingGlassIcon,
-  ShoppingBagIcon,
-  UserIcon,
-  XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { StarIcon } from "@heroicons/react/20/solid";
 import InventoryModal from "../components/product-inventory-modal";
+import searchConfig from "../components/search/searchConfig";
 
 type category = {
   name: string;
@@ -163,20 +143,7 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
   };
 };
 
-const apiKey = "d2471212e8121452a0204c59c9a08bd4";
-const experienceKey = "answers";
-const experienceVersion = "PRODUCTION";
-const locale = "en";
-
-const searcher = provideHeadless({
-  apiKey: apiKey,
-  experienceKey: experienceKey,
-  //verticalKey: "Your Vertical Key",
-  locale: "en",
-  endpoints: SandboxEndpoints,
-});
-
-function classNames(...classes) {
+function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
 
@@ -639,53 +606,12 @@ const Product: Template<TemplateRenderProps> = ({
 
           {/* Related products */}
           <section aria-labelledby="related-heading" className="mt-16 sm:mt-24">
-            {/* <h2
-              id="related-heading"
-              className="text-lg font-medium text-gray-900"
-            >
-              Customers also purchased
-            </h2>
-
-            <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-              {relatedProducts.map((relatedProduct) => (
-                <div key={relatedProduct.id} className="group relative">
-                  <div className="min-h-80 aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md lg:aspect-none group-hover:opacity-75 lg:h-80">
-                    <img
-                      src={relatedProduct.imageSrc}
-                      alt={relatedProduct.imageAlt}
-                      className="h-full w-full object-cover object-center lg:h-full lg:w-full"
-                    />
-                  </div>
-                  <div className="mt-4 flex justify-between">
-                    <div>
-                      <h3 className="text-sm text-gray-700">
-                        <a href={relatedProduct.href}>
-                          <span
-                            aria-hidden="true"
-                            className="absolute inset-0"
-                          />
-                          {relatedProduct.name}
-                        </a>
-                      </h3>
-                      <p className="mt-1 text-sm text-gray-500">
-                        {relatedProduct.color}
-                      </p>
-                    </div>
-                    <p className="text-sm font-medium text-gray-900">
-                      {relatedProduct.price}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div> */}
-            <SearchHeadlessProvider searcher={searcher}>
-              <div className="initLoads block my-12">
-                <FeaturedProducts
-                  initialVerticalKey={["products"]}
-                  initialNames={["Products"]}
-                />
-              </div>
-            </SearchHeadlessProvider>
+            <div className="initLoads block my-12">
+              <FeaturedProducts
+                initialVerticalKey={["products"]}
+                initialNames={["Products"]}
+              />
+            </div>
           </section>
         </main>
       </PageLayout>
