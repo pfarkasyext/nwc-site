@@ -27,14 +27,12 @@
     "@yext/search-headless-react": "^2.3.2",
     "@yext/search-ui-react": "^1.3.4",
     "@yext/sites-components": "1.0.0-rc.2",
-    "file-loader": "^6.2.0",
     "markdown-to-jsx": "^7.2.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-icons": "^4.8.0",
     "react-slick": "^0.29.0",
-    "slick-carousel": "^1.8.1",
-    "url-loader": "^4.1.1"
+    "slick-carousel": "^1.8.1"
   },
   "devDependencies": {
     "@headlessui/react": "^1.7.14",
