@@ -67,14 +67,6 @@ const Header = (props: any) => {
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const onSearch = (searchEventData: {
-    verticalKey?: string;
-    query?: string;
-  }) => {
-    const { query } = searchEventData;
-    if (query) window.open("/search?query=" + query, "_self");
-  };
-
   const renderSearchHeader = (includeSearchHeader: boolean) => {
     if (includeSearchHeader == false) {
       return (
@@ -93,7 +85,6 @@ const Header = (props: any) => {
 
   return (
     <>
-    
       {/* Mobile menu */}
       <Transition.Root show={mobileMenuOpen} as={Fragment}>
         <Dialog
@@ -134,7 +125,18 @@ const Header = (props: any) => {
                     <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                   </button>
                 </div>
-
+                <div className="space-y-6 border-t border-gray-200 px-4 py-6">
+                  {navigation.pages.map((page) => (
+                    <div key={page.name} className="flow-root">
+                      <a
+                        href={page.href}
+                        className="-m-2 block p-2 font-medium text-gray-900"
+                      >
+                        {page.name}
+                      </a>
+                    </div>
+                  ))}
+                </div>
                 {/* Links */}
                 <Tab.Group as="div" className="mt-2">
                   <div className="border-b border-gray-200">
@@ -144,10 +146,7 @@ const Header = (props: any) => {
                           key={category.name}
                           className={({ selected }) =>
                             classNames(
-                              selected
-                                ? "border-indigo-600 text-indigo-600"
-                                : "border-transparent text-gray-900",
-                              "flex-1 whitespace-nowrap border-b-2 px-1 py-4 text-base font-medium"
+                              "border-transparent text-gray-900 flex-1 whitespace-nowrap border-b-2 px-1 py-4 text-base font-medium"
                             )
                           }
                         >
@@ -328,19 +327,6 @@ const Header = (props: any) => {
                 </Tab.Group>
 
                 <div className="space-y-6 border-t border-gray-200 px-4 py-6">
-                  {navigation.pages.map((page) => (
-                    <div key={page.name} className="flow-root">
-                      <a
-                        href={page.href}
-                        className="-m-2 block p-2 font-medium text-gray-900"
-                      >
-                        {page.name}
-                      </a>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="space-y-6 border-t border-gray-200 px-4 py-6">
                   <div className="flow-root">
                     <a
                       href="#"
@@ -470,9 +456,9 @@ const Header = (props: any) => {
                                   <Popover.Button
                                     className={classNames(
                                       open
-                                        ? "border-indigo-600 text-indigo-600"
+                                        ? "border-indigo-600 borer-b text-indigo-600"
                                         : "border-transparent text-gray-700 hover:text-gray-800",
-                                      "relative z-10 -mb-px flex items-center border-b-2 pt-px text-sm font-medium transition-colors duration-200 ease-out"
+                                      "relative z-10 -mb-px flex items-center border-b-2 pt-px text-sm font-medium transition-colors duration-200 ease-out hover:border-indigo-600 hover:borer-b "
                                     )}
                                   >
                                     {category.name}s
@@ -489,7 +475,6 @@ const Header = (props: any) => {
                                   leaveTo="opacity-0"
                                 >
                                   <Popover.Panel className="absolute inset-x-0 top-full text-gray-500 sm:text-sm">
-                                    {/* Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow */}
                                     <div
                                       className="absolute inset-0 top-1/2 bg-white shadow"
                                       aria-hidden="true"

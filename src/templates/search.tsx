@@ -1,5 +1,3 @@
-// src/templates/search.tsx
-
 import * as React from "react";
 import PageLayout from "../components/page-layout";
 import {
