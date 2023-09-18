@@ -1,5 +1,6 @@
 export default interface HelpArticle {
 	body?: string,
+	bodyV2?: any,
 	externalArticlePostDate?: string,
 	externalArticleUpdateDate?: string,
 	landingPageUrl?: string,
@@ -7,6 +8,7 @@ export default interface HelpArticle {
 	primaryConversationContact?: any,
 	promoted?: boolean,
 	shortDescription?: string,
+	shortDescriptionV2?: any,
 	slug?: string,
 	voteCount?: number,
 	voteSum?: number,

@@ -25,18 +25,9 @@ import "../index.css";
 import { FeaturedProducts } from "../components/search/FeaturedProducts";
 import { useState } from "react";
 import { RadioGroup } from "@headlessui/react";
-import {
-  CurrencyDollarIcon,
-  GlobeAmericasIcon,
-} from "@heroicons/react/24/outline";
 import { StarIcon } from "@heroicons/react/20/solid";
 import InventoryModal from "../components/product-inventory-modal";
-import searchConfig from "../components/search/searchConfig";
-
-type category = {
-  name: string;
-  landingPageUrl: string;
-};
+import { product, reviews, policies } from "../components/staticData";
 
 /**
  * Required when Knowledge Graph data is used for a template.
@@ -71,6 +62,12 @@ export const config: TemplateConfig = {
       "c_linkedDepartment.slug",
       "c_linkedCategories.slug",
       "c_linkedSubcategories.slug",
+      "c_inStock.name",
+      "c_inStock.address",
+      "c_inStock.slug",
+      "c_inStock.hours",
+      "c_inStock.timezone",
+      "c_inStock.geomodifier",
     ],
     // Defines the scope of entities that qualify for this stream.
     filter: {
@@ -175,98 +172,20 @@ const Product: Template<TemplateRenderProps> = ({
     c_linkedDepartment,
     c_linkedCategories,
     c_linkedSubcategories,
+    c_inStock,
   } = document;
 
-  const product = {
-    //name: "Basic Tee",
-    //price: "$35",
-    href: "#",
-    images: [
-      {
-        id: 1,
-        imageSrc:
-          "https://tailwindui.com/img/ecommerce-images/product-page-01-featured-product-shot.jpg",
-        imageAlt: "Back of women's Basic Tee in black.",
-        primary: true,
-      },
-    ],
-    colors: [
-      { name: "Black", bgColor: "bg-gray-900", selectedColor: "ring-gray-900" },
-      {
-        name: "Heather Grey",
-        bgColor: "bg-gray-400",
-        selectedColor: "ring-gray-400",
-      },
-    ],
-    sizes: [
-      { name: "15", inStock: true },
-      { name: "25", inStock: true },
-      { name: "40", inStock: true },
-      { name: "65", inStock: true },
-      { name: "100", inStock: true },
-      { name: "250", inStock: false },
-    ],
-    description: `
-      <p>The Basic tee is an honest new take on a classic. The tee uses super soft, pre-shrunk cotton for true comfort and a dependable fit. They are hand cut and sewn locally, with a special dye technique that gives each tee it's own look.</p>
-      <p>Looking to stock your closet? The Basic tee also comes in a 3-pack or 5-pack at a bundle discount.</p>
-    `,
-    details: [
-      "High quality ingredients",
-      "Ethically manufactured",
-      "Clinically proven",
-      "Expert approved",
-    ],
-  };
-
-  const policies = [
-    {
-      name: "International delivery",
-      icon: GlobeAmericasIcon,
-      description: "Get your order in 2 weeks",
-    },
-    {
-      name: "Loyalty rewards",
-      icon: CurrencyDollarIcon,
-      description: "It pays to join!",
-    },
-  ];
-  const reviews = {
-    average: 3.9,
-    totalCount: 512,
-    featured: [
-      {
-        id: 1,
-        title: "Can't say enough good things",
-        rating: 5,
-        content: `
-          <p>I was really pleased with the overall shopping experience. My order even included a little personal, handwritten note, which delighted me!</p>
-          <p>The product quality is amazing, it looks and feel even better than I had anticipated. Brilliant stuff! I would gladly recommend this store to my friends. And, now that I think of it... I actually have, many times!</p>
-        `,
-        author: "Risako M",
-        date: "May 16, 2021",
-        datetime: "2021-01-06",
-      },
-      // More reviews...
-    ],
-  };
-  const relatedProducts = [
-    {
-      id: 1,
-      name: "Basic Tee",
-      href: "#",
-      imageSrc:
-        "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-02.jpg",
-      imageAlt: "Front of men's Basic Tee in white.",
-      price: "$35",
-      color: "Aspen White",
-    },
-    // More products...
-  ];
-
-  const [open, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [selectedColor, setSelectedColor] = useState(product.colors[0]);
   const [selectedSize, setSelectedSize] = useState(product.sizes[2]);
 
+  const openDialog = () => {
+    setIsOpen(true);
+  };
+
+  const closeDialog = () => {
+    setIsOpen(false);
+  };
   const breadcrumbLinks = [];
   c_linkedDepartment && breadcrumbLinks.push(c_linkedDepartment);
   c_linkedCategories && breadcrumbLinks.push(c_linkedCategories);
@@ -281,7 +200,9 @@ const Product: Template<TemplateRenderProps> = ({
       >
         <InventoryModal
           productName={name}
-          productPrice={"$" + c_cPrice}
+          stockAvailability={c_inStock}
+          isOpen={isOpen}
+          onClose={closeDialog}
         ></InventoryModal>
         <main className="mx-auto mt-8 max-w-2xl px-4 pb-16 sm:px-6 sm:pb-24 lg:max-w-7xl lg:px-8">
           <div className="flex flex-row">
@@ -354,24 +275,7 @@ const Product: Template<TemplateRenderProps> = ({
               <h2 className="sr-only">Images</h2>
 
               <div className="grid grid-cols-1 lg:grid-cols-1 lg:grid-rows-1 lg:gap-8">
-                {/* {product.images.map((image) => (
-                <img
-                  key={image.id}
-                  src={image.imageSrc}
-                  alt={image.imageAlt}
-                  className={classNames(
-                    image.primary ? 'lg:col-span-2 lg:row-span-2' : 'hidden lg:block',
-                    'rounded-lg'
-                  )}
-                />
-              ))} */}
-                <img
-                  src={primaryPhoto?.image.url}
-                  // className={classNames(
-                  //   image.primary ? 'lg:col-span-2 lg:row-span-2' : 'hidden lg:block',
-                  //   'rounded-lg'
-                  // )}
-                />
+                <img src={primaryPhoto?.image.url} />
               </div>
             </div>
 
@@ -399,7 +303,9 @@ const Product: Template<TemplateRenderProps> = ({
                           className={({ active, checked }) =>
                             classNames(
                               color.selectedColor,
-                              active && checked ? "ring ring-offset-1" : "",
+                              selectedColor.name === color.name
+                                ? "ring ring-offset-1"
+                                : "",
                               !active && checked ? "ring-2" : "",
                               "relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none"
                             )
@@ -446,18 +352,15 @@ const Product: Template<TemplateRenderProps> = ({
                         <RadioGroup.Option
                           key={size.name}
                           value={size}
-                          className={({ active, checked }) =>
+                          className={() =>
                             classNames(
                               size.inStock
                                 ? "cursor-pointer focus:outline-none"
                                 : "cursor-not-allowed opacity-25",
-                              active
-                                ? "ring-2 ring-indigo-500 ring-offset-2"
-                                : "",
-                              checked
+                              selectedSize.name === size.name
                                 ? "border-transparent bg-brand-primary text-white hover:bg-brand-hover"
                                 : "border-gray-200 bg-white text-gray-900 hover:bg-gray-50",
-                              "flex items-center justify-center rounded-md border py-3 px-3 text-sm font-medium uppercase sm:flex-1"
+                              "flex items-center justify-center rounded-md border py-3 px-3 text-sm font-medium uppercase sm:flex-1 hover:ring-2 hover:ring-indigo-500 hover:ring-offset-2"
                             )
                           }
                           disabled={!size.inStock}
@@ -477,14 +380,13 @@ const Product: Template<TemplateRenderProps> = ({
                 >
                   Add to cart
                 </button>
-                <button
-                  type=""
-                  className="mt-2 flex w-full items-center justify-center rounded-md border border-transparent bg-gray-400 px-8 py-3 text-base font-medium text-white hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                >
-                  Check Store Inventory
-                </button>
               </form>
-
+              <button
+                onClick={openDialog}
+                className="mt-2 flex w-full items-center justify-center rounded-md border border-transparent bg-gray-400 px-8 py-3 text-base font-medium text-white hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              >
+                Check Store Inventory
+              </button>
               {/* Product details */}
               <div className="mt-10">
                 <h2 className="text-sm font-medium text-gray-900">
@@ -607,10 +509,7 @@ const Product: Template<TemplateRenderProps> = ({
           {/* Related products */}
           <section aria-labelledby="related-heading" className="mt-16 sm:mt-24">
             <div className="initLoads block my-12">
-              <FeaturedProducts
-                initialVerticalKey={["products"]}
-                initialNames={["Products"]}
-              />
+              <FeaturedProducts />
             </div>
           </section>
         </main>

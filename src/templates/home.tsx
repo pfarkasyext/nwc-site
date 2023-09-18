@@ -130,15 +130,10 @@ const Home: Template<TemplateRenderProps> = ({ document }) => {
               </nav>
               <SearchHeroBanner />
             </div>
-
             {/* Trending products */}
             <div className="initLoads block my-12">
-              <FeaturedProducts
-                initialVerticalKey={["products"]}
-                initialNames={["Products"]}
-              />
+              <FeaturedProducts />
             </div>
-
             {/* Collections */}
             <section
               aria-labelledby="collections-heading"
@@ -178,7 +173,6 @@ const Home: Template<TemplateRenderProps> = ({ document }) => {
                 </div>
               </div>
             </section>
-
             {/* Sale and testimonials */}
             <div className="relative overflow-hidden">
               {/* Decorative background image and gradient */}

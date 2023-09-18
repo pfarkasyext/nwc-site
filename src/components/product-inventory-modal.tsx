@@ -1,38 +1,32 @@
-import { Fragment, useState } from 'react'
-import { Dialog, RadioGroup, Transition } from '@headlessui/react'
-import { ShieldCheckIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import { CheckIcon, QuestionMarkCircleIcon, StarIcon } from '@heroicons/react/20/solid'
-import * as React from 'react'
+import { Fragment } from "react";
+import { Dialog, Transition } from "@headlessui/react";
+import { XMarkIcon } from "@heroicons/react/24/outline";
+import * as React from "react";
+import { Address } from "../types/address";
+import HoursText from "./HoursText";
+
+type StockStatus = {
+  name: string;
+  geomodifier: string;
+  address: Address;
+  slug: string;
+  hours: any;
+  timezone: any;
+};
 
 type InventoryModalProps = {
   productName: string;
-  productPrice: string;
+  isOpen: boolean;
+  onClose: () => void;
+  stockAvailability: StockStatus[];
 };
 
 const InventoryModal = (props: InventoryModalProps) => {
-  const { productName, productPrice } = props;
-  const [open, setOpen] = useState(false)
-  const product = {
-    name: productName,
-    price: productPrice,
-    rating: 3.9,
-    href: '#',
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-quick-preview-03-detail.jpg',
-    imageAlt: 'Interior of light green canvas bag with padded laptop sleeve and internal organization pouch.',
-    sizes: [
-      { name: '18L', description: 'Perfect for a reasonable amount of snacks.' },
-      { name: '20L', description: 'Enough room for a serious amount of snacks.' },
-    ],
-  }
-  const [selectedSize, setSelectedSize] = useState(product.sizes[0])
-  
-  function classNames(...classes) {
-    return classes.filter(Boolean).join(' ')
-  }
+  const { productName, isOpen, stockAvailability, onClose } = props;
 
   return (
-    <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={setOpen}>
+    <Transition.Root show={isOpen} as={Fragment}>
+      <Dialog as="div" className="relative z-10" onClose={onClose}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -56,141 +50,79 @@ const InventoryModal = (props: InventoryModalProps) => {
               leaveFrom="opacity-100 translate-y-0 md:scale-100"
               leaveTo="opacity-0 translate-y-4 md:translate-y-0 md:scale-95"
             >
-              <Dialog.Panel className="flex w-full transform text-left text-base transition md:my-8 md:max-w-2xl md:px-4 lg:max-w-4xl">
-                <div className="relative flex w-full items-center overflow-hidden bg-white px-4 pb-8 pt-14 shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8">
-                  <button
-                    type="button"
-                    className="absolute right-4 top-4 text-gray-400 hover:text-gray-500 sm:right-6 sm:top-8 md:right-6 md:top-6 lg:right-8 lg:top-8"
-                    onClick={() => setOpen(false)}
-                  >
-                    <span className="sr-only">Close</span>
-                    <XMarkIcon className="h-6 w-6" aria-hidden="true" />
-                  </button>
-
-                  <div className="grid w-full grid-cols-1 items-start gap-x-6 gap-y-8 sm:grid-cols-12 lg:gap-x-8">
-                    <div className="sm:col-span-4 lg:col-span-5">
-                      <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-100">
-                        <img src={product.imageSrc} alt={product.imageAlt} className="object-cover object-center" />
-                      </div>
-                      <p className="absolute left-4 top-4 text-center sm:static sm:mt-6">
-                        <a href={product.href} className="font-medium text-indigo-600 hover:text-indigo-500">
-                          View full details
-                        </a>
-                      </p>
+              <Dialog.Panel className=" w-full transform text-left text-base transition md:my-8 md:max-w-2xl md:px-4 lg:max-w-4xl">
+                <div className="relative  w-full items-center overflow-hidden bg-white px-4 pb-8 pt-14 shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8">
+                  <div className="flex">
+                    <button
+                      type="button"
+                      className="absolute right-4 top-4 text-gray-400 hover:text-gray-500 sm:right-6 sm:top-8 md:right-6 md:top-6 lg:right-8 lg:top-8"
+                      onClick={onClose}
+                    >
+                      <span className="sr-only">Close</span>
+                      <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+                    </button>
+                    <div>
+                      You can find{" "}
+                      <span className="font-medium">{productName}</span>
+                      in stock at
                     </div>
-                    <div className="sm:col-span-8 lg:col-span-7">
-                      <h2 className="text-2xl font-bold text-gray-900 sm:pr-12">{product.name}</h2>
-
-                      <section aria-labelledby="information-heading" className="mt-4">
-                        <h3 id="information-heading" className="sr-only">
-                          Product information
-                        </h3>
-
-                        <div className="flex items-center">
-                          <p className="text-lg text-gray-900 sm:text-xl">{product.price}</p>
-
-                          <div className="ml-4 border-l border-gray-300 pl-4">
-                            <h4 className="sr-only">Reviews</h4>
-                            <div className="flex items-center">
-                              <div className="flex items-center">
-                                {[0, 1, 2, 3, 4].map((rating) => (
-                                  <StarIcon
-                                    key={rating}
-                                    className={classNames(
-                                      product.rating > rating ? 'text-yellow-400' : 'text-gray-300',
-                                      'h-5 w-5 flex-shrink-0'
-                                    )}
-                                    aria-hidden="true"
-                                  />
-                                ))}
-                              </div>
-                              <p className="sr-only">{product.rating} out of 5 stars</p>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="mt-6 flex items-center">
-                          <CheckIcon className="h-5 w-5 flex-shrink-0 text-green-500" aria-hidden="true" />
-                          <p className="ml-2 font-medium text-gray-500">In stock and ready to ship</p>
-                        </div>
-                      </section>
-
-                      <section aria-labelledby="options-heading" className="mt-6">
-                        <h3 id="options-heading" className="sr-only">
-                          Product options
-                        </h3>
-
-                        <form>
-                          <div className="sm:flex sm:justify-between">
-                            {/* Size selector */}
-                            <RadioGroup value={selectedSize} onChange={setSelectedSize}>
-                              <RadioGroup.Label className="block text-sm font-medium text-gray-700">
-                                Size
-                              </RadioGroup.Label>
-                              <div className="mt-1 grid grid-cols-1 gap-4 sm:grid-cols-2">
-                                {product.sizes.map((size) => (
-                                  <RadioGroup.Option
-                                    as="div"
-                                    key={size.name}
-                                    value={size}
-                                    className={({ active }) =>
-                                      classNames(
-                                        active ? 'ring-2 ring-indigo-500' : '',
-                                        'relative block cursor-pointer rounded-lg border border-gray-300 p-4 focus:outline-none'
-                                      )
-                                    }
-                                  >
-                                    {({ active, checked }) => (
-                                      <>
-                                        <RadioGroup.Label as="p" className="text-base font-medium text-gray-900">
-                                          {size.name}
-                                        </RadioGroup.Label>
-                                        <RadioGroup.Description as="p" className="mt-1 text-sm text-gray-500">
-                                          {size.description}
-                                        </RadioGroup.Description>
-                                        <div
-                                          className={classNames(
-                                            active ? 'border' : 'border-2',
-                                            checked ? 'border-indigo-500' : 'border-transparent',
-                                            'pointer-events-none absolute -inset-px rounded-lg'
-                                          )}
-                                          aria-hidden="true"
-                                        />
-                                      </>
-                                    )}
-                                  </RadioGroup.Option>
-                                ))}
-                              </div>
-                            </RadioGroup>
-                          </div>
-                          <div className="mt-4 flex">
-                            <a href="#" className="group flex text-sm text-gray-500 hover:text-gray-700">
-                              <span>What size should I buy?</span>
-                              <QuestionMarkCircleIcon
-                                className="ml-2 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
-                                aria-hidden="true"
-                              />
-                            </a>
-                          </div>
-                          <div className="mt-6">
-                            <button
-                              type="submit"
-                              className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
-                            >
-                              Add to bag
-                            </button>
-                          </div>
-                          <div className="mt-6 text-center">
-                            <a href="#" className="group inline-flex text-base font-medium">
-                              <ShieldCheckIcon
-                                className="mr-2 h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
-                                aria-hidden="true"
-                              />
-                              <span className="text-gray-500 group-hover:text-gray-700">Lifetime Guarantee</span>
-                            </a>
-                          </div>
-                        </form>
-                      </section>
+                  </div>
+                  <div className="mt-8 flow-root h-96 overflow-scroll">
+                    <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                      <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                        <table className="min-w-full divide-y divide-gray-300">
+                          <thead>
+                            <tr>
+                              <th
+                                scope="col"
+                                className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0"
+                              >
+                                Name
+                              </th>
+                              <th
+                                scope="col"
+                                className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                              >
+                                Address
+                              </th>
+                              <th
+                                scope="col"
+                                className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                              ></th>
+                            </tr>
+                          </thead>
+                          <tbody className="divide-y divide-gray-200">
+                            {stockAvailability.map(
+                              (item: StockStatus, index: number) => (
+                                <tr key={index}>
+                                  <td className="whitespace-nowrap  py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
+                                    <div>
+                                      {item.name} - {item.geomodifier}
+                                    </div>
+                                    <div>
+                                      <HoursText document={item}></HoursText>
+                                    </div>
+                                  </td>
+                                  <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-900">
+                                    {item.address.line1}
+                                    <br />
+                                    {item.address.city}, {item.address.region}{" "}
+                                    {item.address.postalCode}
+                                  </td>
+                                  <td className="whitespace-nowrap px-3 py-4 text-sm  ">
+                                    <a
+                                      href={item.slug}
+                                      className="bg-brand-cta w-fit px-6 py-2 flex justify-center upper-case text-sm hover:bg-gray-400 rounded-md hover:cursor-pointer text-white"
+                                    >
+                                      View Store
+                                    </a>
+                                  </td>
+                                </tr>
+                              )
+                            )}
+                          </tbody>
+                        </table>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -200,7 +132,7 @@ const InventoryModal = (props: InventoryModalProps) => {
         </div>
       </Dialog>
     </Transition.Root>
-  )
-}
+  );
+};
 
 export default InventoryModal;

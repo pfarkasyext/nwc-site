@@ -1,86 +1,14 @@
 import * as React from "react";
-import { SearchBar } from "@yext/search-ui-react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect } from "react";
 import { useSearchActions } from "@yext/search-headless-react";
-import searchConfig from "./search/searchConfig";
 import TypedAnimation from "./TypedAnimation";
 
 const SearchHeroBanner = () => {
-  const onSearch = (searchEventData: {
-    verticalKey?: string;
-    query?: string;
-  }) => {
-    const { query } = searchEventData;
-    if (query) window.open("/search?query=" + query, "_self");
-  };
-
-  const [queryPrompts, setQueryPrompts] = useState<string[]>([]);
-  const [currentWordIndex, setCurrentWordIndex] = useState(0);
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
-
-  useEffect(() => {
-    const fetchUnivPrompts = async () => {
-      const url = `https://liveapi-sandbox.yext.com/v2/accounts/me/answers/autocomplete?v=20190101&api_key=${searchConfig.apiKey}&sessionTrackingEnabled=false&experienceKey=${searchConfig.experienceKey}&input=&version=STAGING&locale=${searchConfig.locale}`;
-      try {
-        const res = await fetch(url);
-        const body = await res.json();
-        const qs = body.response.results.map((item: any) => item.value);
-        setQueryPrompts(qs);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchUnivPrompts();
-  }, []);
-
-  const typingEffect = () => {
-    const word = queryPrompts[currentWordIndex]?.split("") || [];
-    const ele = document.querySelector(".demo") as HTMLInputElement;
-
-    const loopTyping = () => {
-      if (word.length > 0) {
-        ele.placeholder += word.shift();
-        timerRef.current = setTimeout(loopTyping, 100);
-      } else {
-        deletingEffect();
-      }
-    };
-
-    loopTyping();
-  };
-
-  const deletingEffect = () => {
-    const word = queryPrompts[currentWordIndex]?.split("") || [];
-    const ele = document.querySelector(".demo") as HTMLInputElement;
-
-    const loopDeleting = () => {
-      if (word.length > 0) {
-        word.pop();
-        ele.placeholder = word.join("");
-        timerRef.current = setTimeout(loopDeleting, 65);
-      } else {
-        setCurrentWordIndex(
-          (prevIndex) => (prevIndex + 1) % queryPrompts.length
-        );
-        typingEffect();
-      }
-    };
-
-    loopDeleting();
-  };
-
   const searchActions = useSearchActions();
   useEffect(() => {
     searchActions.setUniversal();
   }, []);
 
-  useEffect(() => {
-    const ele = document.querySelector(".demo") as HTMLInputElement;
-    if (ele && queryPrompts.length >= 1) {
-      typingEffect();
-    }
-  }, [queryPrompts, currentWordIndex]);
   return (
     <>
       <section aria-labelledby="cause-heading">
