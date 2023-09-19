@@ -16,7 +16,7 @@ import { FeaturedProducts } from "../components/search/FeaturedProducts";
 import searchConfig from "../components/search/searchConfig";
 
 export const getPath: GetPath<TemplateProps> = () => {
-  return `home`;
+  return `index.html`;
 };
 
 export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = () => {

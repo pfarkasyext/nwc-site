@@ -12,7 +12,7 @@ const SearchHeroBanner = () => {
   return (
     <>
       <section aria-labelledby="cause-heading">
-        <div className="relative bg-gray-800 px-6 py-32 sm:px-12 sm:py-40 lg:px-16">
+        <div className="relative bg-gray-800 px-6 py-24 sm:px-12 sm:py-24 lg:px-16">
           <div className="absolute inset-0 overflow-hidden">
             <img
               src="https://www.washingtonpost.com/resizer/q_Sj-osjhABCigGjPWnL5BfChoo=/arc-anglerfish-washpost-prod-washpost/public/OHBJ2SJ6W5JLRDPQLSOU4233EY.jpg"
@@ -37,7 +37,7 @@ const SearchHeroBanner = () => {
               experience, we help you reach your health goals and live your best
               life.
             </p>
-            <div className="flex justify-center w-2/3 pt-12">
+            <div className="flex justify-center w-2/3 pt-12 mb-4">
               <TypedAnimation />
             </div>
             <a

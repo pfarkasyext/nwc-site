@@ -75,7 +75,7 @@ const TypedAnimation = () => {
       <SearchBar
         onSearch={onSearch}
         customCssClasses={{
-          searchBarContainer: "w-full",
+          searchBarContainer: "w-full mb-0",
         }}
         hideRecentSearches={false}
         placeholder={text}

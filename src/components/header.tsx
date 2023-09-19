@@ -53,7 +53,7 @@ const navigation = {
     },
   ],
   pages: [
-    { name: "Home", href: "/home" },
+    { name: "Home", href: "/index.html" },
     { name: "Stores", href: "/locations" },
   ],
 };
@@ -79,7 +79,7 @@ const Header = (props: any) => {
         </a>
       );
     } else {
-      return <TypedAnimation />;
+      return <div className="ml-2 p-2"><TypedAnimation /></div>;
     }
   };
 
@@ -438,7 +438,7 @@ const Header = (props: any) => {
                 <div className="flex h-[80px] items-center justify-between">
                   {/* Logo (lg+) */}
                   <div className="hidden lg:flex lg:items-center">
-                    <a href="/home">
+                    <a href="/index.html">
                       <span className="sr-only">Your Company</span>
                       <img className="h-8 w-auto" src={c_siteLogoUrl} alt="" />
                     </a>
@@ -461,7 +461,7 @@ const Header = (props: any) => {
                                       "relative z-10 -mb-px flex items-center border-b-2 pt-px text-sm font-medium transition-colors duration-200 ease-out hover:border-indigo-600 hover:borer-b "
                                     )}
                                   >
-                                    {category.name}s
+                                    {category.name}
                                   </Popover.Button>
                                 </div>
 
@@ -724,7 +724,7 @@ const Header = (props: any) => {
                   </div>
 
                   {/* Logo (lg-) */}
-                  <a href="/home" className="lg:hidden">
+                  <a href="/index.html" className="lg:hidden">
                     <span className="sr-only">Your Company</span>
                     <img src={c_siteLogoUrl} alt="" className="h-8 w-auto" />
                   </a>
