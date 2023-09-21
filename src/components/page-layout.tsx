@@ -26,11 +26,13 @@ type Props = {
   includeSearchHeader?: boolean;
   children?: React.ReactNode;
 };
+const botId: string = process.env.YEXT_PUBLIC_BOT_ID as string;
+const apiKey: string = process.env.YEXT_PUBLIC_BOT_API_KEY as string;
 
 const searcher = provideHeadless(searchConfig);
 const config: HeadlessConfig = {
-  botId: "nwc-chat",
-  apiKey: "e07fe23fc753cda5aaec1b64571e9eb1",
+  botId: botId,
+  apiKey: apiKey,
   env: "SANDBOX",
 };
 const PageLayout = ({

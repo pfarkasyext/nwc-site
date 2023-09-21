@@ -16,9 +16,8 @@ import {
   RenderEntityPreviews,
 } from "@yext/search-ui-react";
 import * as React from "react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import searchConfig from "./searchConfig";
-import { TemplateRenderProps } from "@yext/pages";
 import LocationCard from "../cards/LocationCard";
 import ProductCard from "../cards/ProductCard";
 import HelpArticleCard from "../cards/HelpArticleCard";
@@ -28,16 +27,8 @@ export type ParamTypes = {
   id: string;
 };
 
-const UnivSearch = ({ document }: TemplateRenderProps) => {
+const UnivSearch = () => {
   const searchActions = useSearchActions();
-  const { _site } = document;
-  const [searchTerm, setSeachTerm] = useState("");
-  const [loading, setLoading] = useState(true);
-
-  // const HelpArticleCard = (props: CardProps<any>) => {
-  //   const { result } = props;
-  //   return <div className="border text-s">{result.name}</div>;
-  // };
 
   const GridSection = ({ results, CardComponent, header }: SectionProps) => {
     if (!CardComponent) {
@@ -71,21 +62,35 @@ const UnivSearch = ({ document }: TemplateRenderProps) => {
   };
 
   useEffect(() => {
+    console.log("in useEffect");
+
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const searchTerm = urlParams.get("query");
     searchTerm && searchActions.setQuery(searchTerm);
     searchActions.executeUniversalQuery();
-  });
+  }, []);
 
   const entityPreviewSearcher = provideHeadless({
     ...searchConfig,
     headlessId: "visual-autocomplete",
   });
-  const handleSearch = (e: any) => {
-    setSeachTerm(e.query);
+
+  const onSearch = (searchEventData: {
+    verticalKey?: string;
+    query?: string;
+  }) => {
+    const { query } = searchEventData;
+    const queryParams = new URLSearchParams(window.location.search);
+
+    if (query) {
+      queryParams.set("query", query);
+    } else {
+      queryParams.delete("query");
+    }
+    history.pushState(null, "", "?" + queryParams.toString());
     searchActions.setUniversal();
-    searchActions.executeUniversalQuery().then(() => setLoading(false));
+    searchActions.executeUniversalQuery();
   };
 
   const renderEntityPreviews: RenderEntityPreviews = (
@@ -110,7 +115,7 @@ const UnivSearch = ({ document }: TemplateRenderProps) => {
           <DropdownItem
             key={result.id}
             value={result.name}
-            onClick={() => history.pushState(null, "", `/product/${result.id}`)}
+            onClick={() => history.pushState(null, "", `/${result.slug}`)}
             ariaLabel={dropdownItemProps.ariaLabel}
           >
             <DropdownItem
@@ -119,9 +124,9 @@ const UnivSearch = ({ document }: TemplateRenderProps) => {
               ariaLabel={dropdownItemProps.ariaLabel}
             >
               <a href={result.slug}>
-                {result.photoGallery && (
+                {result.primaryPhoto && (
                   <img
-                    src={result.photoGallery[0].image.url}
+                    src={result.primaryPhoto.image.url}
                     alt=""
                     className="h-full w-32 mx-auto"
                   />
@@ -137,7 +142,7 @@ const UnivSearch = ({ document }: TemplateRenderProps) => {
   return (
     <div className="mt-6">
       <SearchBar
-        onSearch={(e) => handleSearch(e)}
+        onSearch={onSearch}
         hideRecentSearches={true}
         visualAutocompleteConfig={{
           renderEntityPreviews: renderEntityPreviews,

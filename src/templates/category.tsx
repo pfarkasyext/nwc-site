@@ -122,7 +122,7 @@ const ProductSearchPage: Template<TemplateRenderProps> = ({
     c_linkedDepartment,
     c_linkedSubcategories,
   } = document;
- 
+
   const breadcrumbLinks = [];
   c_linkedDepartment && breadcrumbLinks.push(c_linkedDepartment);
 

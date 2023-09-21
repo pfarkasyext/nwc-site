@@ -1,5 +1,3 @@
-// src/components/StoreLocator.tsx
-
 import * as React from "react";
 import {
   MapboxMap,
@@ -17,7 +15,6 @@ import {
   useSearchActions,
   useSearchState,
 } from "@yext/search-headless-react";
-// Mapbox CSS bundle
 import "mapbox-gl/dist/mapbox-gl.css";
 import LocationCard from "./cards/LocationCard";
 import MapPin from "./MapPin";
@@ -26,6 +23,8 @@ import { LngLat, LngLatBounds } from "mapbox-gl";
 type InitialSearchState = "not started" | "started" | "complete";
 
 const StoreLocator = (): JSX.Element => {
+  const mapboxApiKey: string = process.env.YEXT_PUBLIC_MAPBOX_API_KEY as string;
+
   const searchActions = useSearchActions();
   const resultCount = useSearchState(
     (state) => state.vertical.resultsCount || 0
@@ -69,54 +68,72 @@ const StoreLocator = (): JSX.Element => {
   const searchLoading = useSearchState((state) => state.searchStatus.isLoading);
 
   useEffect(() => {
+    let isMounted = true;
+
     getUserLocation()
       .then((location) => {
-        searchActions.setStaticFilters([
-          {
-            selected: true,
-            displayName: "Current Location",
-            filter: {
-              kind: "fieldValue",
-              fieldId: "builtin.location",
-              value: {
-                lat: location.coords.latitude,
-                lng: location.coords.longitude,
-                radius: 40233.6, // equivalent to 25 miles
+        if (isMounted) {
+          searchActions.setStaticFilters([
+            {
+              selected: true,
+              displayName: "Current Location",
+              filter: {
+                kind: "fieldValue",
+                fieldId: "builtin.location",
+                value: {
+                  lat: location.coords.latitude,
+                  lng: location.coords.longitude,
+                  radius: 40233.6, // equivalent to 25 miles
+                },
+                matcher: Matcher.Near,
               },
-              matcher: Matcher.Near,
             },
-          },
-        ]);
+          ]);
+        }
       })
       .catch(() => {
-        searchActions.setStaticFilters([
-          {
-            selected: true,
-            displayName: "New York City, New York, NY",
-            filter: {
-              kind: "fieldValue",
-              fieldId: "builtin.location",
-              value: {
-                lat: 40.7128,
-                lng: -74.006,
-                radius: 40233.6, // equivalent to 25 miles
+        if (isMounted) {
+          searchActions.setStaticFilters([
+            {
+              selected: true,
+              displayName: "New York City, New York, NY",
+              filter: {
+                kind: "fieldValue",
+                fieldId: "builtin.location",
+                value: {
+                  lat: 40.7128,
+                  lng: -74.006,
+                  radius: 40233.6, // equivalent to 25 miles
+                },
+                matcher: Matcher.Near,
               },
-              matcher: Matcher.Near,
             },
-          },
-        ]);
+          ]);
+        }
       })
       .then(() => {
-        searchActions.setVertical("locations");
-        searchActions.executeVerticalQuery();
-        setInitialSearchState("started");
+        if (isMounted) {
+          searchActions.setVertical("locations");
+          searchActions.executeVerticalQuery();
+          setInitialSearchState("started");
+        }
       });
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   useEffect(() => {
-    if (!searchLoading && initialSearchState === "started") {
+    let isMounted = true;
+
+    if (!searchLoading && initialSearchState === "started" && isMounted) {
       setInitialSearchState("complete");
     }
+
+    return () => {
+      isMounted = false;
+    };
   }, [searchLoading]);
 
   const handleFilterSelect = (params: OnSelectParams) => {
@@ -168,7 +185,7 @@ const StoreLocator = (): JSX.Element => {
         </div>
         <div className="relative w-2/3">
           <MapboxMap
-            mapboxAccessToken={process.env.YEXT_PUBLIC_MAPBOX_API_KEY!}
+            mapboxAccessToken={mapboxApiKey}
             PinComponent={MapPin}
             onDrag={handleDrag}
           />
