@@ -26,8 +26,8 @@ type Props = {
   includeSearchHeader?: boolean;
   children?: React.ReactNode;
 };
-const botId: string = process.env.YEXT_PUBLIC_BOT_ID as string;
-const apiKey: string = process.env.YEXT_PUBLIC_BOT_API_KEY as string;
+const botId: string = YEXT_PUBLIC_BOT_ID as string;
+const apiKey: string = YEXT_PUBLIC_BOT_API_KEY as string;
 
 const searcher = provideHeadless(searchConfig);
 const config: HeadlessConfig = {
