@@ -10,6 +10,9 @@ const TypedAnimation = () => {
   const [isDeleting, setIsDeleting] = useState(false);
   const [shouldRestart, setShouldRestart] = useState(false);
   const [shouldStart, setShouldStart] = useState(false);
+
+  const mounted = React.useRef(true); // Add a ref to track component mount/unmount
+
   const onSearch = (searchEventData: {
     verticalKey?: string;
     query?: string;
@@ -17,6 +20,7 @@ const TypedAnimation = () => {
     const { query } = searchEventData;
     if (query) window.open("/search?query=" + query, "_self");
   };
+
   useEffect(() => {
     const typingTimer =
       prompts &&
@@ -61,15 +65,25 @@ const TypedAnimation = () => {
         const res = await fetch(url);
         const body = await res.json();
         const qs = body.response.results.map((item: any) => item.value);
-        setPrompts(qs);
-        setShouldStart(true);
+
+        if (mounted.current) {
+          // Check if component is still mounted before updating state
+          setPrompts(qs);
+          setShouldStart(true);
+        }
       } catch (error) {
         console.error(error);
       }
     };
 
     fetchUnivPrompts();
+
+    return () => {
+      // Mark the component as unmounted when it's about to unmount
+      mounted.current = false;
+    };
   }, []);
+
   return (
     <h2 className="text-white w-full">
       <SearchBar

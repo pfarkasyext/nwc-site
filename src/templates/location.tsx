@@ -315,10 +315,7 @@ const Location: Template<TemplateRenderProps> = ({
         <div className="">
           <LocationFeaturedCategories categories={c_linkedCategories} />
           <div className="initLoads block my-12">
-            <FeaturedProducts
-              initialVerticalKey={["products"]}
-              initialNames={["Products"]}
-            />
+            <FeaturedProducts />
           </div>
           <LocationAboutSection
             geomodifier={geomodifier}

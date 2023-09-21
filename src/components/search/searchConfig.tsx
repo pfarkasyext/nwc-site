@@ -3,10 +3,11 @@ import {
   Environment,
   HeadlessConfig,
 } from "@yext/search-headless-react";
-
+const apiKey: string = process.env.YEXT_PUBLIC_SEARCH_API_KEY as string;
+const experienceKey: string = process.env.YEXT_PUBLIC_SEARCH_EXP_KEY as string;
 const searchConfig: HeadlessConfig = {
-  apiKey: "d2471212e8121452a0204c59c9a08bd4",
-  experienceKey: "answers",
+  apiKey: apiKey,
+  experienceKey: experienceKey,
   locale: "en",
   environment: Environment.SANDBOX,
   cloudRegion: CloudRegion.US,

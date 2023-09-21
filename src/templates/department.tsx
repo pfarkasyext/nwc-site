@@ -11,10 +11,7 @@ import {
   TemplateRenderProps,
 } from "@yext/pages";
 import PageLayout from "../components/page-layout";
-import {
-  provideHeadless,
-  SandboxEndpoints,
-} from "@yext/search-headless-react";
+import { provideHeadless, SandboxEndpoints } from "@yext/search-headless-react";
 import Favicon from "../public/yext-favicon.ico";
 import ProductSearch from "../components/ProductSearch";
 import CategoryBanner from "../components/category-banner";
@@ -107,15 +104,6 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
     ],
   };
 };
-
-const searcher = provideHeadless({
-  apiKey: "d2471212e8121452a0204c59c9a08bd4",
-  // make sure your experience key matches what you see in the platform
-  experienceKey: "answers",
-  locale: "en",
-  endpoints: SandboxEndpoints,
-  verticalKey: "products",
-});
 
 const ProductSearchPage: Template<TemplateRenderProps> = ({
   relativePrefixToRoot,

@@ -9,15 +9,22 @@ import {
   Pagination,
   Facets,
   StandardFacet,
+  RenderEntityPreviews,
+  DropdownItem,
+  FocusedItemData,
 } from "@yext/search-ui-react";
 import { useEffect, useState } from "react";
 import {
   Matcher,
+  provideHeadless,
   useSearchActions,
   useSearchState,
+  VerticalResults as VerticalResultsData,
 } from "@yext/search-headless-react";
 import ProductCard from "./cards/ProductCard";
 import { SortDropdown } from "./search/SortDropdown";
+import Product from "../types/products";
+import searchConfig from "./search/searchConfig";
 
 type ProductSearchProps = {
   headerLabel?: string;
@@ -35,13 +42,11 @@ const ProductSearch = ({
   facetValue,
 }: ProductSearchProps) => {
   const searchActions = useSearchActions();
- 
+
   const [initialSearchState, setInitialSearchState] =
     useState<InitialSearchState>("not started");
 
   const searchLoading = useSearchState((state) => state.searchStatus.isLoading);
-
-  // set search vertical to products, run initial search
 
   useEffect(() => {
     searchActions.setVertical("products");
@@ -66,7 +71,57 @@ const ProductSearch = ({
       setInitialSearchState("complete");
     }
   }, [searchLoading]);
+  const entityPreviewSearcher = provideHeadless({
+    ...searchConfig,
+    headlessId: "visual-autocomplete",
+  });
 
+  const renderEntityPreviews: RenderEntityPreviews = (
+    autocompleteLoading: boolean,
+    verticalKeyToResults: Record<string, VerticalResultsData>,
+    dropdownItemProps: {
+      onClick: (
+        value: string,
+        _index: number,
+        itemData?: FocusedItemData
+      ) => void;
+      ariaLabel: (value: string) => string;
+    }
+  ): JSX.Element | null => {
+    const productResults = verticalKeyToResults["products"]?.results.map(
+      (result) => result.rawData
+    ) as unknown as Product[];
+
+    return productResults ? (
+      <div className="grid grid-cols-4 px-8">
+        {productResults.map((result) => (
+          <DropdownItem
+            key={result.id}
+            value={result.name}
+            onClick={() => history.pushState(null, "", `/${result.slug}`)}
+            ariaLabel={dropdownItemProps.ariaLabel}
+          >
+            <DropdownItem
+              key={result.id}
+              value={result.name}
+              ariaLabel={dropdownItemProps.ariaLabel}
+            >
+              <a href={result.slug}>
+                {result.primaryPhoto && (
+                  <img
+                    src={result.primaryPhoto.image.url}
+                    alt=""
+                    className="h-full w-32 mx-auto"
+                  />
+                )}
+                <div className="text-sm">{result.name}</div>
+              </a>
+            </DropdownItem>
+          </DropdownItem>
+        ))}
+      </div>
+    ) : null;
+  };
   return (
     <>
       <div className="px-4 py-8">
@@ -74,7 +129,17 @@ const ProductSearch = ({
           <div className="text-2xl font-semibold my-4 text-center">
             {headerLabel}
           </div>
-          <SearchBar placeholder={searchBarPlaceholder} />
+          <SearchBar
+            placeholder={searchBarPlaceholder}
+            hideRecentSearches={true}
+            visualAutocompleteConfig={{
+              renderEntityPreviews: renderEntityPreviews,
+              entityPreviewSearcher: entityPreviewSearcher,
+              includedVerticals: ["products", "brands"],
+              universalLimit: { products: 4 },
+              entityPreviewsDebouncingTime: 500,
+            }}
+          />
           <SpellCheck />
           <ResultsCount />
           <div className="flex">
