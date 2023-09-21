@@ -23,7 +23,7 @@ import { LngLat, LngLatBounds } from "mapbox-gl";
 type InitialSearchState = "not started" | "started" | "complete";
 
 const StoreLocator = (): JSX.Element => {
-  const mapboxApiKey: string = process.env.YEXT_PUBLIC_MAPBOX_API_KEY as string;
+  const mapboxApiKey: string = YEXT_PUBLIC_MAPBOX_API_KEY as string;
 
   const searchActions = useSearchActions();
   const resultCount = useSearchState(
