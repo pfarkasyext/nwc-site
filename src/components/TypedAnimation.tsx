@@ -85,7 +85,7 @@ const TypedAnimation = () => {
   }, []);
 
   return (
-    <h2 className="text-white w-full">
+    <h2 className="w-full">
       <SearchBar
         onSearch={onSearch}
         customCssClasses={{
