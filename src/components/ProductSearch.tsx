@@ -13,12 +13,11 @@ import {
   DropdownItem,
   FocusedItemData,
 } from "@yext/search-ui-react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import {
   Matcher,
   provideHeadless,
   useSearchActions,
-  useSearchState,
   VerticalResults as VerticalResultsData,
 } from "@yext/search-headless-react";
 import ProductCard from "./cards/ProductCard";
@@ -33,8 +32,6 @@ type ProductSearchProps = {
   facetValue?: string;
 };
 
-type InitialSearchState = "not started" | "started" | "complete";
-
 const ProductSearch = ({
   headerLabel,
   searchBarPlaceholder,
@@ -43,34 +40,25 @@ const ProductSearch = ({
 }: ProductSearchProps) => {
   const searchActions = useSearchActions();
 
-  const [initialSearchState, setInitialSearchState] =
-    useState<InitialSearchState>("not started");
-
-  const searchLoading = useSearchState((state) => state.searchStatus.isLoading);
-
   useEffect(() => {
     searchActions.setVertical("products");
     facetField &&
-      searchActions.executeVerticalQuery().then(() => {
-        searchActions.setFacetOption(
-          facetField,
-          {
-            value: facetValue!,
+      facetValue &&
+      searchActions.setStaticFilters([
+        {
+          selected: true,
+          displayName: "Current Location",
+          filter: {
+            kind: "fieldValue",
+            fieldId: facetField,
+            value: facetValue,
             matcher: Matcher.Equals,
           },
-          true
-        );
-        searchActions.executeVerticalQuery();
-      });
+        },
+      ]);
     searchActions.executeVerticalQuery();
-    setInitialSearchState("started");
   }, []);
 
-  useEffect(() => {
-    if (!searchLoading && initialSearchState === "started") {
-      setInitialSearchState("complete");
-    }
-  }, [searchLoading]);
   const entityPreviewSearcher = provideHeadless({
     ...searchConfig,
     headlessId: "visual-autocomplete",
